@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Actor\Base\ActorManager.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -158,6 +159,10 @@
     <ClCompile Include="src\Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Actor\Base\Actor.h" />
+    <ClInclude Include="src\Actor\Base\ActorGroup.h" />
+    <ClInclude Include="src\Actor\Base\ActorManager.h" />
+    <ClInclude Include="src\Actor\Base\ActorPtr.h" />
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\KeyNum.h" />
