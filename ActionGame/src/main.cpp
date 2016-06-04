@@ -5,6 +5,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	Game game;
 	ChangeWindowMode(TRUE);
+	SetBackgroundColor(0, 0, 255);
 	DxLib_Init();
 	SetDrawScreen(DX_SCREEN_BACK);
 	game.initialize();

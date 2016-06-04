@@ -9,8 +9,8 @@ class ActorManager
 public:
 	ActorManager();
 	void Initialize();
-	void Update();
-	void Draw();
+	void Update(float deltaTime);
+	void Draw() const;
 	void AddActor(ActorGroup group, const ActorPtr& actor);
 	ActorPtr FindActor(const std::string& name);
 	ActorManager(const ActorManager& other) = delete;

@@ -5,6 +5,9 @@
 #include"../Input/KeyNum.h"
 #include"../Math/Vector3.h"
 #include"../Math//Matrix.h"
+#include"../Math/BoundingSphere.h"
+
+Vector3 pos;
 
 Game::Game()
 {
@@ -16,6 +19,8 @@ Game::~Game()
 
 void Game::initialize()
 {
+	ChangeLightTypeDir(VGet(-0.5f, -0.5f, 0.5f));
+	pos = VGet(400, 400, 0);
 }
 
 void Game::Update()
@@ -25,24 +30,31 @@ void Game::Update()
 
 void Game::Draw()
 {
-	/*MATRIX m1 = MGetIdent();
-	MATRIX m2 = Matrix(10,10,10,10,
-						10,10,10,10,
-						10,10,10,10,
-						10,10,10,10
-						);
-	m1 += m2;
-	for (int i = 0; i < 4; i++)
+	Vector3 veloctiy;
+	if (CheckHitKey(KEY_INPUT_UP))
 	{
-		DrawFormatString(0,20 * i, GetColor(255, 255, 255), "MTRIX[%d]  %f %f %f %f",i,m1.m[i][0], m1.m[i][1], m1.m[i][2], m1.m[i][3]);
-	}*/
+		veloctiy.y += 1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_DOWN))
+	{
+		veloctiy.y -= 1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_LEFT))
+	{
+		veloctiy.x += 1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_RIGHT))
+	{
+		veloctiy.x -= 1.0f;
+	}
+	pos += veloctiy;
+	BoundingSphere sp1(pos,50);
+	BoundingSphere sp2(Vector3(380.0f, 400.0f, 0.0f), 50);
+	sp1.Draw();
+	sp2.Draw();
+	if(!sp1.Intersects(sp2)) DrawFormatString(0, 0, GetColor(255, 255, 255), "¬Œ÷‚µ‚Ä‚È‚¢");
+	else DrawFormatString(0, 0, GetColor(255, 255, 255), "¬Œ÷!");
 
-	Vector3 v1(0, 0.1, 0);
-	Vector3 v2(0, 0.9f, 0.3f);
-	v1 = VCross(v1, v2);
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "Vector  x=%f y=%f z=%f ", v1.x, v1.y, v1.z);
-	
-	
 }
 
 void Game::Finish()
