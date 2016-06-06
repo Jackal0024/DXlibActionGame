@@ -19,7 +19,7 @@ public:
 	//上方向のベクトルを返す
 	VECTOR GetUp() const;
 	//座標を代入する
-	void   SetPosition(VECTOR pos);
+	Matrix   SetPosition(VECTOR pos);
 	//座標を入れた行列を返す
 	MATRIX Translate(VECTOR pos) const;
 	//透視変換対応の座標変換

@@ -7,11 +7,12 @@
 #include<algorithm>
 #include<forward_list>
 #include"../../World/IWorld.h"
+#include"../../Math/BoundingSphere.h"
 
 class Actor
 {
 public:
-	Actor(const std::string name,const Vector3& position);
+	Actor(IWorld& world, const std::string name,const Vector3& position, const BoundingSphere& body);
 	Actor(const std::string name = "none");
 
 	void Update(float deltaTime);
@@ -52,6 +53,7 @@ protected:
 	std::string mName;
 	Vector3 mPosition;
 	Matrix mRotate;
+	BoundingSphere	mBody;
 	bool mDead;
 
 protected:

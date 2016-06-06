@@ -10,9 +10,9 @@ Matrix::Matrix(float m11_, float m12_, float m13_, float m14_, float m21_, float
 
 Matrix::Matrix(MATRIX m_)
 {
-	for (int i = 0; i < sizeof(m_.m) / sizeof(m_.m[0]); i++)
+	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < sizeof(m_.m) / sizeof(m_.m[0][0]); i++)
+		for (int j = 0; j < 4; j++)
 		{
 			m[i][j] = m_.m[i][j];
 		}
@@ -39,11 +39,12 @@ VECTOR Matrix::GetUp() const
 	return VGet(m[1][0], m[1][1], m[1][2]);
 }
 
-void Matrix::SetPosition(VECTOR pos)
+Matrix Matrix::SetPosition(VECTOR pos)
 {
 	m[3][0] = pos.x;
 	m[3][1] = pos.y;
 	m[3][2] = pos.z;
+	return *this;
 }
 
 MATRIX Matrix::Translate(VECTOR v) const

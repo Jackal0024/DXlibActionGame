@@ -1,5 +1,7 @@
 #pragma once
 
+#include"../World/World.h"
+
 class Game
 {
 public:
@@ -11,5 +13,6 @@ public:
 	void Finish();
 
 private:
+	std::shared_ptr<World> mWorld;;
 
 };

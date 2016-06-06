@@ -151,7 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Actor\Base\Actor.cpp" />
     <ClCompile Include="src\Actor\Base\ActorManager.cpp" />
+    <ClCompile Include="src\Actor\Camera\Camera.cpp" />
+    <ClCompile Include="src\Actor\Light\Light.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -165,6 +168,8 @@
     <ClInclude Include="src\Actor\Base\ActorGroup.h" />
     <ClInclude Include="src\Actor\Base\ActorManager.h" />
     <ClInclude Include="src\Actor\Base\ActorPtr.h" />
+    <ClInclude Include="src\Actor\Camera\Camera.h" />
+    <ClInclude Include="src\Actor\Light\Light.h" />
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\KeyNum.h" />
