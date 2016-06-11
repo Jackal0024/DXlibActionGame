@@ -11,6 +11,12 @@ Actor::Actor(const std::string name):
 {
 }
 
+void Actor::Start()
+{
+	onStart();
+	EachChildren([&](Actor& actor) {actor.Start();});
+}
+
 void Actor::Update(float deltaTime)
 {
 	onUpdate(deltaTime);
@@ -134,6 +140,10 @@ ActorPtr Actor::FindChildren(std::function<bool(const Actor&)> fn)
 		}
 	}
 	return nullptr;
+}
+
+void Actor::onStart()
+{
 }
 
 void Actor::onUpdate(float deltaTime)

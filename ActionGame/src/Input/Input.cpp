@@ -16,21 +16,55 @@ bool Input::GetKeyDown(Keycode key)
 	return CheckHitKey(key) != 0;
 }
 
-//返り値は-1000から1000
+//返り値は-1から1
 VECTOR Input::GetLeftAnalogStick()
 {
-	int x, y;
-	GetJoypadAnalogInput(&x,&y, DX_INPUT_PAD1);
-	mInputVectorL = VGet(x, y, 0.0f);
-	return mInputVectorL;
+
+		int x = 0, y = 0;
+		GetJoypadAnalogInput(&x, &y, DX_INPUT_PAD1);
+		if (CheckHitKey(KEY_INPUT_W))
+		{
+			y = -1000;
+		}
+		else if (CheckHitKey(KEY_INPUT_S))
+		{
+			y = 1000;
+		}
+		if (CheckHitKey(KEY_INPUT_D))
+		{
+			x = 1000;
+		}
+		else if (CheckHitKey(KEY_INPUT_A))
+		{
+			x = -1000;
+		}
+		mInputVectorL = VGet(x, -y, 0.0f) / 1000;
+		return mInputVectorL;
 }
 
-//返り値は-1000から1000
+//返り値は-1から1
 VECTOR Input::GetRightAnalogStick()
 {
-	int x, y;
+	int x = 0, y = 0;
 	GetJoypadAnalogInputRight(&x, &y, DX_INPUT_PAD1);
 	mInputVectorR = VGet(x, y, 0.0f);
+	if (CheckHitKey(KEY_INPUT_UP))
+	{
+		y = 1000;
+	}
+	else if (CheckHitKey(KEY_INPUT_DOWN))
+	{
+		y = -1000;
+	}
+	if (CheckHitKey(KEY_INPUT_RIGHT))
+	{
+		x = 1000;
+	}
+	else if (CheckHitKey(KEY_INPUT_LEFT))
+	{
+		x = -1000;
+	}
+	mInputVectorR = VGet(x, y, 0.0f) / 1000;
 	return mInputVectorR;
 }
 

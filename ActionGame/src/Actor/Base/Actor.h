@@ -15,6 +15,7 @@ public:
 	Actor(IWorld& world, const std::string name,const Vector3& position, const BoundingSphere& body);
 	Actor(const std::string name = "none");
 
+	void Start();
 	void Update(float deltaTime);
 	void Draw() const;
 	void Collide(Actor& other);
@@ -43,6 +44,7 @@ public:
 
 private:
 
+	virtual void onStart();
 	virtual void onUpdate(float deltaTime);
 	virtual void onDraw() const;
 	virtual void onCollide(Actor& other);

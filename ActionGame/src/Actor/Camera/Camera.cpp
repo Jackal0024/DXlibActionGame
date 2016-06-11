@@ -4,18 +4,23 @@
 Camera::Camera(IWorld & world):
 	Actor(world, "Camera", { 0.0f,0.0f,-100.0f }, {1.0f})
 {
+	SetCameraNearFar(0.0f, 1000.0f);
 }
 
 void Camera::onUpdate(float deltaTime)
 {
-	if (CheckHitKey(KEY_INPUT_W)) mPosition.z += 1.0f;
-	if (CheckHitKey(KEY_INPUT_S)) mPosition.z -= 1.0f;
+	auto player = mWorld->FindActor("Player");
+	if (player)
+	{
+		mPosition = player->GetPosition();
+		mLook = mPosition + (player->GetRotate().GetForward() * 3.0f);
+	}
 }
 
 void Camera::onDraw() const
 {
 	SetCameraPositionAndTargetAndUpVec(
 		mPosition,
-		VGet(0.0f, 0.0f, 0.0f),
+		mLook,
 		VGet(0.0f, 1.0f, 0.0f));
 }

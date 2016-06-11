@@ -2,5 +2,6 @@
 
 enum ActorGroup
 {
-
+	PLAYER,
+	ENEMY
 };

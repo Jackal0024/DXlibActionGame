@@ -7,7 +7,16 @@ ActorManager::ActorManager()
 
 void ActorManager::Initialize()
 {
+	mActor[ActorGroup::PLAYER] = std::make_shared<Actor>();
+	mActor[ActorGroup::ENEMY] = std::make_shared<Actor>();
 	mRoot.ClearChildren();
+	mRoot.AddChild(mActor[ActorGroup::PLAYER]);
+	mRoot.AddChild(mActor[ActorGroup::ENEMY]);
+}
+
+void ActorManager::Start()
+{
+	mRoot.Start();
 }
 
 void ActorManager::Update(float deltaTime)

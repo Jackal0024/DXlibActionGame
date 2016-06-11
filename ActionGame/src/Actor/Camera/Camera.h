@@ -12,4 +12,7 @@ private:
 	virtual void onUpdate(float deltaTime) override;
 	//•`‰æ
 	virtual void onDraw() const override;
+
+private:
+	Vector3 mLook;
 };
