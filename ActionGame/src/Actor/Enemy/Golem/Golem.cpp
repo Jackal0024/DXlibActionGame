@@ -13,11 +13,12 @@ void Golem::onStart()
 
 void Golem::onUpdate(float deltaTime)
 {
+	MV1SetScale(mModel,Vector3(0.2f,0.2f,0.2f));
 }
 
 void Golem::onDraw() const
 {
-	MV1SetPosition(mModel, mPosition);
+	MV1SetMatrix(mModel, GetPose());
 	MV1DrawModel(mModel);
 
 }

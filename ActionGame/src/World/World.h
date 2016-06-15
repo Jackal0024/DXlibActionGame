@@ -1,6 +1,8 @@
 #pragma once
 #include"IWorld.h"
+#include"../Field/FieldPtr.h"
 #include"../Actor/Base/ActorManager.h"
+#include"../Field/IField.h"
 
 class World : public IWorld
 {
@@ -14,12 +16,14 @@ public:
 	ActorPtr FindActor(const std::string& name) override;
 	void AddCamera(const ActorPtr& camera);
 	void AddLight(const ActorPtr& light);
+	void AddField(const FieldPtr& field);
+	virtual IField& GetField() const override;
 	//ToDoフィールドの追加処理
 
 private:
 	ActorManager mActors;
 	ActorPtr mCamera;
 	ActorPtr mLight;
-	//Todoフィールド変数
+	FieldPtr mField;
 
 };

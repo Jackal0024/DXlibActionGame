@@ -1,4 +1,5 @@
 #include "World.h"
+#include"../Field/Field.h"
 
 World::World()
 {
@@ -20,6 +21,7 @@ void World::Draw() const
 {
 	mCamera->Draw();
 	mLight->Draw();
+	mField->Draw();
 	mActors.Draw();
 }
 
@@ -41,4 +43,14 @@ void World::AddCamera(const ActorPtr & camera)
 void World::AddLight(const ActorPtr & light)
 {
 	mLight = light;
+}
+
+void World::AddField(const FieldPtr & field)
+{
+	mField = field;
+}
+
+IField& World::GetField() const
+{
+	return *mField;
 }

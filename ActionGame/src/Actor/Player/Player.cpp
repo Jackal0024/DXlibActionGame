@@ -12,8 +12,8 @@ Player::Player(IWorld& world, Vector3 position):
 void Player::onUpdate(float deltaTime)
 {
 	Vector3 velocity;
-	velocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y;
-	velocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x;
+	velocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 0.1f;
+	velocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 0.1f;
 	mRotate *= MGetRotY(Input::getInstance().GetRightAnalogStick().x * 0.01f);
 	mPosition += velocity;
 }

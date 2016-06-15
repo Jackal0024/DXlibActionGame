@@ -22,6 +22,7 @@ void ActorManager::Start()
 void ActorManager::Update(float deltaTime)
 {
 	mRoot.Update(deltaTime);
+	Collide();
 	mRoot.RemoveChildren();
 }
 
@@ -37,5 +38,11 @@ void ActorManager::AddActor(ActorGroup group, const ActorPtr & actor)
 
 ActorPtr ActorManager::FindActor(const std::string & name)
 {
+	
 	return mRoot.FindChildren(name);
+}
+
+void ActorManager::Collide()
+{
+	mActor[ActorGroup::PLAYER]->CollideChildren(*mActor[ActorGroup::ENEMY]);
 }

@@ -159,7 +159,6 @@ void Actor::onDraw() const
 void Actor::onCollide(Actor & other)
 {
 	(void)other;
-	Dead();
 }
 
 bool Actor::isCollide(const Actor & other) const

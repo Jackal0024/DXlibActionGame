@@ -18,6 +18,7 @@ public:
 	ActorManager& operator = (const ActorManager& other) = delete;
 
 private:
+	void Collide();
 
 private:
 	Actor mRoot;

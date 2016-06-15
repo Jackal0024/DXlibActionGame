@@ -12,7 +12,7 @@ void Camera::onUpdate(float deltaTime)
 	auto player = mWorld->FindActor("Player");
 	if (player)
 	{
-		mPosition = player->GetPosition();
+		mPosition = player->GetPosition() + Vector3(0.0f,3.0f,0.0f);
 		mLook = mPosition + (player->GetRotate().GetForward() * 3.0f);
 	}
 }
