@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOUNDINGSPHERE_H_
+#define BOUNDINGSPHERE_H_
 
 #include"Vector3.h"
 #include"Matrix.h"
@@ -21,3 +22,5 @@ private:
 	float mRadius;
 
 };
+
+#endif

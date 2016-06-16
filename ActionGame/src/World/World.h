@@ -1,4 +1,6 @@
-#pragma once
+#ifndef WORLD_H_
+#define WORLD_H_
+
 #include"IWorld.h"
 #include"../Field/FieldPtr.h"
 #include"../Actor/Base/ActorManager.h"
@@ -27,3 +29,5 @@ private:
 	FieldPtr mField;
 
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAMERA_H_
+#define CAMERA_H_
+
 #include"../Base/Actor.h"
 
 class Camera : public Actor
@@ -15,4 +17,7 @@ private:
 
 private:
 	Vector3 mLook;
+	bool DebugMode;
 };
+
+#endif

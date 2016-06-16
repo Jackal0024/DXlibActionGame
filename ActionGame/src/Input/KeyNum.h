@@ -1,4 +1,6 @@
-#pragma once
+#ifndef KEYNUM_H_
+#define KEYNUM_H_
+
 #include "DxLib.h"
 
 enum Keycode
@@ -24,3 +26,5 @@ enum Keycode
 	PAD_Button15 = PAD_INPUT_15,        // 15ボタンチェックマスク
 	PAD_Button16 = PAD_INPUT_16         // 16ボタンチェックマスク
 };
+
+#endif

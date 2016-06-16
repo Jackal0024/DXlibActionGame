@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IWORLD_H_
+#define IWORLD_H_
 
 #include<string>
 #include"../Actor/Base/ActorPtr.h"
@@ -14,4 +15,8 @@ public:
 	virtual IField& GetField() const = 0;
 private:
 
+
+
 };
+
+#endif

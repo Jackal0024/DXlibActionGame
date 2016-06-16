@@ -2,9 +2,10 @@
 #include"DxLib.h"
 
 Camera::Camera(IWorld & world):
-	Actor(world, "Camera", { 0.0f,0.0f,-100.0f }, {1.0f})
+	Actor(world, "Camera", { 0.0f,0.0f,-100.0f }, { {0,0,0},1.0f })
 {
-	SetCameraNearFar(0.0f, 1000.0f);
+	SetCameraNearFar(0.1f, 1000.0f);
+	DebugMode = false;
 }
 
 void Camera::onUpdate(float deltaTime)
@@ -15,6 +16,29 @@ void Camera::onUpdate(float deltaTime)
 		mPosition = player->GetPosition() + Vector3(0.0f,3.0f,0.0f);
 		mLook = mPosition + (player->GetRotate().GetForward() * 3.0f);
 	}
+
+	/*if (CheckHitKey(KEY_INPUT_5)) DebugMode = -DebugMode;
+	if (DebugMode)
+	{
+		Vector3 velocity;
+		if (CheckHitKey(KEY_INPUT_I))
+		{
+			velocity += mRotate.GetForward();
+		}
+		if (CheckHitKey(KEY_INPUT_K))
+		{
+			velocity -= mRotate.GetForward();
+		}
+		if (CheckHitKey(KEY_INPUT_J))
+		{
+			velocity += mRotate.GetLeft();
+		}
+		if (CheckHitKey(KEY_INPUT_L))
+		{
+			velocity -= mRotate.GetLeft();
+		}
+		mPosition += velocity
+	}*/
 }
 
 void Camera::onDraw() const

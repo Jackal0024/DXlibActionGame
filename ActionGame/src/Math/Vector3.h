@@ -1,4 +1,6 @@
-#pragma once
+#ifndef VECTOR3_H_
+#define VECTOR3_H_
+
 #include"DxLib.h"
 
 class Vector3 : public VECTOR
@@ -9,3 +11,5 @@ public:
 	Vector3(VECTOR v);
 	float Length() const;
 };
+
+#endif

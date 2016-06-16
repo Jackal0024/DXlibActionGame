@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ACTOR_H_
+#define ACTOR_H_
+
 #include<string>
 #include"../../Math/Vector3.h"
 #include"../../Math/Matrix.h"
@@ -8,11 +10,12 @@
 #include<forward_list>
 #include"../../World/IWorld.h"
 #include"../../Math/BoundingSphere.h"
+#include"../../Math/Capsule.h"
 
 class Actor
 {
 public:
-	Actor(IWorld& world, const std::string name,const Vector3& position, const BoundingSphere& body);
+	Actor(IWorld& world, const std::string name,const Vector3& position, const Capsule& body);
 	Actor(const std::string name = "none");
 
 	void Start();
@@ -55,10 +58,12 @@ protected:
 	std::string mName;
 	Vector3 mPosition;
 	Matrix mRotate;
-	BoundingSphere	mBody;
+	Capsule	mBody;
 	bool mDead;
 
 protected:
 	std::forward_list<ActorPtr> mChildren;
 
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATRIX_H_
+#define MATRIX_H_
+
 #include"DxLib.h"
 
 class Matrix : public MATRIX
@@ -19,11 +21,15 @@ public:
 	//上方向のベクトルを返す
 	VECTOR GetUp() const;
 	//座標を代入する
-	Matrix   SetPosition(VECTOR pos);
+	MATRIX   SetPosition(VECTOR pos);
 	//座標を入れた行列を返す
 	MATRIX Translate(VECTOR pos) const;
 	//透視変換対応の座標変換
 	VECTOR Transform(VECTOR v) const;
 	//スケールの取得
 	VECTOR GetScale() const;
+	//スケールの取得
+	MATRIX SetScale(VECTOR scale);
 };
+
+#endif

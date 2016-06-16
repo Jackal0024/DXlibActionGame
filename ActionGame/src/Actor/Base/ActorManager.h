@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ACTORMANAGER_H_
+#define ACTORMANAGER_H_
+
 #include"Actor.h"
 #include"ActorPtr.h"
 #include"ActorGroup.h"
@@ -25,3 +27,5 @@ private:
 	std::unordered_map<ActorGroup, ActorPtr> mActor;
 
 };
+
+#endif

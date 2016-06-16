@@ -1,13 +1,13 @@
 #include "Actor.h"
 #include"DxLib.h"
 
-Actor::Actor(IWorld& world,const std::string name, const Vector3 & position, const BoundingSphere & body):
+Actor::Actor(IWorld& world,const std::string name, const Vector3 & position, const Capsule & body):
 	mWorld(&world),mName(name),mPosition(position),mRotate(MGetIdent()), mBody(body),mDead(false)
 {
 }
 
 Actor::Actor(const std::string name):
-	mWorld(nullptr), mName("none"), mPosition(0.0f,0.0f,0.0f), mRotate(MGetIdent()), mBody(0.0f), mDead(false)
+	mWorld(nullptr), mName("none"), mPosition(0.0f, 0.0f, 0.0f), mRotate(MGetIdent()), mBody({0,0,0}, 0.0f), mDead(false)
 {
 }
 

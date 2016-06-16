@@ -39,7 +39,7 @@ VECTOR Matrix::GetUp() const
 	return VGet(m[1][0], m[1][1], m[1][2]);
 }
 
-Matrix Matrix::SetPosition(VECTOR pos)
+MATRIX Matrix::SetPosition(VECTOR pos)
 {
 	m[3][0] = pos.x;
 	m[3][1] = pos.y;
@@ -72,4 +72,12 @@ VECTOR Matrix::Transform(VECTOR v) const
 VECTOR Matrix::GetScale() const
 {
 	return VECTOR(VGet(VSize(GetLeft()), VSize(GetUp()), VSize(GetForward())));
+}
+
+MATRIX Matrix::SetScale(VECTOR scale)
+{
+	m[0][0] = scale.x;
+	m[1][1] = scale.y;
+	m[2][2] = scale.z;
+	return *this;
 }

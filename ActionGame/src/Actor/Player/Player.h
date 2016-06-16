@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PLAYER_H_
+#define PLAYER_H_
 
 #include"../Base/Actor.h"
 
@@ -11,3 +12,5 @@ private:
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
 };
+
+#endif

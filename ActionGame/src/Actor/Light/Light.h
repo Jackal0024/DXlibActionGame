@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LIGHT_H_
+#define LIGHT_H_
 
 #include"../Base/Actor.h"
 #include"../../Math/Vector3.h"
@@ -12,3 +13,5 @@ private:
 	//•`‰æ
 	virtual void onDraw() const override;
 };
+
+#endif

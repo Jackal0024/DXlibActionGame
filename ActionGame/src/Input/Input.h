@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INPUT_H_
+#define INPUT_H_
+
 #include "DxLib.h"
 #include "KeyNum.h"
 
@@ -17,3 +19,5 @@ private:
 	VECTOR mInputVectorR;
 
 };
+
+#endif

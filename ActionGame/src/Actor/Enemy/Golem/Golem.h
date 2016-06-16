@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GOLEM_H_
+#define GOLEM_H_
 
 #include"../../Base/Actor.h"
 
@@ -15,3 +16,5 @@ private:
 private:
 	int mModel = 0;
 };
+
+#endif

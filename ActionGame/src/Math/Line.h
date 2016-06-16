@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LINE_H_
+#define LINE_H_
+
 #include"Vector3.h"
 
 class Line
@@ -20,3 +22,5 @@ public:
 	Vector3 mEndPos;
 
 };
+
+#endif

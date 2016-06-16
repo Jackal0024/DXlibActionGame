@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_H_
+#define GAME_H_
 
 #include"../World/World.h"
 
@@ -16,3 +17,5 @@ private:
 	std::shared_ptr<World> mWorld;;
 
 };
+
+#endif
