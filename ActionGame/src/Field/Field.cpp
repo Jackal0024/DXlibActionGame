@@ -1,4 +1,5 @@
 #include "Field.h"
+#include<math.h>
 
 Field::Field(int modelhandle)
 {
@@ -19,6 +20,25 @@ bool Field::Collision(const Vector3& start, const Vector3& end, Vector3& out_hei
 	{
 		return false;
 	}
+}
+
+bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r, Vector3 & out_heigt) const
+{
+	auto HitPoly = MV1CollCheck_Capsule(mModelHandle, -1, start, end,r);
+	if (HitPoly.HitNum >= 1)
+	{
+		for (int i = 0; i < HitPoly.HitNum; i++)
+		{
+			float cos = VDot(VNorm(HitPoly.Dim[i].Normal), Vector3(0, 1, 0));
+			float angel = acos(cos) * 180 / DX_PI;
+			if (fabsf(angel) >= 90)
+			{
+				start += HitPoly.Dim[i].Normal * r;
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void Field::Draw() const

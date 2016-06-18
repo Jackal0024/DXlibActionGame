@@ -15,7 +15,7 @@ public:
 	Capsule Transform(const Matrix& matrix)const;
 	void Draw() const;
 
-private:
+public:
 	Line mLine;
 	float mRadius;
 	

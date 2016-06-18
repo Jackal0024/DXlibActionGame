@@ -19,6 +19,7 @@ void Player::onUpdate(float deltaTime)
 	mPosition += velocity + Vector3(0,-0.1,0);
 
 	Vector3 h;
+	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius, h);
 	if (mWorld->GetField().Collision(mPosition + Vector3(0,10,0), mPosition + Vector3(0,-30, 0), h))
 	{
 		mPosition.y = h.y;
