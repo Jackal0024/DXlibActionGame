@@ -1,11 +1,13 @@
 #include "Camera.h"
 #include"DxLib.h"
+#include"../../Input/Input.h"
 
 Camera::Camera(IWorld & world):
 	Actor(world, "Camera", { 0.0f,0.0f,-100.0f }, { {0,0,0},1.0f })
 {
 	SetCameraNearFar(0.1f, 1000.0f);
 	DebugMode = false;
+	mYLook = 0;
 }
 
 void Camera::onUpdate(float deltaTime)
@@ -13,8 +15,11 @@ void Camera::onUpdate(float deltaTime)
 	auto player = mWorld->FindActor("Player");
 	if (player)
 	{
-		mPosition = player->GetPosition() + Vector3(0.0f,3.0f,0.0f);
-		mLook = mPosition + (player->GetRotate().GetForward() * 3.0f);
+		mYLook += Input::getInstance().GetRightAnalogStick().y * -0.05f;
+		mYLook = min(max(mYLook, -3), 3);
+
+		mPosition = player->GetPosition() + Vector3(0.0f,10.0f,0.0f);
+		mLook = mPosition + ((player->GetRotate().GetForward() * 3.0f) + Vector3(0,mYLook,0));
 	}
 
 	/*if (CheckHitKey(KEY_INPUT_5)) DebugMode = -DebugMode;

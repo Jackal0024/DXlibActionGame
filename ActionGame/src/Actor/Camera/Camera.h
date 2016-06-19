@@ -18,6 +18,7 @@ private:
 private:
 	Vector3 mLook;
 	bool DebugMode;
+	float mYLook;
 };
 
 #endif

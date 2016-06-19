@@ -5,9 +5,8 @@
 #include"../../Field/Field.h"
 
 Player::Player(IWorld& world, Vector3 position):
-	Actor(world, "Player", position, { {0.0f,3.0f,0.0f},1.0f })
+	Actor(world, "Player", position, { {0.0f,10.0f,0.0f},1.0f })
 {
-
 }
 
 void Player::onUpdate(float deltaTime)

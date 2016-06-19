@@ -15,6 +15,13 @@ void Golem::onUpdate(float deltaTime)
 {
 	
 	mPosition += Vector3(0, -0.1, 0);
+	auto target = mWorld->FindActor("Player");
+	if (target)
+	{
+		Vector3 velocity = target->GetPosition() - mPosition;
+		velocity = VNorm(velocity);
+		mPosition += velocity * 0.1f;
+	}
 
 	Vector3 h;
 	if (mWorld->GetField().Collision(mPosition + Vector3(0, 10, 0), mPosition + Vector3(0, -30, 0), h))

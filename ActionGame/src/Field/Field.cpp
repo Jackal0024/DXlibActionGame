@@ -22,7 +22,7 @@ bool Field::Collision(const Vector3& start, const Vector3& end, Vector3& out_hei
 	}
 }
 
-bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r, Vector3 & out_heigt) const
+bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r) const
 {
 	auto HitPoly = MV1CollCheck_Capsule(mModelHandle, -1, start, end,r);
 	if (HitPoly.HitNum >= 1)
