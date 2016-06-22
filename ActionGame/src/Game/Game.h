@@ -9,7 +9,7 @@ public:
 	Game();
 	~Game();
 	void initialize();
-	void Update();
+	void Update(float deltatime);
 	void Draw();
 	void Finish();
 

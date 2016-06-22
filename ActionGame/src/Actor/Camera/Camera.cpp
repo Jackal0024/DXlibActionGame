@@ -15,10 +15,10 @@ void Camera::onUpdate(float deltaTime)
 	auto player = mWorld->FindActor("Player");
 	if (player)
 	{
-		mYLook += Input::getInstance().GetRightAnalogStick().y * -0.05f;
+		mYLook += Input::getInstance().GetRightAnalogStick().y* 2 * deltaTime;
 		mYLook = min(max(mYLook, -3), 3);
 
-		mPosition = player->GetPosition() + Vector3(0.0f,10.0f,0.0f);
+		mPosition = player->GetPosition() + Vector3(0.0f,13.0f,0.0f);
 		mLook = mPosition + ((player->GetRotate().GetForward() * 3.0f) + Vector3(0,mYLook,0));
 	}
 

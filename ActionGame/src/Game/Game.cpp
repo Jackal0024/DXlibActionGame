@@ -35,9 +35,9 @@ void Game::initialize()
 	mWorld->Start();
 }
 
-void Game::Update()
+void Game::Update(float deltatime)
 {
-	mWorld->Update(0.1f);
+	mWorld->Update(deltatime);
 }
 
 void Game::Draw()

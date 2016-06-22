@@ -4,18 +4,32 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	Game game;
-	SetUseZBufferFlag(TRUE);
-	
+	float deltatime = 0;
+	//Œo‰ßŽžŠÔ
+	float timer = 0;
+	SetUseZBuffer3D(TRUE);
 	ChangeWindowMode(TRUE);
+	//SetWindowSizeExtendRate(1.3f);
+
 	SetBackgroundColor(0, 0, 255);
 	DxLib_Init();
 	SetDrawScreen(DX_SCREEN_BACK);
-	SetDrawZBuffer(DX_SCREEN_BACK);
 	game.initialize();
-	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0) 
+	while (ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0) 
 	{
-		game.Update();
+		auto Time = GetNowCount();
+		timer += deltatime;
+
+		game.Update(deltatime);
 		game.Draw();
+
+		DrawFormatString(0, 20, GetColor(255, 255, 255), "Timer =%f", timer);
+		DrawFormatString(0, 40, GetColor(255, 255, 255), "DeltaTimer =%f", deltatime);
+
+		ScreenFlip();
+		deltatime = GetNowCount() - Time;
+		deltatime /= 1000;
+		deltatime = min(deltatime, 0.1f);
 	}
 	game.Finish();
 	DxLib_End();

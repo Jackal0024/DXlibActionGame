@@ -2,6 +2,7 @@
 #define GOLEM_H_
 
 #include"../../Base/Actor.h"
+#include"../../../Animation/Animator.h"
 
 class Golem : public Actor
 {
@@ -15,6 +16,8 @@ private:
 	void onCollide(Actor& other) override;
 private:
 	int mModel = 0;
+	Animator mAnimator;
+	int motionid;
 };
 
 #endif
