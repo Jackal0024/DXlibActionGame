@@ -24,7 +24,8 @@ enum Keycode
 	PAD_Button13 = PAD_INPUT_13,        // 13ボタンチェックマスク
 	PAD_Button14 = PAD_INPUT_14,        // 14ボタンチェックマスク
 	PAD_Button15 = PAD_INPUT_15,        // 15ボタンチェックマスク
-	PAD_Button16 = PAD_INPUT_16         // 16ボタンチェックマスク
+	PAD_Button16 = PAD_INPUT_16,         // 16ボタンチェックマスク
+	PAD_Button17 = KEY_INPUT_Z         // ダミーボタンチェックマスク
 };
 
 #endif

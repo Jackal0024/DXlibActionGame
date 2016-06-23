@@ -10,6 +10,8 @@ public:
 	static Input& getInstance(void);
 	~Input();
 	bool GetKeyDown(Keycode key);
+	bool GetKeyTrigger(Keycode key);
+	void Update();
 	VECTOR GetLeftAnalogStick();
 	VECTOR GetRightAnalogStick();
 
@@ -17,6 +19,8 @@ private:
 	Input();
 	VECTOR mInputVectorL;
 	VECTOR mInputVectorR;
+	bool mPrevFrameKey = false;
+	Keycode mPrevKey;
 
 };
 

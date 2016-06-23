@@ -8,9 +8,9 @@ class Animator
 public:
 	Animator();
 	~Animator();
-	void Initialize(int modelhandle, int motionid,bool loop = false);
+	void Initialize(int modelhandle, int motionid,bool loop = false,float timescale = 0.5f);
 	void Update(float deltatime);
-	void AnimationChange(int motionid,float timescale = 60, bool loop = false);
+	void AnimationChange(int motionid,float timescale = 1, bool loop = false);
 	bool IsAnimationEnd();
 
 private:

@@ -15,7 +15,11 @@ private:
 	void onDraw() const override;
 
 private:
+	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
+
+private:
 	int mModelHandle;
+	int mWeaponHandle;
 	Animator mAnimator;
 
 };

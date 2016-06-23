@@ -16,11 +16,11 @@ Animator::~Animator()
 {
 }
 
-void Animator::Initialize(int modelhandle, int motionid,bool loop)
+void Animator::Initialize(int modelhandle, int motionid,bool loop,float timescale)
 {
 	mTotalTime = 0.0f;
 	mTimer = 0.0f;
-	mTimerScale = 0.5f;
+	mTimerScale = timescale;
 	mModelHandle = modelhandle;
 	mMotionID = motionid;
 	mLoop = loop;

@@ -43,6 +43,10 @@ void Game::Update(float deltatime)
 void Game::Draw()
 {
 	mWorld->Draw();
+	if (Input::getInstance().GetKeyTrigger(Keycode::PAD_Button17))
+	{
+		printfDx("‰Ÿ‚³‚ê‚½");
+	}
 }
 
 void Game::Finish()

@@ -12,8 +12,31 @@ Input::~Input()
 
 bool Input::GetKeyDown(Keycode key)
 {
-	if(GetJoypadNum > 0) return (GetJoypadInputState(DX_INPUT_PAD1) & key) != 0;
+	if(GetJoypadNum() > 0) return (GetJoypadInputState(DX_INPUT_PAD1) & key) != 0;
 	return CheckHitKey(key) != 0;
+}
+
+//‚Q‚ÂˆÈã‚ÍŽg‚¦‚È‚¢
+bool Input::GetKeyTrigger(Keycode key)
+{
+
+	if (CheckHitKey(key) && !mPrevFrameKey)
+	{
+		mPrevFrameKey = true;
+		if (GetJoypadNum() > 0) return (GetJoypadInputState(DX_INPUT_PAD1) & key) != 0;
+		return true;
+	}
+	else if(!CheckHitKey(key))
+	{
+		mPrevFrameKey = false;
+	}
+
+	return false;
+}
+
+void Input::Update()
+{
+
 }
 
 //•Ô‚è’l‚Í-1‚©‚ç1
