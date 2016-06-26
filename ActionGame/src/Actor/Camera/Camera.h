@@ -7,7 +7,7 @@ class Camera : public Actor
 {
 public:
 	//コンストラクタ
-	Camera(IWorld& world);
+	Camera(IWorld* world);
 
 private:
 	//更新

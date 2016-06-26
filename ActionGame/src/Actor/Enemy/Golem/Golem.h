@@ -7,7 +7,7 @@
 class Golem : public Actor
 {
 public:
-	Golem(IWorld& world, Vector3 position);
+	Golem(IWorld* world, Vector3 position);
 
 private:
 	void onStart() override;

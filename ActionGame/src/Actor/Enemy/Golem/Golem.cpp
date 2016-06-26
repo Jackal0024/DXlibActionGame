@@ -1,7 +1,7 @@
 #include "Golem.h"
 
-Golem::Golem(IWorld & world, Vector3 position):
-	Actor(world, "Golem", position, { {0,10.0f,0},3.0f })
+Golem::Golem(IWorld* world, Vector3 position):
+	Actor(world, "Golem", position, { {0,10,0},3.0f })
 {
 	mModel = MV1LoadModel("./res/golem/golem.mv1");
 }
@@ -22,7 +22,7 @@ void Golem::onUpdate(float deltaTime)
 		if (motionid >= 4) motionid = 0;
 
 	}
-	mAnimator.AnimationChange(motionid,0.5f);
+	mAnimator.AnimationChange(motionid,0.3f,0.5f);
 	mAnimator.Update(deltaTime);
 
 	/*mPosition += Vector3(0, -0.1, 0);

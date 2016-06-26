@@ -8,9 +8,11 @@ ActorManager::ActorManager()
 void ActorManager::Initialize()
 {
 	mActor[ActorGroup::PLAYER] = std::make_shared<Actor>();
+	mActor[ActorGroup::PLAYERATTACK] = std::make_shared<Actor>();
 	mActor[ActorGroup::ENEMY] = std::make_shared<Actor>();
 	mRoot.ClearChildren();
 	mRoot.AddChild(mActor[ActorGroup::PLAYER]);
+	mRoot.AddChild(mActor[ActorGroup::PLAYERATTACK]);
 	mRoot.AddChild(mActor[ActorGroup::ENEMY]);
 }
 
@@ -45,4 +47,5 @@ ActorPtr ActorManager::FindActor(const std::string & name)
 void ActorManager::Collide()
 {
 	mActor[ActorGroup::PLAYER]->CollideChildren(*mActor[ActorGroup::ENEMY]);
+	mActor[ActorGroup::PLAYERATTACK]->CollideChildren(*mActor[ActorGroup::ENEMY]);
 }

@@ -11,6 +11,7 @@ public:
 	Capsule(const Vector3 length,const float radius);
 	~Capsule();
 	bool Intersects(const Capsule& other) const;
+	Capsule Move(const Vector3& position) const;
 	Capsule Translate(const Vector3& position) const;
 	Capsule Transform(const Matrix& matrix)const;
 	void Draw() const;

@@ -15,7 +15,7 @@
 class Actor
 {
 public:
-	Actor(IWorld& world, const std::string name,const Vector3& position, const Capsule& body);
+	Actor(IWorld* world, const std::string name,const Vector3& position, const Capsule& body);
 	Actor(const std::string name = "none");
 
 	void Start();

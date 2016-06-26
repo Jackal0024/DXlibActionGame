@@ -26,27 +26,24 @@ void Game::initialize()
 {
 	mWorld = std::make_shared<World>();
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage0/Stage0.mv1")));
-	mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(*mWorld, Vector3(0.0f,1.0f, -30.0f)));
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(*mWorld, Vector3(0.0f, 0.0f, 1.0f)));
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(*mWorld, Vector3(20.0f, 0.0f, 0.0f)));
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(*mWorld, Vector3(40.0f, 0.0f, 0.0f)));
-	mWorld->AddCamera(std::make_shared<Camera>(*mWorld));
-	mWorld->AddLight(std::make_shared<Light>(*mWorld, Vector3(0.5f, -1.0f, 1.0f)));
+	mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0.0f,1.0f, -30.0f)));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), Vector3(0.0f, 0.0f, 1.0f)));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), Vector3(20.0f, 0.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), Vector3(40.0f, 0.0f, 0.0f)));
+	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
+	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
 	mWorld->Start();
 }
 
 void Game::Update(float deltatime)
 {
+	Input::getInstance().Update();
 	mWorld->Update(deltatime);
 }
 
 void Game::Draw()
 {
 	mWorld->Draw();
-	if (Input::getInstance().GetKeyTrigger(Keycode::PAD_Button17))
-	{
-		printfDx("‰Ÿ‚³‚ê‚½");
-	}
 }
 
 void Game::Finish()

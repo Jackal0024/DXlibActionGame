@@ -7,7 +7,7 @@
 class Player : public Actor
 {
 public:
-	Player(IWorld& world, Vector3 position);
+	Player(IWorld* world, Vector3 position);
 
 private:
 	void onStart() override;

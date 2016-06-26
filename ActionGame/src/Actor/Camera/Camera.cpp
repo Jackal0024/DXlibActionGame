@@ -2,7 +2,7 @@
 #include"DxLib.h"
 #include"../../Input/Input.h"
 
-Camera::Camera(IWorld & world):
+Camera::Camera(IWorld* world):
 	Actor(world, "Camera", { 0.0f,0.0f,-100.0f }, { {0,0,0},1.0f })
 {
 	SetCameraNearFar(0.1f, 1000.0f);
@@ -18,8 +18,9 @@ void Camera::onUpdate(float deltaTime)
 		mYLook += Input::getInstance().GetRightAnalogStick().y* 2 * deltaTime;
 		mYLook = min(max(mYLook, -3), 3);
 
-		mPosition = player->GetPosition() + Vector3(0.0f,13.0f,0.0f);
+		mPosition = player->GetPosition() + Vector3(0.0f,13.0f,0.0f) /*+ (player->GetRotate().GetForward() * 15.0f)*/;
 		mLook = mPosition + ((player->GetRotate().GetForward() * 3.0f) + Vector3(0,mYLook,0));
+		/*mLook = player->GetPosition() + Vector3(0.0f, 13.0f, 0.0f);*/
 	}
 
 	/*if (CheckHitKey(KEY_INPUT_5)) DebugMode = -DebugMode;

@@ -1,8 +1,8 @@
 #include "Actor.h"
 #include"DxLib.h"
 
-Actor::Actor(IWorld& world,const std::string name, const Vector3 & position, const Capsule & body):
-	mWorld(&world),mName(name),mPosition(position),mRotate(MGetIdent()), mBody(body),mDead(false)
+Actor::Actor(IWorld* world,const std::string name, const Vector3 & position, const Capsule & body):
+	mWorld(world),mName(name),mPosition(position),mRotate(MGetIdent()), mBody(body),mDead(false)
 {
 }
 
@@ -163,5 +163,6 @@ void Actor::onCollide(Actor & other)
 
 bool Actor::isCollide(const Actor & other) const
 {
-	return mBody.Transform(GetPose()).Intersects(other.mBody.Transform(other.GetPose()));
+	return mBody.Move(mPosition).Intersects(other.mBody.Move(other.mPosition));
+	//return mBody.Transform(GetPose()).Intersects(other.mBody.Transform(other.GetPose()));
 }

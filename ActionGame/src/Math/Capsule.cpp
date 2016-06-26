@@ -22,6 +22,12 @@ bool Capsule::Intersects(const Capsule & other) const
 	return CollisionCapsuleAndCapsule(other);
 }
 
+Capsule Capsule::Move(const Vector3 & position) const
+{
+	auto v = mLine.mEndPos - mLine.mStartPos;
+	return Capsule(Line(position,position + v),mRadius);
+}
+
 Capsule Capsule::Translate(const Vector3 & position) const
 {
 	return Capsule(Line(mLine.mStartPos + position,mLine.mEndPos + position),mRadius);
@@ -29,8 +35,6 @@ Capsule Capsule::Translate(const Vector3 & position) const
 
 Capsule Capsule::Transform(const Matrix & matrix) const
 {
-	auto a = matrix.Transform(mLine.mStartPos);
-	auto b = matrix.Transform(mLine.mEndPos);
 	return Capsule(Line(matrix.Transform(mLine.mStartPos), matrix.Transform(mLine.mEndPos))
 		,mRadius * matrix.GetScale().y);
 }

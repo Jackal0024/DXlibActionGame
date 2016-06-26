@@ -20,6 +20,7 @@ void Animator::Initialize(int modelhandle, int motionid,bool loop,float timescal
 {
 	mTotalTime = 0.0f;
 	mTimer = 0.0f;
+	mChangeTime = 0.0f;
 	mTimerScale = timescale;
 	mModelHandle = modelhandle;
 	mMotionID = motionid;
@@ -31,7 +32,7 @@ void Animator::Initialize(int modelhandle, int motionid,bool loop,float timescal
 
 void Animator::Update(float deltatime)
 {
-	mLerpTimer += 0.05f;
+	mLerpTimer += mChangeTime;
 	mLerpTimer = min(mLerpTimer, 1.0f);
 	MV1SetAttachAnimBlendRate(mModelHandle, mPrevAttachIndex, 1.0f - mLerpTimer);
 	MV1SetAttachAnimBlendRate(mModelHandle,mAttachIndex,mLerpTimer);
@@ -47,7 +48,7 @@ void Animator::Update(float deltatime)
 	mTimer += (60 * deltatime) * mTimerScale;
 }
 
-void Animator::AnimationChange(int motionid,float timescale,bool loop)
+void Animator::AnimationChange(int motionid, float changeTimer,float timescale,bool loop)
 {
 	if (motionid == mMotionID) return;
 	MV1DetachAnim(mModelHandle, mAttachIndex);
@@ -61,6 +62,8 @@ void Animator::AnimationChange(int motionid,float timescale,bool loop)
 	mTotalTime = MV1GetAttachAnimTotalTime(mModelHandle, mAttachIndex);
 
 	//çƒê∂éûä‘Çå≥Ç…Ç‡Ç«Ç∑
+	mChangeTime = changeTimer;
+	mLoop = loop;
 	mTimer = 0;
 	mLerpTimer = 0.0f;
 	mTimerScale = timescale;

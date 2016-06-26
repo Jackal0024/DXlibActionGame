@@ -10,7 +10,7 @@ public:
 	~Animator();
 	void Initialize(int modelhandle, int motionid,bool loop = false,float timescale = 0.5f);
 	void Update(float deltatime);
-	void AnimationChange(int motionid,float timescale = 1, bool loop = false);
+	void AnimationChange(int motionid,float changeTimer,float timescale = 1, bool loop = false);
 	bool IsAnimationEnd();
 
 private:
@@ -27,6 +27,7 @@ private:
 	float mTimer;
 	float mPrevMotionTimer;
 	float mLerpTimer;
+	float mChangeTime;
 	bool mLoop;
 };
 

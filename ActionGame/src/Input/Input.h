@@ -9,9 +9,14 @@ class Input
 public:
 	static Input& getInstance(void);
 	~Input();
-	bool GetKeyDown(Keycode key);
-	bool GetKeyTrigger(Keycode key);
+	//ジョイスティック用
+	bool GetKeyDown(ButtonCode key);
+	bool GetKeyTrigger(ButtonCode key);
+	//キーボード用
+	bool GetKeyDown(int key);
+	bool GetKeyTrigger(int key);
 	void Update();
+	void Debug();
 	VECTOR GetLeftAnalogStick();
 	VECTOR GetRightAnalogStick();
 
@@ -19,8 +24,11 @@ private:
 	Input();
 	VECTOR mInputVectorL;
 	VECTOR mInputVectorR;
-	bool mPrevFrameKey = false;
-	Keycode mPrevKey;
+
+	bool mButton[32];
+	bool mKey[256];
+	bool mPrveButton[32];
+	bool mPrveKey[256];
 
 };
 

@@ -10,33 +10,62 @@ Input::~Input()
 {
 }
 
-bool Input::GetKeyDown(Keycode key)
+bool Input::GetKeyDown(ButtonCode key)
 {
-	if(GetJoypadNum() > 0) return (GetJoypadInputState(DX_INPUT_PAD1) & key) != 0;
-	return CheckHitKey(key) != 0;
+	return mButton[key];
 }
 
-//２つ以上は使えない
-bool Input::GetKeyTrigger(Keycode key)
+
+bool Input::GetKeyTrigger(ButtonCode key)
 {
+	return mButton[key] && !mPrveButton[key];
+}
 
-	if (CheckHitKey(key) && !mPrevFrameKey)
-	{
-		mPrevFrameKey = true;
-		if (GetJoypadNum() > 0) return (GetJoypadInputState(DX_INPUT_PAD1) & key) != 0;
-		return true;
-	}
-	else if(!CheckHitKey(key))
-	{
-		mPrevFrameKey = false;
-	}
+bool Input::GetKeyDown(int key)
+{
+	return mKey[key];
+}
 
-	return false;
+bool Input::GetKeyTrigger(int key)
+{
+	return mKey[key] && mPrveKey[key];
 }
 
 void Input::Update()
 {
+	DINPUT_JOYSTATE tempButton;
+	GetJoypadDirectInputState(DX_INPUT_PAD1, &tempButton);
+	for (int i = 0; i < 32; i++)
+	{
+		mPrveButton[i] = mButton[i];
+		if (tempButton.Buttons[i] == 128)
+		{
+			
+			mButton[i] = true;
+		}
+		else
+		{
+			mButton[i] = false;
+		}
+	}
 
+	char tmpKey[256]; // 現在のキーの入力状態を格納する
+	GetHitKeyStateAll(tmpKey); // 全てのキーの入力状態を得る
+	for (int i = 0; i<256; i++) 
+	{
+		mPrveKey[i] = mKey[i];
+		if (tmpKey[i] != 0) {
+			mKey[i] = true;
+		}
+		else 
+		{              
+			mKey[i] = false;
+		}
+	}
+}
+
+void Input::Debug()
+{
 }
 
 //返り値は-1から1
@@ -93,4 +122,5 @@ VECTOR Input::GetRightAnalogStick()
 
 Input::Input()
 {
+	
 }
