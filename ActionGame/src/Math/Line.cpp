@@ -4,6 +4,7 @@ Line::Line(const Vector3 start, const Vector3 end):
 	mStartPos(start),
 	mEndPos(end)
 {
+	mV = mEndPos - mStartPos;
 }
 
 Line::Line():

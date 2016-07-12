@@ -5,7 +5,8 @@ enum ActorGroup
 {
 	PLAYER,
 	PLAYERATTACK,
-	ENEMY
+	ENEMY,
+	ENEMYATTACK
 };
 
 #endif

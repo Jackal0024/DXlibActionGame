@@ -20,6 +20,7 @@ public:
 public:
 	Vector3 mStartPos;
 	Vector3 mEndPos;
+	Vector3 mV;
 
 };
 
