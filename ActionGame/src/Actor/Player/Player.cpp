@@ -15,9 +15,19 @@ Player::Player(IWorld* world, Vector3 position):
 	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),1.0f }),
 	mState(State::MOVE)
 {
-	mHitPoint = 100;
+	mHitPoint = MAXHP;
 	mModelHandle = MV1LoadModel("./res/overload/overlord_Arm.mv1");
 	mWeaponHandle = MV1LoadModel("./res/Rusted Longsword/LS.x");
+}
+
+float Player::GetHP()
+{
+	return mHitPoint;
+}
+
+float Player::GetMaxHp()
+{
+	return MAXHP;
 }
 
 void Player::onStart()
@@ -54,8 +64,8 @@ void Player::onDraw() const
 	MV1DrawModel(mModelHandle);
 	MV1DrawModel(mWeaponHandle);
 	//mBody.Translate(mPosition).Draw();
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayePosition:x=[%f].y=[%f],z=[%f]", mPosition.x, mPosition.y, mPosition.z);
-	DrawFormatString(0, 30, GetColor(255, 255, 255), "HitPoint = [%f]", mHitPoint);
+	/*DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayePosition:x=[%f].y=[%f],z=[%f]", mPosition.x, mPosition.y, mPosition.z);
+	DrawFormatString(0, 30, GetColor(255, 255, 255), "HitPoint = [%f]", mHitPoint);*/
 }
 
 void Player::onCollide(Actor & other)

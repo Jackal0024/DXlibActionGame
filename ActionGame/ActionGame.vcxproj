@@ -160,6 +160,8 @@
     <ClCompile Include="src\Actor\Light\Light.cpp" />
     <ClCompile Include="src\Actor\Player\Player.cpp" />
     <ClCompile Include="src\Actor\Player\PlayerAttack.cpp" />
+    <ClCompile Include="src\Actor\UI\NumberTexture.cpp" />
+    <ClCompile Include="src\Actor\UI\PlayerHP.cpp" />
     <ClCompile Include="src\Animation\Animator.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\Field\Field.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="src\Actor\Light\Light.h" />
     <ClInclude Include="src\Actor\Player\Player.h" />
     <ClInclude Include="src\Actor\Player\PlayerAttack.h" />
+    <ClInclude Include="src\Actor\UI\NumberTexture.h" />
+    <ClInclude Include="src\Actor\UI\PlayerHP.h" />
     <ClInclude Include="src\Animation\Animator.h" />
     <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Field\Field.h" />

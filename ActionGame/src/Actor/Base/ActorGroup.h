@@ -6,7 +6,8 @@ enum ActorGroup
 	PLAYER,
 	PLAYERATTACK,
 	ENEMY,
-	ENEMYATTACK
+	ENEMYATTACK,
+	UI
 };
 
 #endif
