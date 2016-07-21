@@ -1,5 +1,4 @@
 #include "PlayerHP.h"
-#include"NumberTexture.h"
 #include"../Player/Player.h"
 
 PlayerHP::PlayerHP(IWorld* world, Vector3 position):
@@ -7,6 +6,7 @@ PlayerHP::PlayerHP(IWorld* world, Vector3 position):
 {
 	mTextHandle = LoadGraph("./res/Texture/HP.png");
 	mSlashHandle = LoadGraph("./res/Texture/Slash.png");
+	num = NumberTexture("./res/Texture/num.png", 10, 10, 1, 16, 32);
 }
 
 void PlayerHP::onUpdate(float deltaTime)
@@ -18,7 +18,6 @@ void PlayerHP::onUpdate(float deltaTime)
 
 void PlayerHP::onDraw() const
 {
-	NumberTexture num("./res/Texture/num.png", 10, 10, 1, 16, 32);
 	DrawGraph(mPosition.x, mPosition.y, mTextHandle, TRUE);
 	//êîéö
 	{
@@ -32,5 +31,4 @@ void PlayerHP::onDraw() const
 		Vector3 numpos(pos.x + 20, mPosition.y, 0);
 		num.Draw(numpos,mMaxHPValue);
 	}
-	//DrawGraph(mPosition.x, mPosition.y, mNumHandle[0], FALSE);
 }

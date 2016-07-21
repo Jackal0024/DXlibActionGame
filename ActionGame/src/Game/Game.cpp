@@ -13,6 +13,7 @@
 #include"../Field/Field.h"
 #include"../Math/Line.h"
 #include"../Actor/UI/PlayerHP.h"
+#include"../Actor/UI/PlayerMP.h"
 
 
 Game::Game()
@@ -34,6 +35,7 @@ void Game::initialize()
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), Vector3(40.0f, 0.0f, 0.0f)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(1.0f, 5.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 37.0f, 0.0f)));
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));

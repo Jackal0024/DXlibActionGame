@@ -4,6 +4,7 @@
 #include"../../Input/KeyNum.h"
 #include"../../Field/Field.h"
 #include"PlayerAttack.h"
+#include"IceNeedle.h"
 
 enum MotionID
 {
@@ -16,6 +17,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mState(State::MOVE)
 {
 	mHitPoint = MAXHP;
+	mMagicPoint = MAXMP;
 	mModelHandle = MV1LoadModel("./res/overload/overlord_Arm.mv1");
 	mWeaponHandle = MV1LoadModel("./res/Rusted Longsword/LS.x");
 }
@@ -28,6 +30,16 @@ float Player::GetHP()
 float Player::GetMaxHp()
 {
 	return MAXHP;
+}
+
+float Player::GetMP()
+{
+	return mMagicPoint;
+}
+
+float Player::GetMaxMP()
+{
+	return MAXMP;
 }
 
 void Player::onStart()
@@ -109,11 +121,22 @@ void Player::Move(float deltaTime)
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
 	mPosition += velocity + Vector3(0, -0.1, 0);
 
-	if (Input::getInstance().GetKeyDown(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
 	{
 		StateChange(State::ATTACK);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle));
 	}
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2))
+	{
+		if (mMagicPoint >= 20)
+		{
+			Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
+			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3));
+			mMagicPoint -= 20;
+		}
+	}
+	mMagicPoint += 0.02f;
+	mMagicPoint = max(min(mMagicPoint, 100), 0);
 }
 
 void Player::Attack(float deltaTime)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../Base/Actor.h"
+#include"NumberTexture.h"
 
 class PlayerHP :public  Actor
 {
@@ -13,4 +14,5 @@ private:
 	int mSlashHandle;
 	int mHPValue;
 	int mMaxHPValue;
+	NumberTexture num;
 };

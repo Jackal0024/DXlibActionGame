@@ -28,7 +28,7 @@ bool Input::GetKeyDown(int key)
 
 bool Input::GetKeyTrigger(int key)
 {
-	return mKey[key] && mPrveKey[key];
+	return mKey[key] && !mPrveKey[key];
 }
 
 void Input::Update()

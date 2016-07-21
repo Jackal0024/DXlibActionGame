@@ -17,6 +17,8 @@ public:
 	Player(IWorld* world, Vector3 position);
 	float GetHP();
 	float GetMaxHp();
+	float GetMP();
+	float GetMaxMP();
 
 private:
 	void onStart() override;
@@ -37,9 +39,11 @@ private:
 	State mState;
 	Animator mAnimator;
 	float mHitPoint;
+	float mMagicPoint;
 
 private:
 	const float MAXHP = 100;
+	const float MAXMP = 100;
 
 };
 
