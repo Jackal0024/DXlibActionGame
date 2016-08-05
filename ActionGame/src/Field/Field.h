@@ -11,6 +11,7 @@ public:
 	Field(int modelhandle);
 	bool Collision(const Vector3& start, const Vector3& end, Vector3& out_heigt) const override;
 	bool Collision(Vector3& start, const Vector3& end, const float& r) override;
+	bool Collision(Vector3& start, const Vector3& end, const float& r,Vector3& velocity) override;
 	void Draw() const;
 
 private:

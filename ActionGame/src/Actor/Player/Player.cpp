@@ -13,8 +13,9 @@ enum MotionID
 };
 
 Player::Player(IWorld* world, Vector3 position):
-	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),1.0f }),
-	mState(State::MOVE)
+	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),2.0f }),
+	mState(State::MOVE),
+	mStateTimer(0.0f)
 {
 	mHitPoint = MAXHP;
 	mMagicPoint = MAXMP;
@@ -74,7 +75,7 @@ void Player::onUpdate(float deltaTime)
 void Player::onDraw() const
 {
 	MV1DrawModel(mModelHandle);
-	MV1DrawModel(mWeaponHandle);
+	//MV1DrawModel(mWeaponHandle);
 	//mBody.Translate(mPosition).Draw();
 	/*DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayePosition:x=[%f].y=[%f],z=[%f]", mPosition.x, mPosition.y, mPosition.z);
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "HitPoint = [%f]", mHitPoint);*/
@@ -82,9 +83,11 @@ void Player::onDraw() const
 
 void Player::onCollide(Actor & other)
 {
-	auto forward = mRotate.GetForward();
-	mPosition += -forward * 20;
-	mHitPoint -= 10.0f;
+	if (mState != State::DAMAGE)
+	{
+		mHitPoint -= 10.0f;
+		StateChange(State::DAMAGE);
+	}
 }
 
 Matrix Player::SetModelFramePosition(int ModelHandle, char * FrameName, int SetModelHandle) const
@@ -102,6 +105,7 @@ Matrix Player::SetModelFramePosition(int ModelHandle, char * FrameName, int SetM
 void Player::StateChange(State state)
 {
 	mState = state;
+	mStateTimer = 0.0f;
 }
 
 void Player::StateUpdate(float deltaTime)
@@ -110,7 +114,9 @@ void Player::StateUpdate(float deltaTime)
 	{
 	case Player::MOVE: Move(deltaTime); break;
 	case Player::ATTACK: Attack(deltaTime); break;
+	case Player::DAMAGE: Damege(deltaTime); break;
 	}
+	mStateTimer += deltaTime;
 }
 
 void Player::Move(float deltaTime)
@@ -119,6 +125,7 @@ void Player::Move(float deltaTime)
 	velocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
 	velocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
+	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius,velocity);
 	mPosition += velocity + Vector3(0, -0.1, 0);
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
@@ -126,7 +133,7 @@ void Player::Move(float deltaTime)
 		StateChange(State::ATTACK);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle));
 	}
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4))
 	{
 		if (mMagicPoint >= 20)
 		{
@@ -145,6 +152,16 @@ void Player::Attack(float deltaTime)
 	if (mAnimator.IsAnimationEnd())
 	{
 		mAnimator.AnimationChange(MotionID::MOTION_IDLE, 0);
+		StateChange(State::MOVE);
+	}
+}
+
+void Player::Damege(float deltaTime)
+{
+	auto backVelcity = mPosition + (-mRotate.GetForward() * 10);
+	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
+	if (mStateTimer > 0.5f)
+	{
 		StateChange(State::MOVE);
 	}
 }

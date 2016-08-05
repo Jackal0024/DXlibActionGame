@@ -11,7 +11,8 @@ public:
 	enum State
 	{
 		MOVE,
-		ATTACK
+		ATTACK,
+		DAMAGE
 	};
 public:
 	Player(IWorld* world, Vector3 position);
@@ -32,6 +33,7 @@ private:
 	void StateUpdate(float deltaTime);
 	void Move(float deltaTime);
 	void Attack(float deltaTime);
+	void Damege(float deltaTime);
 
 private:
 	int mModelHandle;
@@ -40,6 +42,7 @@ private:
 	Animator mAnimator;
 	float mHitPoint;
 	float mMagicPoint;
+	float mStateTimer;
 
 private:
 	const float MAXHP = 100;

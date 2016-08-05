@@ -19,3 +19,14 @@ float Vector3::Length() const
 {
 	return VSize(*this);
 }
+
+VECTOR Vector3::Lerp(VECTOR & start, VECTOR & end, float amount)
+{
+	if (amount < 0.0f) {
+		amount = 0.0f;
+	}
+	else if (amount > 1.0f) {
+		amount = 1.0f;
+	}
+	return start * (1.0f - amount) + end * amount;
+}

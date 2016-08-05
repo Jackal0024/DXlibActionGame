@@ -13,6 +13,7 @@ private:
 
 private:
 	Vector3 mVelocity;
+	Vector3 mDestination; //–Ú“I’n
 	float mLifeTimer_;
 	int mNum;
 	int mModelHandle;

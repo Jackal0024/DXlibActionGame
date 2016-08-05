@@ -1,7 +1,7 @@
 #include "GolemAttack.h"
 
 EnemyArrack::EnemyArrack(IWorld * world, const Vector3 & position):
-	Actor(world,"GolemAttack",position,{ Vector3(0,2,0),4 }),
+	Actor(world,"GolemAttack",position,{ Vector3(0,2,0),7 }),
 	mTimer(0.0f)
 {
 }

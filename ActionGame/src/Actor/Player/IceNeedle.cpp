@@ -1,10 +1,11 @@
 #include "IceNeedle.h"
 
 IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num):
-	Actor(world, "Attack",position, { Vector3(0,15,0),5 }),
+	Actor(world, "Attack",position - Vector3(0,30,0), { Vector3(0,15,0),5 }),
 	mVelocity(velocity),
 	mNum(num),
 	mLifeTimer_(1),
+	mDestination(position),
 	isNext(false)
 {
 	mModelHandle = MV1LoadModel("./res/IceNeedle/IceNeedle.mv1");
@@ -14,6 +15,7 @@ void IceNeedle::onUpdate(float deltaTime)
 {
 	mNum--;
 	mLifeTimer_ -= deltaTime;
+	mPosition = Vector3::Lerp(mPosition, mDestination, 0.05);
 	if (mLifeTimer_ <= 0)
 	{
 		Dead();
@@ -21,7 +23,7 @@ void IceNeedle::onUpdate(float deltaTime)
 	if (mNum > 0 && !isNext)
 	{
 		mVelocity.y = 0;
-		Vector3 nextPos = mPosition + (mVelocity * 20);
+		Vector3 nextPos = mDestination + (mVelocity * 20);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld,nextPos, mVelocity, mNum));
 		isNext = true;
 	}

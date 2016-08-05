@@ -81,10 +81,10 @@ void Golem::Move(float deltaTime)
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE , Motion::IDLE_MOTION);
 	}
-	if (dis < 20)
+	if (dis < 10)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<EnemyArrack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 20)
+			+ (mRotate.GetForward() * 10)
 			+ Vector3(0, 20, 0)));
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
