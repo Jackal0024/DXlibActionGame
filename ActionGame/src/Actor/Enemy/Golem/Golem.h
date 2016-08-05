@@ -9,6 +9,7 @@ class Golem : public Actor
 public:
 	enum Motion
 	{
+		DAMAGE_MOTION = 4,
 		IDLE_MOTION = 3,
 		MOVE_MOTION = 2,
 		DEAD_MOTION = 1,
@@ -20,7 +21,8 @@ public:
 		IDLE,
 		MOVE,
 		ATTACK,
-		DAMAGE
+		DAMAGE,
+		DEAD
 	};
 
 public:
@@ -37,6 +39,7 @@ private:
 	void Idle(float deltaTime);
 	void Move(float deltaTime);;
 	void Attack(float deltaTime);
+	void DeadState(float deltaTime);
 	void Damage(float deltaTime);
 	void StateChange(State nextState, Motion nextMotion);
 

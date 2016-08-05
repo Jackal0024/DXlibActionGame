@@ -40,15 +40,24 @@ void Golem::onDraw() const
 {
 	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
 	MV1DrawModel(mModel);
-	//mBody.Translate(mPosition).Draw();
+	mBody.Translate(mPosition).Draw();
 }
 
 void Golem::onCollide(Actor & other)
 {
-	if (other.GetName() == "Attack")
+	if (other.GetName() == "Attack" && mState != State::DAMAGE)
 	{
-		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
-		StateChange(State::DAMAGE, Motion::DEAD_MOTION);
+		if (mHitPoint <= 0)
+		{
+			mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
+			StateChange(State::DEAD , Motion::DEAD_MOTION);
+		}
+		else
+		{
+			mHitPoint -= 50;
+			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
+			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
+		}
 	}
 }
 
@@ -60,6 +69,7 @@ void Golem::StateUpdate(float deltaTime)
 	case State::MOVE: Move(deltaTime); break;
 	case State::ATTACK: Attack(deltaTime); break;
 	case State::DAMAGE: Damage(deltaTime); break;
+	case State::DEAD: DeadState(deltaTime); break;
 	}
 }
 
@@ -112,12 +122,21 @@ void Golem::Attack(float deltaTime)
 	}
 }
 
-void Golem::Damage(float deltaTime)
+void Golem::DeadState(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
 		MV1DeleteModel(mModel);
 		Dead();
+	}
+}
+
+void Golem::Damage(float deltaTime)
+{
+	if (mAnimator.IsAnimationEnd())
+	{
+		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
+		StateChange(State::IDLE, Motion::IDLE_MOTION);
 	}
 }
 

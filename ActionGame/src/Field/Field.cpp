@@ -56,6 +56,7 @@ bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r, Vec
 			{
 				start = start + HitPoly.Dim[i].Normal * r;
 				velocity = velocity + (-VDot(velocity, HitPoly.Dim[i].Normal) * HitPoly.Dim[i].Normal);
+				Collision(start, end, r, velocity);
 				MV1CollResultPolyDimTerminate(HitPoly);
 				return true;
 			}
