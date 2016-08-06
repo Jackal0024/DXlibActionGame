@@ -1,5 +1,6 @@
 #include "Golem.h"
 #include"GolemAttack.h"
+#include"../../../Sound/SoundManager.h"
 
 Golem::Golem(IWorld* world, Vector3 position):
 	Actor(world, "Golem", position, { {0,10,0},3.0f }),
@@ -47,8 +48,10 @@ void Golem::onCollide(Actor & other)
 {
 	if (other.GetName() == "Attack" && mState != State::DAMAGE)
 	{
+		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.ogg");
 		if (mHitPoint <= 0)
 		{
+			SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 			mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DEAD , Motion::DEAD_MOTION);
 		}

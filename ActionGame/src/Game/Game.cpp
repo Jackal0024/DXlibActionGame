@@ -14,6 +14,8 @@
 #include"../Math/Line.h"
 #include"../Actor/UI/PlayerHP.h"
 #include"../Actor/UI/PlayerMP.h"
+#include"../Sound/SoundManager.h"
+
 
 
 Game::Game()
@@ -26,6 +28,12 @@ Game::~Game()
 
 void Game::initialize()
 {
+	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
+	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.ogg");
+	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
+	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
+	
+
 	mWorld = std::make_shared<World>();
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage0/Stage0.mv1")));
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
@@ -55,5 +63,6 @@ void Game::Draw()
 
 void Game::Finish()
 {
+	SoundManager::getInstance().Clear();
 	mWorld = nullptr;
 }

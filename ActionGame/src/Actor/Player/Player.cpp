@@ -5,6 +5,7 @@
 #include"../../Field/Field.h"
 #include"PlayerAttack.h"
 #include"IceNeedle.h"
+#include"../../Sound/SoundManager.h"
 
 enum MotionID
 {
@@ -85,6 +86,7 @@ void Player::onCollide(Actor & other)
 {
 	if (mState != State::DAMAGE)
 	{
+		SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 		mHitPoint -= 10.0f;
 		StateChange(State::DAMAGE);
 	}

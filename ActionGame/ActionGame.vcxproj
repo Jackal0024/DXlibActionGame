@@ -175,6 +175,7 @@
     <ClCompile Include="src\Math\Line.cpp" />
     <ClCompile Include="src\Math\Matrix.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\Sound\SoundManager.cpp" />
     <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +206,7 @@
     <ClInclude Include="src\Math\Line.h" />
     <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Sound\SoundManager.h" />
     <ClInclude Include="src\World\IWorld.h" />
     <ClInclude Include="src\World\World.h" />
   </ItemGroup>
