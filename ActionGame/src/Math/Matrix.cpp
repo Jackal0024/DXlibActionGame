@@ -76,8 +76,13 @@ VECTOR Matrix::GetScale() const
 
 MATRIX Matrix::SetScale(VECTOR scale)
 {
-	m[0][0] = scale.x;
-	m[1][1] = scale.y;
-	m[2][2] = scale.z;
+	m[0][0] *= scale.x;
+	m[1][1] *= scale.y;
+	m[2][2] *= scale.z;
 	return *this;
+}
+
+Matrix Matrix::CreateFromYawPitchRoll(const VECTOR rotate)
+{
+	return MGetRotZ(rotate.z) * MGetRotX(rotate.x) * MGetRotY(rotate.y);
 }

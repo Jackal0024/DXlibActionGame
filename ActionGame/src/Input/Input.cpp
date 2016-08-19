@@ -39,8 +39,7 @@ void Input::Update()
 	{
 		mPrveButton[i] = mButton[i];
 		if (tempButton.Buttons[i] == 128)
-		{
-			
+		{	
 			mButton[i] = true;
 		}
 		else

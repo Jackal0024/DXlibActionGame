@@ -24,6 +24,17 @@ Player::Player(IWorld* world, Vector3 position):
 	mWeaponHandle = MV1LoadModel("./res/Rusted Longsword/LS.x");
 }
 
+Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
+	Actor(world, "Player", position,rotate,{ Line(position,position + Vector3(0,5,0)),2.0f }),
+	mState(State::MOVE),
+	mStateTimer(0.0f)
+{
+	mHitPoint = MAXHP;
+	mMagicPoint = MAXMP;
+	mModelHandle = MV1LoadModel("./res/overload/overlord_Arm.mv1");
+	mWeaponHandle = MV1LoadModel("./res/Rusted Longsword/LS.x");
+}
+
 float Player::GetHP()
 {
 	return mHitPoint;
@@ -52,7 +63,6 @@ void Player::onStart()
 
 void Player::onUpdate(float deltaTime)
 {
-
 	Vector3 h;
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius);
 	if (mWorld->GetField().Collision(mPosition + Vector3(0,10,0), mPosition + Vector3(0,-30, 0), h))

@@ -30,6 +30,8 @@ public:
 	VECTOR GetScale() const;
 	//ƒXƒP[ƒ‹‚Ìæ“¾
 	MATRIX SetScale(VECTOR scale);
+
+	static Matrix CreateFromYawPitchRoll(const VECTOR rotate);
 };
 
 #endif

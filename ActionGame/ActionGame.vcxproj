@@ -175,6 +175,10 @@
     <ClCompile Include="src\Math\Line.cpp" />
     <ClCompile Include="src\Math\Matrix.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
+    <ClCompile Include="src\Scene\Base\SceneManager.cpp" />
+    <ClCompile Include="src\Scene\Base\SceneNull.cpp" />
+    <ClCompile Include="src\Scene\GamePlay\GamePlay.cpp" />
+    <ClCompile Include="src\Scene\Title\Title.cpp" />
     <ClCompile Include="src\Sound\SoundManager.cpp" />
     <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
@@ -206,6 +210,13 @@
     <ClInclude Include="src\Math\Line.h" />
     <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Math\Vector3.h" />
+    <ClInclude Include="src\Scene\Base\IScene.h" />
+    <ClInclude Include="src\Scene\Base\IScenePtr.h" />
+    <ClInclude Include="src\Scene\Base\Scene.h" />
+    <ClInclude Include="src\Scene\Base\SceneManager.h" />
+    <ClInclude Include="src\Scene\Base\SceneNull.h" />
+    <ClInclude Include="src\Scene\GamePlay\GamePlay.h" />
+    <ClInclude Include="src\Scene\Title\Title.h" />
     <ClInclude Include="src\Sound\SoundManager.h" />
     <ClInclude Include="src\World\IWorld.h" />
     <ClInclude Include="src\World\World.h" />

@@ -16,6 +16,7 @@ public:
 	};
 public:
 	Player(IWorld* world, Vector3 position);
+	Player(IWorld* world, Vector3 position,Vector3 rotate);
 	float GetHP();
 	float GetMaxHp();
 	float GetMP();

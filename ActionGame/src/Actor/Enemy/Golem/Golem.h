@@ -27,6 +27,7 @@ public:
 
 public:
 	Golem(IWorld* world, Vector3 position);
+	Golem(IWorld* world, Vector3 position,Vector3 rotate);
 
 private:
 	void onStart() override;

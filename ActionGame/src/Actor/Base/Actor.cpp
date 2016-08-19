@@ -6,6 +6,11 @@ Actor::Actor(IWorld* world,const std::string name, const Vector3 & position, con
 {
 }
 
+Actor::Actor(IWorld * world, const std::string name, const Vector3 & position, const Vector3& rotate, const Capsule & body):
+	mWorld(world), mName(name), mPosition(position), mRotate(Matrix::CreateFromYawPitchRoll(rotate)), mBody(body), mDead(false)
+{
+}
+
 Actor::Actor(const std::string name):
 	mWorld(nullptr), mName("none"), mPosition(0.0f, 0.0f, 0.0f), mRotate(MGetIdent()), mBody({0,0,0}, 0.0f), mDead(false)
 {

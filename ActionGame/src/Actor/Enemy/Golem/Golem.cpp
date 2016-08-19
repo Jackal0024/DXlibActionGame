@@ -11,6 +11,15 @@ Golem::Golem(IWorld* world, Vector3 position):
 	mModel = MV1LoadModel("./res/golem/golem.mv1");
 }
 
+Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
+	Actor(world, "Golem", position,rotate,{ { 0,10,0 },3.0f }),
+	mMotionid(Motion::IDLE_MOTION),
+	mState(State::IDLE)
+{
+	mHitPoint = 100;
+	mModel = MV1LoadModel("./res/golem/golem.mv1");
+}
+
 void Golem::onStart()
 {
 	mRotate.SetScale({0.8f,0.8f,0.8f});
@@ -41,11 +50,12 @@ void Golem::onDraw() const
 {
 	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
 	MV1DrawModel(mModel);
-	mBody.Translate(mPosition).Draw();
+	//mBody.Translate(mPosition).Draw();
 }
 
 void Golem::onCollide(Actor & other)
 {
+
 	if (other.GetName() == "Attack" && mState != State::DAMAGE)
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.ogg");

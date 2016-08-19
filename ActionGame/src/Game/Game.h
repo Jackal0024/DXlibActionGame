@@ -2,6 +2,7 @@
 #define GAME_H_
 
 #include"../World/World.h"
+#include"../Scene/Base/SceneManager.h"
 class Game
 {
 public:
@@ -13,7 +14,8 @@ public:
 	void Finish();
 
 private:
-	std::shared_ptr<World> mWorld;
+	//std::shared_ptr<World> mWorld;
+	SceneManager mSceneManager;
 
 };
 
