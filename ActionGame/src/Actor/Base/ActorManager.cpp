@@ -20,11 +20,6 @@ void ActorManager::Initialize()
 	mRoot.AddChild(mActor[ActorGroup::UI]);
 }
 
-void ActorManager::Start()
-{
-	mRoot.Start();
-}
-
 void ActorManager::Update(float deltaTime)
 {
 	mRoot.Update(deltaTime);

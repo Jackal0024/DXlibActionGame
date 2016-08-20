@@ -48,6 +48,7 @@ void Actor::Collide(Actor & other)
 void Actor::AddChild(const ActorPtr & child)
 {
 	mChildren.push_front(child);
+	child->onStart();
 }
 
 void Actor::EachChildren(std::function<void(Actor&)> fn)

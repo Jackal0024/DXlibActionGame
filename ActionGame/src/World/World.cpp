@@ -5,11 +5,6 @@ World::World()
 {
 }
 
-void World::Start()
-{
-	mActors.Start();
-}
-
 void World::Update(float deltaTime)
 {
 	mActors.Update(deltaTime);

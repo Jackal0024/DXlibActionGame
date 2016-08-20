@@ -10,7 +10,6 @@ class World : public IWorld
 {
 public:
 	World();
-	void Start();
 	void Update(float deltaTime);
 	void Draw() const;
 

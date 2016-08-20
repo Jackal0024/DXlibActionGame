@@ -11,7 +11,6 @@ class ActorManager
 public:
 	ActorManager();
 	void Initialize();
-	void Start();
 	void Update(float deltaTime);
 	void Draw() const;
 	void AddActor(ActorGroup group, const ActorPtr& actor);

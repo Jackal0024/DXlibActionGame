@@ -22,7 +22,6 @@ Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
 
 void Golem::onStart()
 {
-	mRotate.SetScale({0.8f,0.8f,0.8f});
 	mAnimator.Initialize(mModel, mMotionid,true);
 
 }
