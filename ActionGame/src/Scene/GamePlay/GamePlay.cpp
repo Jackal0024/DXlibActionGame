@@ -18,6 +18,7 @@
 #include"../../Actor/UI/PlayerHP.h"
 #include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
+#include"../../Actor/Enemy/Ghost/Ghost.h"
 
 void GamePlay::Start()
 {
@@ -29,6 +30,7 @@ void GamePlay::Start()
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage0/Stage0.mv1")));
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
 	MapDateInput("./res/MapData01.csv");
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(1.0f, 30.0f, 0.0f)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(1.0f, 5.0f, 0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 37.0f, 0.0f)));
@@ -87,5 +89,5 @@ void GamePlay::MapDateInput(std::string fileName)
 void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rotate)
 {
 	if(name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position,rotate));
-	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,Vector3(0,3.14,0)));
+	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));
 }

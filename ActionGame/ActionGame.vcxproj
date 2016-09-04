@@ -155,6 +155,8 @@
     <ClCompile Include="src\Actor\Base\Actor.cpp" />
     <ClCompile Include="src\Actor\Base\ActorManager.cpp" />
     <ClCompile Include="src\Actor\Camera\Camera.cpp" />
+    <ClCompile Include="src\Actor\Enemy\Ghost\Ghost.cpp" />
+    <ClCompile Include="src\Actor\Enemy\Ghost\GhostAttack.cpp" />
     <ClCompile Include="src\Actor\Enemy\Golem\Golem.cpp" />
     <ClCompile Include="src\Actor\Enemy\Golem\GolemAttack.cpp" />
     <ClCompile Include="src\Actor\Light\Light.cpp" />
@@ -188,6 +190,8 @@
     <ClInclude Include="src\Actor\Base\ActorManager.h" />
     <ClInclude Include="src\Actor\Base\ActorPtr.h" />
     <ClInclude Include="src\Actor\Camera\Camera.h" />
+    <ClInclude Include="src\Actor\Enemy\Ghost\Ghost.h" />
+    <ClInclude Include="src\Actor\Enemy\Ghost\GhostAttack.h" />
     <ClInclude Include="src\Actor\Enemy\Golem\Golem.h" />
     <ClInclude Include="src\Actor\Enemy\Golem\GolemAttack.h" />
     <ClInclude Include="src\Actor\Light\Light.h" />
@@ -208,6 +212,7 @@
     <ClInclude Include="src\Math\BoundingSphere.h" />
     <ClInclude Include="src\Math\Capsule.h" />
     <ClInclude Include="src\Math\Line.h" />
+    <ClInclude Include="src\Math\MathHelper.h" />
     <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Scene\Base\IScene.h" />

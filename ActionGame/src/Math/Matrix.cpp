@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include"MathHelper.h"
 
 Matrix::Matrix(float m11_, float m12_, float m13_, float m14_, float m21_, float m22_, float m23_, float m24_, float m31_, float m32_, float m33_, float m34_, float m41_, float m42_, float m43_, float m44_)
 {
@@ -84,5 +85,5 @@ MATRIX Matrix::SetScale(VECTOR scale)
 
 Matrix Matrix::CreateFromYawPitchRoll(const VECTOR rotate)
 {
-	return MGetRotZ(rotate.z) * MGetRotX(rotate.x) * MGetRotY(rotate.y);
+	return MGetRotZ(MathHelper::Deg2Rad(rotate.z)) * MGetRotX(MathHelper::Deg2Rad(rotate.x)) * MGetRotY(MathHelper::Deg2Rad(rotate.y));
 }
