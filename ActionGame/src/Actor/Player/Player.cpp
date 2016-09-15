@@ -64,13 +64,14 @@ void Player::onStart()
 void Player::onUpdate(float deltaTime)
 {
 	Vector3 h;
-	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius);
+	//mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius);
 	if (mWorld->GetField().Collision(mPosition + Vector3(0,10,0), mPosition + Vector3(0,-30, 0), h))
 	{
 		mPosition.y = h.y;
 	}
 
 	StateUpdate(deltaTime);
+	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 
 	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
 	Matrix S = MGetIdent();
@@ -133,15 +134,15 @@ void Player::StateUpdate(float deltaTime)
 
 void Player::Move(float deltaTime)
 {
-	Vector3 velocity;
-	velocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
-	velocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
+	mVelocity = Vector3(0,0,0);
+	mVelocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
+	mVelocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
-	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius,velocity);
-	mPosition += velocity + Vector3(0, -0.1, 0);
+	mPosition += mVelocity + Vector3(0, -0.1, 0);
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
 	{
+		mWorld->SendMsg(EventMessage::DEAD);
 		StateChange(State::ATTACK);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle));
 	}

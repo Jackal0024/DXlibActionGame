@@ -20,3 +20,8 @@ void EnemyArrack::onDraw() const
 {
 	mBody.Move(mPosition).Draw();
 }
+
+void EnemyArrack::onCollide(Actor & othr)
+{
+	if(othr.GetName() == "Player") Dead();
+}

@@ -51,6 +51,14 @@ void Ghost::onCollide(Actor & other)
 	}
 }
 
+void Ghost::onMessage(EventMessage message, void * p)
+{
+	switch (message)
+	{
+	case EventMessage::DEAD: Dead(); break;
+	}
+}
+
 void Ghost::StateUpdate(float deltaTime)
 {
 	switch (mState)
@@ -83,9 +91,10 @@ void Ghost::Idle(float deltaTime)
 
 void Ghost::Attack(float deltaTime)
 {
-	Vector3 velocity = mTarget->GetPosition() - mPosition;
+	Vector3 velocity = mTarget->GetPosition() - mPosition + Vector3(0, 5, 0);
 	velocity = VNorm(velocity);
 	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GhostArrack>(mWorld, mPosition,velocity));
+	//AddChild(std::make_shared<GhostArrack>(mWorld, mPosition, velocity));
 	mAttackTimer = 0;
 	StateChange(State::IDLE);
 }

@@ -12,11 +12,13 @@ public:
 	virtual bool IsEnd() const override;
 	virtual Scene Next() const override;
 	virtual void End() override;
+	void HandleMessage(EventMessage message, void* param);
 
 private:
 	void MapDateInput(std::string fileName);
 	void CharacterCreate(std::string name,Vector3& position,Vector3& rotate);
 private:
 	std::shared_ptr<World> mWorld;
+	bool isEnd;
 
 };

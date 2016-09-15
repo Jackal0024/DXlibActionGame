@@ -15,6 +15,8 @@ public:
 	void Draw() const;
 	void AddActor(ActorGroup group, const ActorPtr& actor);
 	ActorPtr FindActor(const std::string& name);
+	void HandleMessage(EventMessage message, void* param);
+
 	ActorManager(const ActorManager& other) = delete;
 	ActorManager& operator = (const ActorManager& other) = delete;
 

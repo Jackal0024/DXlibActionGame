@@ -43,6 +43,11 @@ ActorPtr ActorManager::FindActor(const std::string & name)
 	return mRoot.FindChildren(name);
 }
 
+void ActorManager::HandleMessage(EventMessage message, void * param)
+{
+	mRoot.HandleMessage(message, param);
+}
+
 void ActorManager::Collide()
 {
 	mActor[ActorGroup::PLAYER]->CollideChildren(*mActor[ActorGroup::ENEMY]);

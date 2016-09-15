@@ -44,6 +44,7 @@ private:
 	float mHitPoint;
 	float mMagicPoint;
 	float mStateTimer;
+	Vector3 mVelocity;
 
 private:
 	const float MAXHP = 100;

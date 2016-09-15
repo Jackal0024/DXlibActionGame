@@ -52,11 +52,11 @@ bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r, Vec
 		{
 			float cos = VDot(VNorm(HitPoly.Dim[i].Normal), Vector3(0, 1, 0));
 			float angel = acos(cos) * 180 / DX_PI;
-			if (fabsf(angel) >= 90)
+			if (fabsf(angel) >= 60)
 			{
 				start = start + HitPoly.Dim[i].Normal * r;
 				velocity = velocity + (-VDot(velocity, HitPoly.Dim[i].Normal) * HitPoly.Dim[i].Normal);
-				Collision(start, end, r, velocity);
+				//Collision(start, end, r, velocity);
 				MV1CollResultPolyDimTerminate(HitPoly);
 				return true;
 			}

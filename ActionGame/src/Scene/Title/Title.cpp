@@ -8,6 +8,7 @@
 
 void Title::Start()
 {
+	mRotate = MGetIdent();
 	SetBackgroundColor(0, 0, 0);
 	mTitleHandle = LoadGraph("./res/Texture/Title/Title.png");
 	mTextHandle = LoadGraph("./res/Texture/Title/TitleText.png");

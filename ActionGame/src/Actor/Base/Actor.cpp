@@ -148,6 +148,16 @@ ActorPtr Actor::FindChildren(std::function<bool(const Actor&)> fn)
 	return nullptr;
 }
 
+void Actor::HandleMessage(EventMessage message, void * param)
+{
+	onMessage(message, param);
+	EachChildren([&](Actor& child) { child.HandleMessage(message, param); });
+}
+
+void Actor::onMessage(EventMessage message, void * param)
+{
+}
+
 void Actor::onStart()
 {
 }

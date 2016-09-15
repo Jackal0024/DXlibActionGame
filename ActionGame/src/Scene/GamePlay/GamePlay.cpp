@@ -19,18 +19,25 @@
 #include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
 #include"../../Actor/Enemy/Ghost/Ghost.h"
+#include"../Base/Scene.h"
 
 void GamePlay::Start()
 {
+	isEnd = false;
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
 	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.ogg");
 	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
 
 	mWorld = std::make_shared<World>();
-	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage0/Stage0.mv1")));
+	mWorld->AddEventMessageListener(
+		[=](EventMessage msg, void* param) {
+		HandleMessage(msg, param);
+	});
+	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage1/Stage1.mv1")));
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
+	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
 	MapDateInput("./res/MapData01.csv");
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(1.0f, 30.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(1.0f, 5.0f, 0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 37.0f, 0.0f)));
@@ -44,6 +51,11 @@ void GamePlay::Start()
 void GamePlay::Update(float deltaTime)
 {
 	mWorld->Update(deltaTime);
+	auto player = mWorld->FindActor("Player").get();
+	if (0 >= ((Player*)player)->GetHP())
+	{
+		isEnd = true;
+	}
 }
 
 void GamePlay::Draw() const
@@ -53,18 +65,22 @@ void GamePlay::Draw() const
 
 bool GamePlay::IsEnd() const
 {
-	return false;
+	return isEnd;
 }
 
 Scene GamePlay::Next() const
 {
-	return Scene();
+	return Scene::TITLE;
 }
 
 void GamePlay::End()
 {
 	SoundManager::getInstance().Clear();
 	mWorld = nullptr;
+}
+
+void GamePlay::HandleMessage(EventMessage message, void * param)
+{
 }
 
 void GamePlay::MapDateInput(std::string fileName)
@@ -90,4 +106,5 @@ void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rota
 {
 	if(name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position,rotate));
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));
+	if(name == "Ghost") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), position, rotate));
 }

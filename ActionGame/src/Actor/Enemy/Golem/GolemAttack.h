@@ -7,6 +7,7 @@ public:
 	EnemyArrack(IWorld* world, const Vector3& position);
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
+	void onCollide(Actor& othr) override;
 
 private:
 	float mTimer;

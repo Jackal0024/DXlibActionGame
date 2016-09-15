@@ -11,6 +11,7 @@
 #include"../../World/IWorld.h"
 #include"../../Math/BoundingSphere.h"
 #include"../../Math/Capsule.h"
+#include"EventMessage.h"
 
 class Actor
 {
@@ -43,11 +44,14 @@ public:
 	ActorPtr FindChildren(const std::string& name);
 	ActorPtr FindChildren(std::function<bool(const Actor&)> fn);
 
+	void HandleMessage(EventMessage message, void* param);
+
 	Actor(const Actor& other) = delete;
 	Actor& operator = (const Actor& other) = delete;
 
 private:
 
+	virtual void onMessage(EventMessage message, void* param);
 	virtual void onStart();
 	virtual void onUpdate(float deltaTime);
 	virtual void onDraw() const;
