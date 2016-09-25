@@ -1,18 +1,18 @@
 #include "Actor.h"
 #include"DxLib.h"
 
-Actor::Actor(IWorld* world,const std::string name, const Vector3 & position, const Capsule & body):
-	mWorld(world),mName(name),mPosition(position),mRotate(MGetIdent()), mBody(body),mDead(false)
+Actor::Actor(IWorld* world,const std::string name, const Vector3 & position, const Capsule & body, Tag tag):
+	mWorld(world),mName(name),mPosition(position),mRotate(MGetIdent()), mBody(body),mDead(false),mTag(tag)
 {
 }
 
-Actor::Actor(IWorld * world, const std::string name, const Vector3 & position, const Vector3& rotate, const Capsule & body):
-	mWorld(world), mName(name), mPosition(position), mRotate(Matrix::CreateFromYawPitchRoll(rotate)), mBody(body), mDead(false)
+Actor::Actor(IWorld * world, const std::string name, const Vector3 & position, const Vector3& rotate, const Capsule & body, Tag tag):
+	mWorld(world), mName(name), mPosition(position), mRotate(Matrix::CreateFromYawPitchRoll(rotate)), mBody(body), mDead(false),mTag(tag)
 {
 }
 
 Actor::Actor(const std::string name):
-	mWorld(nullptr), mName("none"), mPosition(0.0f, 0.0f, 0.0f), mRotate(MGetIdent()), mBody({0,0,0}, 0.0f), mDead(false)
+	mWorld(nullptr), mName("none"), mPosition(0.0f, 0.0f, 0.0f), mRotate(MGetIdent()), mBody({0,0,0}, 0.0f), mDead(false),mTag(Tag::UNTAGGET)
 {
 }
 
@@ -116,6 +116,11 @@ Matrix Actor::GetRotate() const
 Matrix Actor::GetPose() const
 {
 	return Matrix(mRotate).SetPosition(mPosition);
+}
+
+Tag Actor::GetTag() const
+{
+	return mTag;
 }
 
 void Actor::ClearChildren()

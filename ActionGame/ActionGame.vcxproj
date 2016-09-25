@@ -192,6 +192,7 @@
     <ClInclude Include="src\Actor\Base\ActorManager.h" />
     <ClInclude Include="src\Actor\Base\ActorPtr.h" />
     <ClInclude Include="src\Actor\Base\EventMessage.h" />
+    <ClInclude Include="src\Actor\Base\Tag.h" />
     <ClInclude Include="src\Actor\Camera\Camera.h" />
     <ClInclude Include="src\Actor\Effect\FireBall.h" />
     <ClInclude Include="src\Actor\Effect\FireParts.h" />

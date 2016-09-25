@@ -12,12 +12,13 @@
 #include"../../Math/BoundingSphere.h"
 #include"../../Math/Capsule.h"
 #include"EventMessage.h"
+#include"Tag.h"
 
 class Actor
 {
 public:
-	Actor(IWorld* world, const std::string name,const Vector3& position, const Capsule& body);
-	Actor(IWorld* world, const std::string name, const Vector3& position,const Vector3& rotate, const Capsule& body);
+	Actor(IWorld* world, const std::string name,const Vector3& position, const Capsule& body,Tag tag = Tag::UNTAGGET);
+	Actor(IWorld* world, const std::string name, const Vector3& position,const Vector3& rotate, const Capsule& body,Tag tag = Tag::UNTAGGET);
 	Actor(const std::string name = "none");
 
 	void Start();
@@ -39,6 +40,7 @@ public:
 	Vector3 GetPosition() const;
 	Matrix GetRotate() const;
 	Matrix GetPose() const;
+	Tag GetTag() const;
 
 	void ClearChildren();
 	ActorPtr FindChildren(const std::string& name);
@@ -61,6 +63,7 @@ private:
 protected:
 	IWorld* mWorld;
 	std::string mName;
+	Tag mTag;
 	Vector3 mPosition;
 	Matrix mRotate;
 	Capsule	mBody;
