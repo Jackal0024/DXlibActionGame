@@ -1,5 +1,6 @@
 #include "Ghost.h"
 #include"GhostAttack.h"
+#include"../../Effect/FireBall.h"
 
 Ghost::Ghost(IWorld * world, Vector3 position) :
 	Actor(world, "Golem", position, { { 0,0,0 },3.0f }),
@@ -93,7 +94,7 @@ void Ghost::Attack(float deltaTime)
 {
 	Vector3 velocity = mTarget->GetPosition() - mPosition + Vector3(0, 5, 0);
 	velocity = VNorm(velocity);
-	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GhostArrack>(mWorld, mPosition,velocity));
+	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition,velocity));
 	//AddChild(std::make_shared<GhostArrack>(mWorld, mPosition, velocity));
 	mAttackTimer = 0;
 	StateChange(State::IDLE);

@@ -19,6 +19,7 @@
 #include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
 #include"../../Actor/Enemy/Ghost/Ghost.h"
+#include"../../Actor/Effect/FireParts.h"
 #include"../Base/Scene.h"
 
 void GamePlay::Start()
