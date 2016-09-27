@@ -170,6 +170,7 @@
     <ClCompile Include="src\Actor\UI\PlayerHP.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerMP.cpp" />
     <ClCompile Include="src\Animation\Animator.cpp" />
+    <ClCompile Include="src\AssetStorage\AssetStorage.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\Field\Field.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="src\Actor\UI\PlayerHP.h" />
     <ClInclude Include="src\Actor\UI\PlayerMP.h" />
     <ClInclude Include="src\Animation\Animator.h" />
+    <ClInclude Include="src\AssetStorage\AssetStorage.h" />
     <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Field\Field.h" />
     <ClInclude Include="src\Field\FieldPtr.h" />

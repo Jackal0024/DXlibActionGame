@@ -2,7 +2,7 @@
 #include"../../Player/Player.h"
 
 FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity,Tag tag) :
-Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),3.0f },tag),
+Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
 mVelocity(Velocity),
 mTimer(0),
 mIndex(0),
@@ -20,7 +20,7 @@ void FireBall::onUpdate(float deltaTime)
 	mIndex = (mIndex + 1) % 32;
 	mVelocity = VNorm(mVelocity);
 	mPosition += mVelocity * 4;
-	if (mTimer > 1)
+	if (mTimer > 1 || mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 0, 0), mBody.mRadius))
 	{
 		Dead();
 	}
@@ -29,7 +29,7 @@ void FireBall::onUpdate(float deltaTime)
 
 void FireBall::onDraw() const
 {
-	DrawBillboard3D(mPosition, 0.5f, 0.5f, 32, 0, mHandle[mIndex], TRUE);
+	DrawBillboard3D(mPosition, 0.5f, 0.5f, 32, 0, mHandle[mIndex], TRUE,TRUE);
 }
 
 void FireBall::onCollide(Actor & other)

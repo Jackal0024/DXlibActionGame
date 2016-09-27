@@ -1,6 +1,7 @@
 #include "Golem.h"
 #include"GolemAttack.h"
 #include"../../../Sound/SoundManager.h"
+#include"../../../AssetStorage/AssetStorage.h"
 
 Golem::Golem(IWorld* world, Vector3 position):
 	Actor(world, "Golem", position, { {0,10,0},3.0f },Tag::ENEMY),
@@ -8,7 +9,7 @@ Golem::Golem(IWorld* world, Vector3 position):
 	mState(State::IDLE)
 {
 	mHitPoint = 100;
-	mModel = MV1LoadModel("./res/golem/golem.mv1");
+	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 }
 
 Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
@@ -17,7 +18,7 @@ Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
 	mState(State::IDLE)
 {
 	mHitPoint = 100;
-	mModel = MV1LoadModel("./res/golem/golem.mv1");
+	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 }
 
 void Golem::onStart()

@@ -7,6 +7,7 @@
 #include"../Magic/IceNeedle/IceNeedle.h"
 #include"../Magic/FireBall/FireBall.h"
 #include"../../Sound/SoundManager.h"
+#include"../../AssetStorage/AssetStorage.h"
 
 enum MotionID
 {
@@ -21,8 +22,8 @@ Player::Player(IWorld* world, Vector3 position):
 {
 	mHitPoint = MAXHP;
 	mMagicPoint = MAXMP;
-	mModelHandle = MV1LoadModel("./res/overload/overlord_Arm.mv1");
-	mWeaponHandle = MV1LoadModel("./res/Rusted Longsword/LS.x");
+	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
+	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }
 
 Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
@@ -32,8 +33,8 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 {
 	mHitPoint = MAXHP;
 	mMagicPoint = MAXMP;
-	mModelHandle = MV1LoadModel("./res/overload/overlord_Arm.mv1");
-	mWeaponHandle = MV1LoadModel("./res/Rusted Longsword/LS.x");
+	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
+	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }
 
 float Player::GetHP()
@@ -146,7 +147,6 @@ void Player::MoveProcess(float deltaTime)
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
 	{
-		mWorld->SendMsg(EventMessage::DEAD);
 		StateChange(State::ATTACK);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle));
 	}

@@ -18,10 +18,16 @@
 #include"../../Sound/SoundManager.h"
 #include"../../Actor/Enemy/Ghost/Ghost.h"
 #include"../Base/Scene.h"
+#include"../../AssetStorage/AssetStorage.h"
 
 void GamePlay::Start()
 {
 	isEnd = false;
+
+	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
+	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
+	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
+
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
 	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.ogg");
 	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
