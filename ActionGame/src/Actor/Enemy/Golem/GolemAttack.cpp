@@ -1,8 +1,9 @@
 #include "GolemAttack.h"
 
 EnemyArrack::EnemyArrack(IWorld * world, const Vector3 & position):
-	Actor(world,"GolemAttack",position,{ Vector3(0,2,0),7 }),
-	mTimer(0.0f)
+	Actor(world,"GolemAttack",position,{ Vector3(0,2,0),7 },Tag::ENEMY_ATTACK),
+	mTimer(0.0f),
+	mAtk(10)
 {
 }
 
@@ -23,5 +24,9 @@ void EnemyArrack::onDraw() const
 
 void EnemyArrack::onCollide(Actor & othr)
 {
-	if(othr.GetName() == "Player") Dead();
+	if (othr.GetTag() == Tag::PLAYER)
+	{
+		othr.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&mAtk);
+		Dead();
+	}
 }

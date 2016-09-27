@@ -55,21 +55,7 @@ void Golem::onDraw() const
 void Golem::onCollide(Actor & other)
 {
 
-	if (mState != State::DEAD && mState != State::DAMAGE)
-	{
-		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.ogg");
-		if (mHitPoint <= 0)
-		{
-			SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
-			mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
-			StateChange(State::DEAD , Motion::DEAD_MOTION);
-		}
-		else
-		{
-			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
-			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
-		}
-	}
+	
 }
 
 void Golem::onMessage(EventMessage message, void * p)
@@ -79,8 +65,8 @@ void Golem::onMessage(EventMessage message, void * p)
 	case EventMessage::ENEMY_DAMEGE:
 		if (mState != State::DEAD && mState != State::DAMAGE)
 		{
-			float* damege = (float*)p;
-			mHitPoint -= *damege;
+			float* damage = (float*)p;
+			Hit(*damage);
 		}
 		break;
 	}
@@ -90,15 +76,15 @@ void Golem::StateUpdate(float deltaTime)
 {
 	switch (mState)
 	{
-	case State::IDLE: Idle(deltaTime); break;
-	case State::MOVE: Move(deltaTime); break;
-	case State::ATTACK: Attack(deltaTime); break;
-	case State::DAMAGE: Damage(deltaTime); break;
-	case State::DEAD: DeadState(deltaTime); break;
+	case State::IDLE: IdleProcess(deltaTime); break;
+	case State::MOVE: MoveProcess(deltaTime); break;
+	case State::ATTACK: AttackProcess(deltaTime); break;
+	case State::DAMAGE: DamageProcess(deltaTime); break;
+	case State::DEAD: DeadProcess(deltaTime); break;
 	}
 }
 
-void Golem::Idle(float deltaTime)
+void Golem::IdleProcess(float deltaTime)
 {
 	float dis = VSize(mTarget->GetPosition() - mPosition);
 	if (dis < 100)
@@ -108,7 +94,7 @@ void Golem::Idle(float deltaTime)
 	}
 }
 
-void Golem::Move(float deltaTime)
+void Golem::MoveProcess(float deltaTime)
 {
 	float dis = VSize(mTarget->GetPosition() - mPosition);
 	if (dis > 100)
@@ -138,7 +124,7 @@ void Golem::Move(float deltaTime)
 	}
 }
 
-void Golem::Attack(float deltaTime)
+void Golem::AttackProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
@@ -147,7 +133,7 @@ void Golem::Attack(float deltaTime)
 	}
 }
 
-void Golem::DeadState(float deltaTime)
+void Golem::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
@@ -156,12 +142,29 @@ void Golem::DeadState(float deltaTime)
 	}
 }
 
-void Golem::Damage(float deltaTime)
+void Golem::DamageProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE, Motion::IDLE_MOTION);
+	}
+}
+
+void Golem::Hit(float damage)
+{
+	mHitPoint -= damage;
+	SoundManager::getInstance().Play("./res/Sound/PlayerAttack.ogg");
+	if (mHitPoint <= 0)
+	{
+		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
+		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
+		StateChange(State::DEAD, Motion::DEAD_MOTION);
+	}
+	else
+	{
+		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
+		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 	}
 }
 

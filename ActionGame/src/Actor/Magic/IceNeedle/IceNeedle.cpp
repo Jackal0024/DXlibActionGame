@@ -1,7 +1,7 @@
 #include "IceNeedle.h"
 
-IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num):
-	Actor(world, "Attack",position - Vector3(0,30,0), { Vector3(0,15,0),5 }),
+IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag):
+	Actor(world, "AttackProcess",position - Vector3(0,30,0), { Vector3(0,15,0),5 },tag),
 	mVelocity(velocity),
 	mNum(num),
 	mLifeTimer_(1),
@@ -25,7 +25,14 @@ void IceNeedle::onUpdate(float deltaTime)
 	{
 		mVelocity.y = 0;
 		Vector3 nextPos = mDestination + (mVelocity * 20);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld,nextPos, mVelocity, mNum));
+		if (mTag == Tag::ENEMY_ATTACK)
+		{
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, nextPos, mVelocity, mNum, mTag));
+		}
+		else
+		{
+			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, nextPos, mVelocity, mNum, mTag));
+		}
 		isNext = true;
 	}
 

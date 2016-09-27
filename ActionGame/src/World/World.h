@@ -20,6 +20,7 @@ public:
 	void AddLight(const ActorPtr& light);
 	void AddField(const FieldPtr& field);
 	virtual IField& GetField() const override;
+	virtual ActorPtr GetCamera() const override;
 	virtual void SendMsg(EventMessage message, void* param = nullptr)  override;
 	void AddEventMessageListener(
 		std::function<void(EventMessage, void*)> listener);

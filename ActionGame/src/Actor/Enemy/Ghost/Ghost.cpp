@@ -1,6 +1,7 @@
 #include "Ghost.h"
 #include"GhostAttack.h"
 #include"../../Magic/FireBall/FireBall.h"
+#include"../../Magic/IceNeedle/IceNeedle.h"
 
 Ghost::Ghost(IWorld * world, Vector3 position) :
 	Actor(world, "Golem", position, { { 0,0,0 },3.0f },Tag::ENEMY),
@@ -46,7 +47,7 @@ void Ghost::onDraw() const
 
 void Ghost::onCollide(Actor & other)
 {
-	if (other.GetName() == "Attack" && mState != State::DAMAGE)
+	if (other.GetName() == "AttackProcess" && mState != State::DAMAGE)
 	{
 		Dead();
 	}
@@ -94,7 +95,7 @@ void Ghost::Attack(float deltaTime)
 {
 	Vector3 velocity = mTarget->GetPosition() - mPosition + Vector3(0, 5, 0);
 	velocity = VNorm(velocity);
-	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition,velocity));
+	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, mPosition,velocity,3,Tag::ENEMY_ATTACK));
 	//AddChild(std::make_shared<GhostArrack>(mWorld, mPosition, velocity));
 	mAttackTimer = 0;
 	StateChange(State::IDLE);

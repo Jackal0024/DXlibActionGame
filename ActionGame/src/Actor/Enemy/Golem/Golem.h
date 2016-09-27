@@ -38,12 +38,15 @@ private:
 
 private:
 	void StateUpdate(float deltaTime);
-	void Idle(float deltaTime);
-	void Move(float deltaTime);;
-	void Attack(float deltaTime);
-	void DeadState(float deltaTime);
-	void Damage(float deltaTime);
 	void StateChange(State nextState, Motion nextMotion);
+
+	void IdleProcess(float deltaTime);
+	void MoveProcess(float deltaTime);;
+	void AttackProcess(float deltaTime);
+	void DeadProcess(float deltaTime);
+	void DamageProcess(float deltaTime);
+
+	void Hit(float damage);
 
 private:
 	int mModel = 0;

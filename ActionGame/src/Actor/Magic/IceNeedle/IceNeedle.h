@@ -5,7 +5,7 @@
 class IceNeedle : public Actor
 {
 public:
-	IceNeedle(IWorld* world, Vector3 position,Vector3 velocity,int num);
+	IceNeedle(IWorld* world, Vector3 position,Vector3 velocity,int num,Tag tag);
 
 private:
 	void onUpdate(float deltaTime) override;

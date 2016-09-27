@@ -11,4 +11,5 @@ public:
 
 private:
 	float mTimer;
+	float mAtk;
 };

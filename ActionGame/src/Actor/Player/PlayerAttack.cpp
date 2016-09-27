@@ -2,9 +2,10 @@
 #include"../../Math/Matrix.h"
 
 PlayerAttack::PlayerAttack(IWorld* world, int weapon) :
-	Actor(world, "Attack", { MV1GetMatrix(weapon).m[3][0],MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,3,0),2 }),
+	Actor(world, "AttackProcess", { MV1GetMatrix(weapon).m[3][0],MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,3,0),2 },Tag::PLAYER_ATTACK),
 	mWeapoHandle(weapon),
-	mTimer(0.0f)
+	mTimer(0.0f),
+	mAtk(10)
 {
 
 }
@@ -26,4 +27,12 @@ void PlayerAttack::onUpdate(float deltaTime)
 void PlayerAttack::onDraw() const
 {
 	//mBody.Move(mPosition).Draw();
+}
+
+void PlayerAttack::onCollide(Actor & other)
+{
+	if (other.GetTag() == Tag::ENEMY)
+	{
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtk);
+	}
 }

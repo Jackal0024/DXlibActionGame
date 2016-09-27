@@ -18,33 +18,11 @@ void Camera::onUpdate(float deltaTime)
 		mYLook += Input::getInstance().GetRightAnalogStick().y* 2 * deltaTime;
 		mYLook = min(max(mYLook, -3), 3);
 
-		mPosition = player->GetPosition() + Vector3(0.0f,13.0f,0.0f) /*+ (-player->GetRotate().GetForward() * 15.0f)*/;
+		mPosition = player->GetPosition() + Vector3(0.0f,13.0f,0.0f) + (player->GetRotate().GetForward() * 1.0f);
 		mLook = mPosition + ((player->GetRotate().GetForward() * 3.0f) + Vector3(0,mYLook,0));
-		/*mLook = player->GetPosition() + Vector3(0.0f, 13.0f, 0.0f);*/
 	}
 
-	/*if (CheckHitKey(KEY_INPUT_5)) DebugMode = -DebugMode;
-	if (DebugMode)
-	{
-		Vector3 velocity;
-		if (CheckHitKey(KEY_INPUT_I))
-		{
-			velocity += mRotate.GetForward();
-		}
-		if (CheckHitKey(KEY_INPUT_K))
-		{
-			velocity -= mRotate.GetForward();
-		}
-		if (CheckHitKey(KEY_INPUT_J))
-		{
-			velocity += mRotate.GetLeft();
-		}
-		if (CheckHitKey(KEY_INPUT_L))
-		{
-			velocity -= mRotate.GetLeft();
-		}
-		mPosition += velocity
-	}*/
+	mRotate = MGetIdent() * MInverse(GetCameraViewMatrix());
 }
 
 void Camera::onDraw() const

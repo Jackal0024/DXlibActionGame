@@ -59,6 +59,11 @@ IField& World::GetField() const
 	return *mField;
 }
 
+ActorPtr World::GetCamera() const
+{
+	return mCamera;
+}
+
 void World::SendMsg(EventMessage message, void * param)
 {
 	HandleMessage(message, param);

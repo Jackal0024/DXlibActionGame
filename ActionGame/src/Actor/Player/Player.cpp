@@ -5,6 +5,7 @@
 #include"../../Field/Field.h"
 #include"PlayerAttack.h"
 #include"../Magic/IceNeedle/IceNeedle.h"
+#include"../Magic/FireBall/FireBall.h"
 #include"../../Sound/SoundManager.h"
 
 enum MotionID
@@ -55,11 +56,6 @@ float Player::GetMaxMP()
 	return MAXMP;
 }
 
-void Player::HPCalc(float value)
-{
-	mHitPoint += value;
-}
-
 void Player::onStart()
 {
 	mRotate.SetScale({ 0.8f,0.8f,0.8f });
@@ -69,7 +65,7 @@ void Player::onStart()
 void Player::onUpdate(float deltaTime)
 {
 	Vector3 h;
-	//mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius);
+	//mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius); フィールドとのあたり判定
 	if (mWorld->GetField().Collision(mPosition + Vector3(0,10,0), mPosition + Vector3(0,-30, 0), h))
 	{
 		mPosition.y = h.y;
@@ -96,11 +92,7 @@ void Player::onDraw() const
 
 void Player::onCollide(Actor & other)
 {
-	if (mState != State::DAMAGE)
-	{
-		SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
-		StateChange(State::DAMAGE);
-	}
+
 }
 
 void Player::onMessage(EventMessage message, void * p)
@@ -111,7 +103,7 @@ void Player::onMessage(EventMessage message, void * p)
 		if (mState != State::DAMAGE)
 		{
 			float * damege = (float*)p;
-			HPCalc(-(*damege));
+			Hit(*damege);
 		}
 		break;
 	}
@@ -121,11 +113,8 @@ Matrix Player::SetModelFramePosition(int ModelHandle, char * FrameName, int SetM
 {
 	MATRIX FrameMatrix;
 	int FrameIndex;
-	// フレーム名からフレーム番号を取得する
 	FrameIndex = MV1SearchFrame(ModelHandle, FrameName);
-	// フレームの現在のワールドでの状態を示す行列を取得する
 	FrameMatrix = MV1GetFrameLocalWorldMatrix(ModelHandle, FrameIndex);
-	// セットするモデルの状態を示す行列をフレームの状態を示す行列と同じにする
 	return (Matrix)FrameMatrix;
 }
 
@@ -139,18 +128,19 @@ void Player::StateUpdate(float deltaTime)
 {
 	switch (mState)
 	{
-	case Player::MOVE: Move(deltaTime); break;
-	case Player::ATTACK: Attack(deltaTime); break;
-	case Player::DAMAGE: Damege(deltaTime); break;
+	case Player::MOVE: MoveProcess(deltaTime); break;
+	case Player::ATTACK: AttackProcess(deltaTime); break;
+	case Player::DAMAGE: DamegeProcess(deltaTime); break;
 	}
 	mStateTimer += deltaTime;
 }
 
-void Player::Move(float deltaTime)
+void Player::MoveProcess(float deltaTime)
 {
 	mVelocity = Vector3(0,0,0);
 	mVelocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
 	mVelocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
+
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
 	mPosition += mVelocity + Vector3(0, -0.1, 0);
 
@@ -164,16 +154,17 @@ void Player::Move(float deltaTime)
 	{
 		if (mMagicPoint >= 20)
 		{
-			Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
-			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3));
-			mMagicPoint -= 20;
+			auto camera = mWorld->GetCamera();
+			Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20);
+			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(),Tag::PLAYER_ATTACK));
+			//mMagicPoint -= 20;
 		}
 	}
 	mMagicPoint += 0.02f;
 	mMagicPoint = max(min(mMagicPoint, 100), 0);
 }
 
-void Player::Attack(float deltaTime)
+void Player::AttackProcess(float deltaTime)
 {
 	mAnimator.AnimationChange(MotionID::MOTION_ATTACK, 1, 0.5f);
 	if (mAnimator.IsAnimationEnd())
@@ -183,12 +174,19 @@ void Player::Attack(float deltaTime)
 	}
 }
 
-void Player::Damege(float deltaTime)
+void Player::DamegeProcess(float deltaTime)
 {
+	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 	auto backVelcity = mPosition + (-mRotate.GetForward() * 10);
 	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
 	if (mStateTimer > 0.5f)
 	{
 		StateChange(State::MOVE);
 	}
+}
+
+void Player::Hit(float damege)
+{
+	StateChange(State::DAMAGE);
+	mHitPoint -= damege;
 }

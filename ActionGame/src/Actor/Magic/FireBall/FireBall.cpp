@@ -1,8 +1,8 @@
 #include "FireBall.h"
 #include"../../Player/Player.h"
 
-FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity) :
-Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),3.0f }),
+FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity,Tag tag) :
+Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),3.0f },tag),
 mVelocity(Velocity),
 mTimer(0),
 mIndex(0),

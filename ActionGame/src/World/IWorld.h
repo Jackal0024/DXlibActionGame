@@ -14,6 +14,7 @@ public:
 	virtual void AddActor(ActorGroup group,const ActorPtr& actor) = 0;
 	virtual ActorPtr FindActor(const std::string& name) = 0;
 	virtual IField& GetField() const = 0;
+	virtual ActorPtr GetCamera() const = 0;
 	virtual void SendMsg(EventMessage message, void* param = nullptr) = 0;
 private:
 

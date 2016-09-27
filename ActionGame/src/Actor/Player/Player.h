@@ -21,7 +21,6 @@ public:
 	float GetMaxHp();
 	float GetMP();
 	float GetMaxMP();
-	void  HPCalc(float value);
 
 private:
 	void onStart() override;
@@ -31,12 +30,18 @@ private:
 	void onMessage(EventMessage message, void* p) override;
 
 private:
-	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
 	void StateChange(State state);
 	void StateUpdate(float deltaTime);
-	void Move(float deltaTime);
-	void Attack(float deltaTime);
-	void Damege(float deltaTime);
+
+	void MoveProcess(float deltaTime);
+	void AttackProcess(float deltaTime);
+	void DamegeProcess(float deltaTime);
+
+	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
+	void  HPCalc(float value);
+	void Hit(float damege);
+
+
 
 private:
 	int mModelHandle;

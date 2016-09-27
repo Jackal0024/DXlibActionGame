@@ -11,10 +11,12 @@ public:
 private:
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
+	void onCollide(Actor& other) override;
 
 private:
 	int mWeapoHandle;
 	float mTimer;
+	float mAtk;
 };
 
 #endif
