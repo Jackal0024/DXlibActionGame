@@ -34,6 +34,7 @@ private:
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
 	void onCollide(Actor& other) override;
+	void onMessage(EventMessage message, void* p) override;
 
 private:
 	void StateUpdate(float deltaTime);

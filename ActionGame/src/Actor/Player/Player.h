@@ -21,12 +21,14 @@ public:
 	float GetMaxHp();
 	float GetMP();
 	float GetMaxMP();
+	void  HPCalc(float value);
 
 private:
 	void onStart() override;
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
 	void onCollide(Actor& other) override;
+	void onMessage(EventMessage message, void* p) override;
 
 private:
 	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;

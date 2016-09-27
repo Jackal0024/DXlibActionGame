@@ -4,7 +4,7 @@
 #include"../../Input/KeyNum.h"
 #include"../../Field/Field.h"
 #include"PlayerAttack.h"
-#include"IceNeedle.h"
+#include"../Magic/IceNeedle/IceNeedle.h"
 #include"../../Sound/SoundManager.h"
 
 enum MotionID
@@ -14,7 +14,7 @@ enum MotionID
 };
 
 Player::Player(IWorld* world, Vector3 position):
-	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),2.0f }),
+	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f)
 {
@@ -25,7 +25,7 @@ Player::Player(IWorld* world, Vector3 position):
 }
 
 Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
-	Actor(world, "Player", position,rotate,{ Line(position,position + Vector3(0,5,0)),2.0f }),
+	Actor(world, "Player", position,rotate,{ Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f)
 {
@@ -55,6 +55,11 @@ float Player::GetMaxMP()
 	return MAXMP;
 }
 
+void Player::HPCalc(float value)
+{
+	mHitPoint += value;
+}
+
 void Player::onStart()
 {
 	mRotate.SetScale({ 0.8f,0.8f,0.8f });
@@ -78,7 +83,7 @@ void Player::onUpdate(float deltaTime)
 	Matrix WeaponMatrix = S.SetScale(Vector3(5, 5, 5)) * MGetRotY(200 * DX_PI / 180) * MGetRotZ(30 * DX_PI / 180) * SetModelFramePosition(mModelHandle, "R_HandPinky1", mWeaponHandle);
 	MV1SetMatrix(mWeaponHandle, WeaponMatrix);
 
-	
+	mTag;
 
 	mAnimator.Update(deltaTime);
 
@@ -87,10 +92,6 @@ void Player::onUpdate(float deltaTime)
 void Player::onDraw() const
 {
 	MV1DrawModel(mModelHandle);
-	//MV1DrawModel(mWeaponHandle);
-	//mBody.Translate(mPosition).Draw();
-	/*DrawFormatString(0, 0, GetColor(255, 255, 255), "PlayePosition:x=[%f].y=[%f],z=[%f]", mPosition.x, mPosition.y, mPosition.z);
-	DrawFormatString(0, 30, GetColor(255, 255, 255), "HitPoint = [%f]", mHitPoint);*/
 }
 
 void Player::onCollide(Actor & other)
@@ -98,8 +99,21 @@ void Player::onCollide(Actor & other)
 	if (mState != State::DAMAGE)
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
-		mHitPoint -= 10.0f;
 		StateChange(State::DAMAGE);
+	}
+}
+
+void Player::onMessage(EventMessage message, void * p)
+{
+	switch (message)
+	{
+	case EventMessage::PLAYER_DAMEGE:
+		if (mState != State::DAMAGE)
+		{
+			float * damege = (float*)p;
+			HPCalc(-(*damege));
+		}
+		break;
 	}
 }
 

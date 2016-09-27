@@ -81,9 +81,6 @@
     <ClCompile Include="src\Actor\UI\NumberTexture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Actor\Player\IceNeedle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Actor\UI\PlayerMP.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -111,7 +108,13 @@
     <ClCompile Include="src\Actor\Effect\FireParts.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Actor\Effect\FireBall.cpp">
+    <ClCompile Include="src\Actor\Magic\Base\Magic.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Actor\Magic\FireBall\FireBall.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Actor\Magic\IceNeedle\IceNeedle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,9 +200,6 @@
     <ClInclude Include="src\Actor\UI\NumberTexture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Actor\Player\IceNeedle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Actor\UI\PlayerMP.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -242,10 +242,16 @@
     <ClInclude Include="src\Actor\Effect\FireParts.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Actor\Effect\FireBall.h">
+    <ClInclude Include="src\Actor\Base\Tag.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Actor\Base\Tag.h">
+    <ClInclude Include="src\Actor\Magic\Base\Magic.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Actor\Magic\FireBall\FireBall.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Actor\Magic\IceNeedle\IceNeedle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

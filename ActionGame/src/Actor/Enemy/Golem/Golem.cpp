@@ -3,7 +3,7 @@
 #include"../../../Sound/SoundManager.h"
 
 Golem::Golem(IWorld* world, Vector3 position):
-	Actor(world, "Golem", position, { {0,10,0},3.0f }),
+	Actor(world, "Golem", position, { {0,10,0},3.0f },Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE)
 {
@@ -12,7 +12,7 @@ Golem::Golem(IWorld* world, Vector3 position):
 }
 
 Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
-	Actor(world, "Golem", position,rotate,{ { 0,10,0 },3.0f }),
+	Actor(world, "Golem", position,rotate,{ { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE)
 {
@@ -55,7 +55,7 @@ void Golem::onDraw() const
 void Golem::onCollide(Actor & other)
 {
 
-	if (other.GetName() == "Attack" && mState != State::DAMAGE)
+	if (mState != State::DEAD && mState != State::DAMAGE)
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.ogg");
 		if (mHitPoint <= 0)
@@ -66,10 +66,23 @@ void Golem::onCollide(Actor & other)
 		}
 		else
 		{
-			mHitPoint -= 50;
 			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 		}
+	}
+}
+
+void Golem::onMessage(EventMessage message, void * p)
+{
+	switch (message)
+	{
+	case EventMessage::ENEMY_DAMEGE:
+		if (mState != State::DEAD && mState != State::DAMAGE)
+		{
+			float* damege = (float*)p;
+			mHitPoint -= *damege;
+		}
+		break;
 	}
 }
 

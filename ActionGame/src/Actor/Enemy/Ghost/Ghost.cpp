@@ -1,9 +1,9 @@
 #include "Ghost.h"
 #include"GhostAttack.h"
-#include"../../Effect/FireBall.h"
+#include"../../Magic/FireBall/FireBall.h"
 
 Ghost::Ghost(IWorld * world, Vector3 position) :
-	Actor(world, "Golem", position, { { 0,0,0 },3.0f }),
+	Actor(world, "Golem", position, { { 0,0,0 },3.0f },Tag::ENEMY),
 	mState(State::IDLE),
 	mY(0),
 	mTimer(0),
@@ -13,7 +13,7 @@ Ghost::Ghost(IWorld * world, Vector3 position) :
 }
 
 Ghost::Ghost(IWorld * world, Vector3 position, Vector3 rotate):
-	Actor(world, "Golem", position,rotate, { { 0,10,0 },3.0f }),
+	Actor(world, "Golem", position,rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mState(State::IDLE),
 	mY(0),
 	mTimer(0),

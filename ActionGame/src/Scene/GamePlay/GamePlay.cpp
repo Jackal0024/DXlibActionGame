@@ -8,18 +8,15 @@
 #include"../../Input/KeyNum.h"
 #include"../../Math/Vector3.h"
 #include"../../Math//Matrix.h"
-#include"../../Math/BoundingSphere.h"
 #include"../../Actor/Camera/Camera.h"
 #include"../../Actor/Light/Light.h"
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Enemy/Golem/Golem.h"
 #include"../../Field/Field.h"
-#include"../../Math/Line.h"
 #include"../../Actor/UI/PlayerHP.h"
 #include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
 #include"../../Actor/Enemy/Ghost/Ghost.h"
-#include"../../Actor/Effect/FireParts.h"
 #include"../Base/Scene.h"
 
 void GamePlay::Start()
