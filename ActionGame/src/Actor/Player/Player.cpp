@@ -66,7 +66,6 @@ void Player::onStart()
 void Player::onUpdate(float deltaTime)
 {
 	Vector3 h;
-	//mWorld->GetField().Collision(mPosition, mPosition + Vector3(0,3,0), mBody.mRadius); フィールドとのあたり判定
 	if (mWorld->GetField().Collision(mPosition + Vector3(0,10,0), mPosition + Vector3(0,-30, 0), h))
 	{
 		mPosition.y = h.y;

@@ -19,6 +19,7 @@
 #include"../../Actor/Enemy/Ghost/Ghost.h"
 #include"../Base/Scene.h"
 #include"../../AssetStorage/AssetStorage.h"
+#include"../../Actor/Enemy/Lizard/Lizard.h"
 
 void GamePlay::Start()
 {
@@ -26,6 +27,7 @@ void GamePlay::Start()
 
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
+	AssetStorage::getInstance().HandleRegister("./res/lizard/lizard.mv1", "Lizard");
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
 
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
@@ -41,7 +43,8 @@ void GamePlay::Start()
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
 	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
 	MapDateInput("./res/MapData01.csv");
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
+	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(0, 1.0f, -150)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(1.0f, 5.0f, 0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 37.0f, 0.0f)));
