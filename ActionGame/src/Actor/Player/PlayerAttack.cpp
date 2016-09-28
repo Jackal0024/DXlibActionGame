@@ -2,7 +2,7 @@
 #include"../../Math/Matrix.h"
 
 PlayerAttack::PlayerAttack(IWorld* world, int weapon) :
-	Actor(world, "AttackProcess", { MV1GetMatrix(weapon).m[3][0],MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,2,0),2 },Tag::PLAYER_ATTACK),
+	Actor(world, "AttackProcess", { MV1GetMatrix(weapon).m[3][0],MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,3,0),2 },Tag::PLAYER_ATTACK),
 	mWeapoHandle(weapon),
 	mTimer(0.0f),
 	mAtk(10)

@@ -1,5 +1,6 @@
 #include "FireBall.h"
 #include"../../Player/Player.h"
+#include"../../../Sound/SoundManager.h"
 
 FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity,Tag tag) :
 Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
@@ -8,6 +9,7 @@ mTimer(0),
 mIndex(0),
 mAtkPower(5)
 {
+	SoundManager::getInstance().Play("./res/Sound/Fire.mp3");
 	LoadDivGraph("./res/Particles/FireTexture2.png", 32, 8, 4, 128, 128, mHandle);
 }
 

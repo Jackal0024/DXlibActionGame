@@ -141,10 +141,15 @@ void Player::MoveProcess(float deltaTime)
 	mVelocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
 	mVelocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
 
+	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button9))
+	{
+		mVelocity *= 2;
+	}
+
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
 	mPosition += mVelocity + Vector3(0, -0.1, 0);
 
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button1))
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
 		StateChange(State::ATTACK);
