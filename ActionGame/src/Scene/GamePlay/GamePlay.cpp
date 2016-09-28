@@ -31,7 +31,7 @@ void GamePlay::Start()
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
 
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
-	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.ogg");
+	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.mp3");
 	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
 
 	mWorld = std::make_shared<World>();

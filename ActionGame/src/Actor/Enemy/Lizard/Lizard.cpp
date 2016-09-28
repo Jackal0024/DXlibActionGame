@@ -1,5 +1,6 @@
 #include "Lizard.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../../Sound/SoundManager.h"
 #include"../../Magic/FireBall/FireBall.h"
 
 Lizard::Lizard(IWorld * world, Vector3 position):
@@ -184,6 +185,7 @@ void Lizard::DamageProcess(float deltaTime)
 
 void Lizard::Hit(float damage)
 {
+	SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 	mHitPoint -= damage;
 	if (mHitPoint <= 0)
 	{

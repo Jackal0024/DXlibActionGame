@@ -155,7 +155,6 @@ void Golem::DamageProcess(float deltaTime)
 void Golem::Hit(float damage)
 {
 	mHitPoint -= damage;
-	SoundManager::getInstance().Play("./res/Sound/PlayerAttack.ogg");
 	if (mHitPoint <= 0)
 	{
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");

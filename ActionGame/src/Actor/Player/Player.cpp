@@ -146,6 +146,7 @@ void Player::MoveProcess(float deltaTime)
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
 	{
+		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
 		StateChange(State::ATTACK);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle));
 	}
@@ -175,7 +176,6 @@ void Player::AttackProcess(float deltaTime)
 
 void Player::DamegeProcess(float deltaTime)
 {
-	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 	auto backVelcity = mPosition + (-mRotate.GetForward() * 10);
 	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
 	if (mStateTimer > 0.5f)
@@ -186,6 +186,7 @@ void Player::DamegeProcess(float deltaTime)
 
 void Player::Hit(float damege)
 {
+	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 	StateChange(State::DAMAGE);
 	mHitPoint -= damege;
 }
