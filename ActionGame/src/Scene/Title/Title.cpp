@@ -10,6 +10,13 @@
 
 void Title::Start()
 {
+	PlayerStatus player;
+	player.HP = 100;
+	player.MaxHP = 100;
+	player.MP = 100;
+	player.MaxMP = 100;
+	PlayerSave::getInstance().Save(player);
+
 	mRotate = MGetIdent();
 	SetBackgroundColor(0, 0, 0);
 	mTitleHandle = LoadGraph("./res/Texture/Title/Title.png");

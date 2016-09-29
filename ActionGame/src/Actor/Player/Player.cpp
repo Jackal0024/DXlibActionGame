@@ -130,6 +130,12 @@ void Player::onMessage(EventMessage message, void * p)
 			Hit(*damege);
 		}
 		break;
+
+	case EventMessage::PLAYER_HEALING: 
+		mHitPoint = MAXHP;
+		mMagicPoint = MAXMP;
+		break;
+
 	}
 }
 
@@ -187,12 +193,10 @@ void Player::MoveProcess(float deltaTime)
 			auto camera = mWorld->GetCamera();
 			Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20);
 			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(),Tag::PLAYER_ATTACK));
-			//mMagicPoint -= 20;
+			mMagicPoint -= 20;
 			mMagicInterval = 0;
 		}
 	}
-	mMagicPoint += 0.02f;
-	mMagicPoint = max(min(mMagicPoint, 100), 0);
 }
 
 void Player::AttackProcess(float deltaTime)

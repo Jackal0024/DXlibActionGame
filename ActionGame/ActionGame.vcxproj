@@ -156,6 +156,8 @@
     <ClCompile Include="src\Actor\Base\ActorManager.cpp" />
     <ClCompile Include="src\Actor\Camera\Camera.cpp" />
     <ClCompile Include="src\Actor\Enemy\Lizard\Lizard.cpp" />
+    <ClCompile Include="src\Actor\Gimmick\HealCircle.cpp" />
+    <ClCompile Include="src\Actor\Gimmick\WarpCircle.cpp" />
     <ClCompile Include="src\Actor\Magic\FireBall\FireBall.cpp" />
     <ClCompile Include="src\Actor\Effect\FireParts.cpp" />
     <ClCompile Include="src\Actor\Enemy\Ghost\Ghost.cpp" />
@@ -202,6 +204,8 @@
     <ClInclude Include="src\Actor\Base\Tag.h" />
     <ClInclude Include="src\Actor\Camera\Camera.h" />
     <ClInclude Include="src\Actor\Enemy\Lizard\Lizard.h" />
+    <ClInclude Include="src\Actor\Gimmick\HealCircle.h" />
+    <ClInclude Include="src\Actor\Gimmick\WarpCircle.h" />
     <ClInclude Include="src\Actor\Magic\FireBall\FireBall.h" />
     <ClInclude Include="src\Actor\Effect\FireParts.h" />
     <ClInclude Include="src\Actor\Enemy\Ghost\Ghost.h" />

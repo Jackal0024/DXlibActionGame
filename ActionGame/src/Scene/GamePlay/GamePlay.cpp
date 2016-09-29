@@ -21,6 +21,8 @@
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
 #include"../../Actor/UI/StateFrame.h"
+#include"../../Actor/Gimmick/WarpCircle.h"
+#include"../../Actor/Gimmick/HealCircle.h"
 
 void GamePlay::Start()
 {
@@ -47,6 +49,8 @@ void GamePlay::Start()
 	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
 	MapDateInput("./res/MapData03.csv");
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
+	mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), Vector3(0, 10, -30)));
+	mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), Vector3(0, 0, 60)));
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(-150, 1.0f, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(3.0f, 7.0f, 0.0f)));
@@ -91,6 +95,12 @@ void GamePlay::End()
 
 void GamePlay::HandleMessage(EventMessage message, void * param)
 {
+	switch (message)
+	{
+	case EventMessage::SCENE_END:
+		isEnd = true;
+		break;
+	}
 }
 
 void GamePlay::MapDateInput(std::string fileName)
