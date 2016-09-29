@@ -8,6 +8,7 @@
 #include"../Magic/FireBall/FireBall.h"
 #include"../../Sound/SoundManager.h"
 #include"../../AssetStorage/AssetStorage.h"
+#include"../../System/PlayerStateSave/PlayerSave.h"
 
 enum MotionID
 {
@@ -22,8 +23,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mAtk(20),
 	mMagicInterval(3)
 {
-	mHitPoint = MAXHP;
-	mMagicPoint = MAXMP;
+	SetStatus(PlayerSave::getInstance().Load());
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }
@@ -35,10 +35,19 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	mAtk(20),
 	mMagicInterval(3)
 {
-	mHitPoint = MAXHP;
-	mMagicPoint = MAXMP;
+	SetStatus(PlayerSave::getInstance().Load());
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
+}
+
+Player::~Player()
+{
+	PlayerStatus player;
+	player.HP = mHitPoint;
+	player.MaxHP = MAXHP;
+	player.MP = mMagicPoint;
+	player.MaxMP = MAXMP;
+	PlayerSave::getInstance().Save(player);
 }
 
 float Player::GetHP()
@@ -223,4 +232,10 @@ void Player::MagicCharge(float deltaTime)
 {
 	mMagicInterval += deltaTime;
 	mMagicInterval = min(mMagicInterval, 3);
+}
+
+void Player::SetStatus(PlayerStatus status)
+{
+	mHitPoint = status.HP;
+	mMagicPoint = status.MP;
 }

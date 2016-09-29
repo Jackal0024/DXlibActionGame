@@ -18,6 +18,7 @@
 
 #include"../Scene/Base/Scene.h"
 #include"../Scene/GamePlay/GamePlay.h"
+#include"../Scene/GamePlay2/GamePlay2.h"
 #include"../Scene/Title/Title.h"
 
 
@@ -35,6 +36,7 @@ void Game::initialize()
 	mSceneManager.Initialize();
 	mSceneManager.Add(Scene::TITLE, std::make_shared<Title>());
 	mSceneManager.Add(Scene::GAMEPLAY, std::make_shared<GamePlay>());
+	mSceneManager.Add(Scene::GAMEPLAY2, std::make_shared<GamePlay2>());
 	mSceneManager.Change(Scene::TITLE);
 }
 

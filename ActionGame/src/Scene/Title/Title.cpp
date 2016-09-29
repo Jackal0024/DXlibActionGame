@@ -5,6 +5,8 @@
 #include<dxlib.h>
 #include<math.h>
 #include <stdio.h>
+#include"../../Actor/Player/Player.h"
+#include"../../System/PlayerStateSave/PlayerSave.h"
 
 void Title::Start()
 {

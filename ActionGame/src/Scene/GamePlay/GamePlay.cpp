@@ -20,6 +20,7 @@
 #include"../Base/Scene.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
+#include"../../Actor/UI/StateFrame.h"
 
 void GamePlay::Start()
 {
@@ -48,12 +49,12 @@ void GamePlay::Start()
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(-150, 1.0f, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------
-	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(1.0f, 5.0f, 0.0f)));
-	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 47.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(3.0f, 7.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(3.0f, 49.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<Frame>(mWorld.get(), Vector3(2.0f, 2.0f, 0.0f)));
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
-	//mWorld->Start();
 	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
 }
 
@@ -61,7 +62,7 @@ void GamePlay::Update(float deltaTime)
 {
 	mWorld->Update(deltaTime);
 	auto player = mWorld->FindActor("Player").get();
-	if (0 >= ((Player*)player)->GetHP())
+	if (0 >= ((Player*)player)->GetHP() || Input::getInstance().GetKeyTrigger(KEY_INPUT_T))
 	{
 		isEnd = true;
 	}
@@ -79,7 +80,7 @@ bool GamePlay::IsEnd() const
 
 Scene GamePlay::Next() const
 {
-	return Scene::TITLE;
+	return Scene::GAMEPLAY2;
 }
 
 void GamePlay::End()

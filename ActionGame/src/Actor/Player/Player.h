@@ -4,6 +4,14 @@
 #include"../Base/Actor.h"
 #include"../../Animation/Animator.h"
 
+struct PlayerStatus
+{
+	float HP;
+	float MaxHP;
+	float MP;
+	float MaxMP;
+
+};
 
 class Player : public Actor
 {
@@ -17,6 +25,7 @@ public:
 public:
 	Player(IWorld* world, Vector3 position);
 	Player(IWorld* world, Vector3 position,Vector3 rotate);
+	~Player();
 	float GetHP();
 	float GetMaxHp();
 	float GetMP();
@@ -44,6 +53,8 @@ private:
 
 	void ATKCharge(float deltaTime);
 	void MagicCharge(float deltaTime);
+
+	void SetStatus(PlayerStatus status);
 
 
 

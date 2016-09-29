@@ -170,6 +170,7 @@
     <ClCompile Include="src\Actor\UI\NumberTexture.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerHP.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerMP.cpp" />
+    <ClCompile Include="src\Actor\UI\StateFrame.cpp" />
     <ClCompile Include="src\Actor\UI\TextDraw.cpp" />
     <ClCompile Include="src\Animation\Animator.cpp" />
     <ClCompile Include="src\AssetStorage\AssetStorage.cpp" />
@@ -185,9 +186,11 @@
     <ClCompile Include="src\Math\Vector3.cpp" />
     <ClCompile Include="src\Scene\Base\SceneManager.cpp" />
     <ClCompile Include="src\Scene\Base\SceneNull.cpp" />
+    <ClCompile Include="src\Scene\GamePlay2\GamePlay2.cpp" />
     <ClCompile Include="src\Scene\GamePlay\GamePlay.cpp" />
     <ClCompile Include="src\Scene\Title\Title.cpp" />
     <ClCompile Include="src\Sound\SoundManager.cpp" />
+    <ClCompile Include="src\System\PlayerStateSave\PlayerSave.cpp" />
     <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +216,7 @@
     <ClInclude Include="src\Actor\UI\NumberTexture.h" />
     <ClInclude Include="src\Actor\UI\PlayerHP.h" />
     <ClInclude Include="src\Actor\UI\PlayerMP.h" />
+    <ClInclude Include="src\Actor\UI\StateFrame.h" />
     <ClInclude Include="src\Actor\UI\TextDraw.h" />
     <ClInclude Include="src\Animation\Animator.h" />
     <ClInclude Include="src\AssetStorage\AssetStorage.h" />
@@ -234,9 +238,11 @@
     <ClInclude Include="src\Scene\Base\Scene.h" />
     <ClInclude Include="src\Scene\Base\SceneManager.h" />
     <ClInclude Include="src\Scene\Base\SceneNull.h" />
+    <ClInclude Include="src\Scene\GamePlay2\GamePlay2.h" />
     <ClInclude Include="src\Scene\GamePlay\GamePlay.h" />
     <ClInclude Include="src\Scene\Title\Title.h" />
     <ClInclude Include="src\Sound\SoundManager.h" />
+    <ClInclude Include="src\System\PlayerStateSave\PlayerSave.h" />
     <ClInclude Include="src\World\IWorld.h" />
     <ClInclude Include="src\World\World.h" />
   </ItemGroup>
