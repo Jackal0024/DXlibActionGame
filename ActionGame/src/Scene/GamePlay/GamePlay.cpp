@@ -49,7 +49,7 @@ void GamePlay::Start()
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(-150, 1.0f, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(1.0f, 5.0f, 0.0f)));
-	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 37.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(1.0f, 47.0f, 0.0f)));
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));

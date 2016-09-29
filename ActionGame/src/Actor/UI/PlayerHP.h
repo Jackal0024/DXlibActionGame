@@ -15,4 +15,6 @@ private:
 	int mHPValue;
 	int mMaxHPValue;
 	NumberTexture num;
+
+	float mAtk;
 };

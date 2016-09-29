@@ -14,12 +14,12 @@ void ActorManager::Initialize()
 	mActor[ActorGroup::UI] = std::make_shared<Actor>();
 	mActor[ActorGroup::Effect] = std::make_shared<Actor>();
 	mRoot.ClearChildren();
+	mRoot.AddChild(mActor[ActorGroup::UI]);
+	mRoot.AddChild(mActor[ActorGroup::Effect]);
 	mRoot.AddChild(mActor[ActorGroup::PLAYER]);
 	mRoot.AddChild(mActor[ActorGroup::PLAYERATTACK]);
 	mRoot.AddChild(mActor[ActorGroup::ENEMY]);
 	mRoot.AddChild(mActor[ActorGroup::ENEMYATTACK]);
-	mRoot.AddChild(mActor[ActorGroup::UI]);
-	mRoot.AddChild(mActor[ActorGroup::Effect]);
 }
 
 void ActorManager::Update(float deltaTime)

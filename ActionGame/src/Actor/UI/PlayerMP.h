@@ -15,4 +15,6 @@ private:
 	int mMPValue;
 	int mMaxMPValue;
 	NumberTexture num;
+
+	float mMagicInterval;
 };

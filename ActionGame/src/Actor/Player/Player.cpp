@@ -18,7 +18,9 @@ enum MotionID
 Player::Player(IWorld* world, Vector3 position):
 	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
 	mState(State::MOVE),
-	mStateTimer(0.0f)
+	mStateTimer(0.0f),
+	mAtk(20),
+	mMagicInterval(3)
 {
 	mHitPoint = MAXHP;
 	mMagicPoint = MAXMP;
@@ -29,7 +31,9 @@ Player::Player(IWorld* world, Vector3 position):
 Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	Actor(world, "Player", position,rotate,{ Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
 	mState(State::MOVE),
-	mStateTimer(0.0f)
+	mStateTimer(0.0f),
+	mAtk(20),
+	mMagicInterval(3)
 {
 	mHitPoint = MAXHP;
 	mMagicPoint = MAXMP;
@@ -57,6 +61,16 @@ float Player::GetMaxMP()
 	return MAXMP;
 }
 
+float Player::GetMagicInterval()
+{
+	return mMagicInterval;
+}
+
+float Player::GetAtk()
+{
+	return mAtk;
+}
+
 void Player::onStart()
 {
 	mRotate.SetScale({ 0.8f,0.8f,0.8f });
@@ -79,7 +93,8 @@ void Player::onUpdate(float deltaTime)
 	Matrix WeaponMatrix = S.SetScale(Vector3(5, 5, 5)) * MGetRotY(200 * DX_PI / 180) * MGetRotZ(30 * DX_PI / 180) * SetModelFramePosition(mModelHandle, "R_HandPinky1", mWeaponHandle);
 	MV1SetMatrix(mWeaponHandle, WeaponMatrix);
 
-	mTag;
+	MagicCharge(deltaTime);
+	ATKCharge(deltaTime);
 
 	mAnimator.Update(deltaTime);
 
@@ -153,16 +168,18 @@ void Player::MoveProcess(float deltaTime)
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
 		StateChange(State::ATTACK);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle,mAtk));
+		mAtk = 0;
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4))
 	{
-		if (mMagicPoint >= 20)
+		if (mMagicPoint >= 20 && mMagicInterval >= 3)
 		{
 			auto camera = mWorld->GetCamera();
 			Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20);
 			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(),Tag::PLAYER_ATTACK));
 			//mMagicPoint -= 20;
+			mMagicInterval = 0;
 		}
 	}
 	mMagicPoint += 0.02f;
@@ -194,4 +211,16 @@ void Player::Hit(float damege)
 	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 	StateChange(State::DAMAGE);
 	mHitPoint -= damege;
+}
+
+void Player::ATKCharge(float deltaTime)
+{
+	mAtk += 20 / 3 * deltaTime;
+	mAtk = min(mAtk, 20);
+}
+
+void Player::MagicCharge(float deltaTime)
+{
+	mMagicInterval += deltaTime;
+	mMagicInterval = min(mMagicInterval, 3);
 }

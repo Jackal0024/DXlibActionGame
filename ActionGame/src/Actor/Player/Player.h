@@ -21,6 +21,8 @@ public:
 	float GetMaxHp();
 	float GetMP();
 	float GetMaxMP();
+	float GetMagicInterval();
+	float GetAtk();
 
 private:
 	void onStart() override;
@@ -38,8 +40,10 @@ private:
 	void DamegeProcess(float deltaTime);
 
 	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
-	void  HPCalc(float value);
 	void Hit(float damege);
+
+	void ATKCharge(float deltaTime);
+	void MagicCharge(float deltaTime);
 
 
 
@@ -52,6 +56,9 @@ private:
 	float mMagicPoint;
 	float mStateTimer;
 	Vector3 mVelocity;
+
+	float mAtk;
+	float mMagicInterval;
 
 private:
 	const float MAXHP = 100;

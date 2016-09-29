@@ -6,7 +6,7 @@
 class PlayerAttack : public Actor
 {
 public:
-	PlayerAttack(IWorld* world, int weapon);
+	PlayerAttack(IWorld* world, int weapon,float atk);
 
 private:
 	void onUpdate(float deltaTime) override;

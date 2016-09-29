@@ -14,6 +14,7 @@ void PlayerHP::onUpdate(float deltaTime)
 	auto player = mWorld->FindActor("Player").get();
 	mHPValue = ((Player*)player)->GetHP();
 	mMaxHPValue = ((Player*)player)->GetMaxHp();
+	mAtk = ((Player*)player)->GetAtk();
 }
 
 void PlayerHP::onDraw() const
@@ -31,4 +32,10 @@ void PlayerHP::onDraw() const
 		Vector3 numpos(pos.x + 20, mPosition.y, 0);
 		num.Draw(numpos,mMaxHPValue);
 	}
+
+	Vector3 lt = Vector3(mPosition.x + 15,mPosition.y + 35,0);
+	float l = (mAtk / 20) * 155;
+	Vector3 rb = Vector3(lt.x + l,lt.y + 5,0);
+
+	DrawBox(lt.x, lt.y, rb.x, rb.y, GetColor(255, 0, 0), true);
 }
