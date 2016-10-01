@@ -42,10 +42,10 @@ void GamePlay2::Start()
 		[=](EventMessage msg, void* param) {
 		HandleMessage(msg, param);
 	});
-	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage3/Stage3.mv1")));
+	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage2/Stage2.mv1")));
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
 	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
-	MapDateInput("./res/MapData03.csv");
+	MapDateInput("./res/MapData02.csv");
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(-150, 1.0f, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------

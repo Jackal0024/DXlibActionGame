@@ -44,13 +44,13 @@ void GamePlay::Start()
 		[=](EventMessage msg, void* param) {
 		HandleMessage(msg, param);
 	});
-	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage3/Stage3.mv1")));
+	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage1/Stage1.mv1")));
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
 	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
-	MapDateInput("./res/MapData03.csv");
+	MapDateInput("./res/MapData01.csv");
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
-	mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), Vector3(0, 10, -30)));
-	mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), Vector3(0, 0, 60)));
+	//mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), Vector3(0, 10, -30)));
+	//mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), Vector3(0, 0, 60)));
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(-150, 1.0f, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(3.0f, 7.0f, 0.0f)));
@@ -127,4 +127,6 @@ void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rota
 	if(name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position,rotate));
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));
 	if(name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate));
+	if (name == "Warp") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate));
+	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 }
