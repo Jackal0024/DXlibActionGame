@@ -1,17 +1,21 @@
 #include "WarpCircle.h"
 
-WarpCircle::WarpCircle(IWorld * world, Vector3 position):
+WarpCircle::WarpCircle(IWorld * world, Vector3 position) :
 	Actor(world, "Warp", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
-	isEnd(false)
+	isEnd(false),
+	angel(0)
 {
 	mHandle = MV1LoadModel("./res/WarpCircle/WarpCircle1.mv1");
+	mHandle2 = MV1LoadModel("./res/WarpCircle/Aura.mv1");
 }
 
 WarpCircle::WarpCircle(IWorld * world, Vector3 position, Vector3 rotate):
 	Actor(world, "Warp", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
-	isEnd(false)
+	isEnd(false),
+	angel(0)
 {
 	mHandle = MV1LoadModel("./res/WarpCircle/WarpCircle1.mv1");
+	mHandle2 = MV1LoadModel("./res/WarpCircle/Aura.mv1");
 }
 
 void WarpCircle::onStart()
@@ -27,15 +31,17 @@ void WarpCircle::onUpdate(float deltaTime)
 	if (VSize(sub) < 10.0f && !isEnd)
 	{
 		isEnd = true;
-		//mWorld->AddActor(ActorGroup::UI, std::make_shared<TextDraw>(mWorld, "‰ñ•œ‚µ‚½"));
 		mWorld->SendMsg(EventMessage::SCENE_END);
 	}
+	angel += deltaTime;
 }
 
 void WarpCircle::onDraw() const
 {
 	MV1SetMatrix(mHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
 	MV1DrawModel(mHandle);
+	MV1SetMatrix(mHandle2, MMult(MGetRotY(angel), GetPose()));
+	MV1DrawModel(mHandle2);
 	//mBody.Translate(mPosition).Draw();
 }
 

@@ -16,7 +16,9 @@ private:
 
 private:
 	int mHandle;
+	int mHandle2;
 	bool isEnd;
 	ActorPtr mTarget;
+	float angel;
 
 };

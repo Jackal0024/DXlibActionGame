@@ -168,12 +168,14 @@ void Player::StateUpdate(float deltaTime)
 void Player::MoveProcess(float deltaTime)
 {
 	mVelocity = Vector3(0,0,0);
-	mVelocity = mRotate.GetForward() * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
-	mVelocity += mRotate.GetLeft() * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
+	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
+	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
 
 	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button9))
 	{
 		mVelocity *= 2;
+		mAtk = 0;
+		mMagicInterval = 0;
 	}
 
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));

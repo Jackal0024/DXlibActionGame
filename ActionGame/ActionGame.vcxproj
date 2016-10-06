@@ -192,6 +192,7 @@
     <ClCompile Include="src\Scene\GamePlay\GamePlay.cpp" />
     <ClCompile Include="src\Scene\Title\Title.cpp" />
     <ClCompile Include="src\Sound\SoundManager.cpp" />
+    <ClCompile Include="src\System\MagicMenu\MagicMenu.cpp" />
     <ClCompile Include="src\System\PlayerStateSave\PlayerSave.cpp" />
     <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
@@ -206,6 +207,7 @@
     <ClInclude Include="src\Actor\Enemy\Lizard\Lizard.h" />
     <ClInclude Include="src\Actor\Gimmick\HealCircle.h" />
     <ClInclude Include="src\Actor\Gimmick\WarpCircle.h" />
+    <ClInclude Include="src\Actor\Magic\Base\MagicList.h" />
     <ClInclude Include="src\Actor\Magic\FireBall\FireBall.h" />
     <ClInclude Include="src\Actor\Effect\FireParts.h" />
     <ClInclude Include="src\Actor\Enemy\Ghost\Ghost.h" />
@@ -246,6 +248,7 @@
     <ClInclude Include="src\Scene\GamePlay\GamePlay.h" />
     <ClInclude Include="src\Scene\Title\Title.h" />
     <ClInclude Include="src\Sound\SoundManager.h" />
+    <ClInclude Include="src\System\MagicMenu\MagicMenu.h" />
     <ClInclude Include="src\System\PlayerStateSave\PlayerSave.h" />
     <ClInclude Include="src\World\IWorld.h" />
     <ClInclude Include="src\World\World.h" />

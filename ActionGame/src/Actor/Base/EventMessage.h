@@ -5,5 +5,6 @@ enum class EventMessage {
 	PLAYER_DAMEGE,
 	PLAYER_HEALING,
 	ENEMY_DAMEGE,
-	SCENE_END
+	SCENE_END,
+	PAUSE,
 };

@@ -2,6 +2,7 @@
 
 #include"../Base/IScene.h"
 #include"../../World/World.h"
+#include"../../System/MagicMenu/MagicMenu.h"
 
 class GamePlay : public IScene
 {
@@ -19,6 +20,8 @@ private:
 	void CharacterCreate(std::string name,Vector3& position,Vector3& rotate);
 private:
 	std::shared_ptr<World> mWorld;
+	MagicMenu mMenu;
+	bool isPause;
 	bool isEnd;
 
 };

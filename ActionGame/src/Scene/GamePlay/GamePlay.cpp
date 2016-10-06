@@ -27,6 +27,7 @@
 void GamePlay::Start()
 {
 	isEnd = false;
+	isPause = false;
 
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
@@ -60,21 +61,36 @@ void GamePlay::Start()
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
 	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
+
+	mMenu = MagicMenu(mWorld.get());
+
 }
 
 void GamePlay::Update(float deltaTime)
 {
-	mWorld->Update(deltaTime);
-	auto player = mWorld->FindActor("Player").get();
-	if (0 >= ((Player*)player)->GetHP() || Input::getInstance().GetKeyTrigger(KEY_INPUT_T))
+	if (!isPause)
 	{
-		isEnd = true;
+		mWorld->Update(deltaTime);
+		auto player = mWorld->FindActor("Player").get();
+		if (0 >= ((Player*)player)->GetHP() || Input::getInstance().GetKeyTrigger(KEY_INPUT_T))
+		{
+			isEnd = true;
+		}
+		if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
+		{
+			isPause = true;
+		}
+	}
+	else
+	{
+		mMenu.Update(deltaTime);
 	}
 }
 
 void GamePlay::Draw() const
 {
 	mWorld->Draw();
+	if (isPause) mMenu.Draw();
 }
 
 bool GamePlay::IsEnd() const
@@ -99,6 +115,9 @@ void GamePlay::HandleMessage(EventMessage message, void * param)
 	{
 	case EventMessage::SCENE_END:
 		isEnd = true;
+		break;
+	case EventMessage::PAUSE : 
+		isPause = !isPause;
 		break;
 	}
 }
