@@ -42,6 +42,7 @@ void FireBall::onCollide(Actor & other)
 	}
 	if (other.GetTag() == Tag::ENEMY)
 	{
+		mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
 		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
 	}
 	Dead();

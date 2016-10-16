@@ -20,5 +20,6 @@ private:
 	int mModelHandle;
 	float mAtkPower;
 	bool isNext;
+	bool mHit = false;
 
 };

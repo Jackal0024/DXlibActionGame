@@ -8,7 +8,7 @@ Golem::Golem(IWorld* world, Vector3 position):
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE)
 {
-	mHitPoint = 100;
+	mHitPoint = 60;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 }
 
@@ -17,7 +17,7 @@ Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE)
 {
-	mHitPoint = 100;
+	mHitPoint = 60;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 }
 
@@ -138,6 +138,7 @@ void Golem::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
+		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}

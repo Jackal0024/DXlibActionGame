@@ -46,7 +46,7 @@ bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r)
 bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r, Vector3 & velocity)
 {
 	auto HitPoly = MV1CollCheck_Capsule(mModelHandle, -1, start, end, r);
-	if (HitPoly.HitNum >= 1)
+	if (HitPoly.HitNum >= 1 || Collision(start, velocity, r))
 	{
 		for (int i = 0; i < HitPoly.HitNum; i++)
 		{

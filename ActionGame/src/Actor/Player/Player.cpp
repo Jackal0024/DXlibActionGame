@@ -9,6 +9,7 @@
 #include"../../Sound/SoundManager.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../System/PlayerStateSave/PlayerSave.h"
+#include"../UI/TextDraw.h"
 
 enum MotionID
 {
@@ -21,7 +22,12 @@ Player::Player(IWorld* world, Vector3 position):
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mAtk(20),
-	mMagicInterval(3)
+	mMagicInterval(3),
+	mCurrentMagic(MagicList::FIREBALL),
+	mPowerEX(0),
+	mMagicEX(0),
+	mNextPowerEX(3),
+	mNextMagicEX(3)
 {
 	SetStatus(PlayerSave::getInstance().Load());
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
@@ -33,8 +39,13 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mAtk(20),
-	mMagicInterval(3)
-{
+	mMagicInterval(3),
+	mCurrentMagic(MagicList::FIREBALL),
+	mPowerEX(0),
+	mMagicEX(0),
+	mNextPowerEX(3),
+	mNextMagicEX(3)
+{	 
 	SetStatus(PlayerSave::getInstance().Load());
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
@@ -47,6 +58,8 @@ Player::~Player()
 	player.MaxHP = MAXHP;
 	player.MP = mMagicPoint;
 	player.MaxMP = MAXMP;
+	player.CurrentMagic = mCurrentMagic;
+	player.List = mMagicList;
 	PlayerSave::getInstance().Save(player);
 }
 
@@ -78,6 +91,11 @@ float Player::GetMagicInterval()
 float Player::GetAtk()
 {
 	return mAtk;
+}
+
+std::vector<MagicList> Player::GetHaveMagic()
+{
+	return mMagicList;
 }
 
 void Player::onStart()
@@ -131,11 +149,29 @@ void Player::onMessage(EventMessage message, void * p)
 		}
 		break;
 
-	case EventMessage::PLAYER_HEALING: 
+	case EventMessage::PLAYER_HEALING:
 		mHitPoint = MAXHP;
 		mMagicPoint = MAXMP;
 		break;
+	case EventMessage::MAGIC_GET:
+	{
+		MagicList* magic = (MagicList*)p;
+		mMagicList.push_back(*magic);
+	}
+	break;
+	case EventMessage::MAGIC_CHANGE:
+	{
+		MagicList* magic = (MagicList*)p;
+		if (mCurrentMagic != *magic)
+		{
+			mCurrentMagic = *magic;
+			mMagicInterval = 0;
 
+		}
+	}
+		break;
+	case  EventMessage::PLAYER_POWERUP: PowerUp(); break;
+	case EventMessage::PLAYER_MAGICUP: MagicUp(); break;
 	}
 }
 
@@ -179,6 +215,7 @@ void Player::MoveProcess(float deltaTime)
 	}
 
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
+	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 	mPosition += mVelocity + Vector3(0, -0.1, 0);
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button1))
@@ -190,13 +227,9 @@ void Player::MoveProcess(float deltaTime)
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4))
 	{
-		if (mMagicPoint >= 20 && mMagicInterval >= 3)
+		if (mMagicInterval >= 3)
 		{
-			auto camera = mWorld->GetCamera();
-			Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20);
-			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(),Tag::PLAYER_ATTACK));
-			mMagicPoint -= 20;
-			mMagicInterval = 0;
+			MagicAttack();
 		}
 	}
 }
@@ -242,6 +275,59 @@ void Player::MagicCharge(float deltaTime)
 
 void Player::SetStatus(PlayerStatus status)
 {
+	MAXHP = status.MaxHP;
+	MAXMP = status.MaxMP;
 	mHitPoint = status.HP;
 	mMagicPoint = status.MP;
+	mCurrentMagic = status.CurrentMagic;
+	mMagicList = status.List;
+}
+
+void Player::MagicAttack()
+{
+	switch (mCurrentMagic)
+	{
+	case MagicList::FIREBALL:
+	{
+		if (mMagicPoint < 5) return;
+		auto camera = mWorld->GetCamera();
+		Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20);
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mMagicPoint -= 5;
+	}
+		break;
+	case MagicList::ICENEEDLE :
+	{
+		if (mMagicPoint < 15) return;
+		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(),3, Tag::PLAYER_ATTACK));
+		mMagicPoint -= 15;
+	}
+		break;
+	}
+	mMagicInterval = 0;
+}
+
+void Player::PowerUp()
+{
+	mPowerEX++;
+	if (mPowerEX >= mNextPowerEX)
+	{
+		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ëÃóÕÇ™è„Ç™Ç¡ÇΩ"));
+		MAXHP += 30;
+		MAXHP = min(MAXHP, 999);
+		mNextPowerEX += 3;
+	}
+}
+
+void Player::MagicUp()
+{
+	mMagicEX++;
+	if (mMagicEX >= mNextMagicEX)
+	{
+		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ñÇóÕÇ™è„Ç™Ç¡ÇΩ"));
+		MAXMP += 15;
+		MAXMP = min(MAXMP, 999);
+		mNextMagicEX += 15;
+	}
 }

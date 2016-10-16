@@ -7,15 +7,12 @@
 #include <stdio.h>
 #include"../../Actor/Player/Player.h"
 #include"../../System/PlayerStateSave/PlayerSave.h"
+#include<vector>
+#include"../../Actor/Magic/Base/MagicList.h"
 
 void Title::Start()
 {
-	PlayerStatus player;
-	player.HP = 100;
-	player.MaxHP = 100;
-	player.MP = 100;
-	player.MaxMP = 100;
-	PlayerSave::getInstance().Save(player);
+	PlayerInit();
 
 	mRotate = MGetIdent();
 	SetBackgroundColor(0, 0, 0);
@@ -113,4 +110,18 @@ void Title::Wait(float deltaTime)
 	{
 		isEnd = true;
 	}
+}
+
+void Title::PlayerInit()
+{
+	PlayerStatus player;
+	std::vector<MagicList> list;
+	list.push_back(MagicList::FIREBALL);
+	player.HP = 100;
+	player.MaxHP = 100;
+	player.MP = 100;
+	player.MaxMP = 100;
+	player.List = list;
+	player.CurrentMagic = MagicList::FIREBALL;
+	PlayerSave::getInstance().Save(player);
 }

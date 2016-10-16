@@ -37,5 +37,6 @@ void PlayerHP::onDraw() const
 	float l = (mAtk / 20) * 155;
 	Vector3 rb = Vector3(lt.x + l,lt.y + 5,0);
 
-	DrawBox(lt.x, lt.y, rb.x, rb.y, GetColor(255, 0, 0), true);
+	//ゲージがMAXだったらゲージを消せばわかりやすい？
+	/*if(l != 155)*/ DrawBox(lt.x, lt.y, rb.x, rb.y, GetColor(255, 0, 0), true);
 }

@@ -23,6 +23,10 @@
 #include"../../Actor/UI/StateFrame.h"
 #include"../../Actor/Gimmick/WarpCircle.h"
 #include"../../Actor/Gimmick/HealCircle.h"
+#include"../../Actor/Gimmick/MagicStone.h"
+#include"../../Actor/Magic/Base/MagicList.h"
+
+#include"../../Actor/Enemy/Goblin/Goblin.h"
 
 void GamePlay::Start()
 {
@@ -32,6 +36,7 @@ void GamePlay::Start()
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
 	AssetStorage::getInstance().HandleRegister("./res/lizard/lizard.mv1", "Lizard");
+	AssetStorage::getInstance().HandleRegister("./res/Goblin/Goblin.mv1", "Goblin");
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
 
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
@@ -47,12 +52,12 @@ void GamePlay::Start()
 	});
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage1/Stage1.mv1")));
 	//3Dモデル----------------------------------------------------------------------------------------------------
-	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
-	MapDateInput("./res/MapData01.csv");
+	mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
+	//MapDateInput("./res/MapData01.csv");
 	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
 	//mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), Vector3(0, 10, -30)));
-	//mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), Vector3(0, 0, 60)));
-	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), Vector3(-150, 1.0f, 0)));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", Vector3(0, 10, -100), MagicList::ICENEEDLE));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(3.0f, 7.0f, 0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(3.0f, 49.0f, 0.0f)));
@@ -78,6 +83,7 @@ void GamePlay::Update(float deltaTime)
 		}
 		if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
 		{
+			mMenu = MagicMenu(mWorld.get());
 			isPause = true;
 		}
 	}

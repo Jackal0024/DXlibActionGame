@@ -16,4 +16,5 @@ private:
 private:
 	PlayerStatus mState;
 
+
 };

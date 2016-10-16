@@ -1,4 +1,5 @@
 #include "PlayerSave.h"
+#include"../../Actor/Magic/Base/MagicList.h"
 
 PlayerSave & PlayerSave::getInstance()
 {

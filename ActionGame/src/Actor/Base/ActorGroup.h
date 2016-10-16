@@ -5,6 +5,7 @@ enum ActorGroup
 {
 	PLAYER,
 	PLAYERATTACK,
+	GIMMICK,
 	ENEMY,
 	ENEMYATTACK,
 	UI,

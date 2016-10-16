@@ -3,6 +3,8 @@
 
 #include"../Base/Actor.h"
 #include"../../Animation/Animator.h"
+#include"../Magic/Base/MagicList.h"
+#include<vector>
 
 struct PlayerStatus
 {
@@ -10,7 +12,8 @@ struct PlayerStatus
 	float MaxHP;
 	float MP;
 	float MaxMP;
-
+	MagicList CurrentMagic;
+	std::vector<MagicList> List;
 };
 
 class Player : public Actor
@@ -32,6 +35,7 @@ public:
 	float GetMaxMP();
 	float GetMagicInterval();
 	float GetAtk();
+	std::vector<MagicList> GetHaveMagic();
 
 private:
 	void onStart() override;
@@ -56,7 +60,10 @@ private:
 
 	void SetStatus(PlayerStatus status);
 
+	void MagicAttack();
 
+	void PowerUp();
+	void MagicUp();
 
 private:
 	int mModelHandle;
@@ -68,12 +75,21 @@ private:
 	float mStateTimer;
 	Vector3 mVelocity;
 
+	int mPowerEX;
+	int mMagicEX;
+
+	int mNextPowerEX;
+	int mNextMagicEX;
+
 	float mAtk;
 	float mMagicInterval;
 
+	std::vector<MagicList> mMagicList;
+	MagicList mCurrentMagic;
+
 private:
-	const float MAXHP = 100;
-	const float MAXMP = 100;
+	float MAXHP = 100;
+	float MAXMP = 100;
 
 };
 

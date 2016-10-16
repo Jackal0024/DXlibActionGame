@@ -61,6 +61,11 @@ void IceNeedle::onCollide(Actor & other)
 	}
 	if (other.GetTag() == Tag::ENEMY)
 	{
+		if (!mHit)
+		{
+			mHit = true;
+			mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
+		}
 		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
 	}
 }

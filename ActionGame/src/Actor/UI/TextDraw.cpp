@@ -1,10 +1,12 @@
 #include "TextDraw.h"
 
 TextDraw::TextDraw(IWorld * world, std::string text):
-	Actor(world,"Text",Vector3(280,400,0), Capsule(Vector3(0, 0, 0), 0)),
+	Actor(world,"Text",Vector3(320,400,0), Capsule(Vector3(0, 0, 0), 0)),
 	mText(text),
 	mTimer(0)
 {
+	float len = GetDrawStringWidth(mText.c_str(), mText.length());
+	mPosition.x -= len / 2;
 }
 
 TextDraw::~TextDraw()

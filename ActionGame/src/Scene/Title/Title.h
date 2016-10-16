@@ -24,6 +24,7 @@ private:
 	void StateUpdate(float deltaTime);
 	void Demo(float deltaTime);
 	void Wait(float deltaTime);
+	void PlayerInit();
 
 private:
 	bool isEnd;
