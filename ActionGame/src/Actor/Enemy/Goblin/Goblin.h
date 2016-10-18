@@ -21,7 +21,8 @@ public:
 	{
 		IDLE,
 		MOVE,
-		ATTACK,
+		HEAVY_ATTACK,
+		LIGHT_ATTACK,
 		DAMAGE,
 		DEAD
 	};
@@ -40,7 +41,16 @@ private:
 
 private:
 	void StateUpdate(float deltaTime);
-	void StateChange(State nextState, Motion nextMotion);
+	void StateChange(State nextState, Motion nextMotion = Motion::IDLE_MOTION);
+
+	void IdleProcess(float deltaTime);
+	void MoveProcess(float deltaTime);
+	void HeavyAttackProcess(float deltaTime);
+	void LightAttackProcess(float deltaTime);
+	void DeadProcess(float deltaTime);
+	void DamageProcess(float deltaTime);
+
+	void Hit(float damage);
 
 private:
 	int mModel = 0;
@@ -49,5 +59,6 @@ private:
 	State mState;
 	ActorPtr mTarget;
 	float mHitPoint;
+	Vector3 mCenterPoint;
 
 };
