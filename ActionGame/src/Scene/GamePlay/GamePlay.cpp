@@ -38,6 +38,7 @@ void GamePlay::Start()
 	AssetStorage::getInstance().HandleRegister("./res/lizard/lizard.mv1", "Lizard");
 	AssetStorage::getInstance().HandleRegister("./res/Goblin/Goblin.mv1", "Goblin");
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
+	AssetStorage::getInstance().HandleRegister("./res/IceNeedle/IceNeedle.mv1", "IceNeedle");
 
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
 	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.mp3");
@@ -54,8 +55,6 @@ void GamePlay::Start()
 	//3Dモデル----------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0,-0.5f,0)));
 	//MapDateInput("./res/MapData01.csv");
-	//mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Ghost>(mWorld.get(), Vector3(0, 1.0f, -30)));
-	//mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), Vector3(0, 10, -30)));
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", Vector3(0, 10, -100), MagicList::ICENEEDLE));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	//UI-----------------------------------------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 #include "Goblin.h"
+#include"GoblinAttack.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
 
@@ -121,6 +122,9 @@ void Goblin::MoveProcess(float deltaTime)
 		mRotate = MGetRotY(rad);
 		if (VSize(subVec) <= 10)
 		{
+			//UŒ‚
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
+				+ (mRotate.GetForward() * 10), 0.4f));
 			StateChange(State::LIGHT_ATTACK);
 		}
 	}

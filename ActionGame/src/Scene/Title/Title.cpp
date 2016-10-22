@@ -9,10 +9,11 @@
 #include"../../System/PlayerStateSave/PlayerSave.h"
 #include<vector>
 #include"../../Actor/Magic/Base/MagicList.h"
+#include"../../System/ConstantList/WindowSize.h"
 
 void Title::Start()
 {
-	PlayerInit();
+	PlayerSave::getInstance().PlayerInit();
 
 	mRotate = MGetIdent();
 	SetBackgroundColor(0, 0, 0);
@@ -42,20 +43,19 @@ void Title::Update(float deltaTime)
 void Title::Draw() const
 {
 	MV1SetMatrix(mTitleModel, mRotate);
-	//MV1SetPosition(mTitleModel, mPos);
-	//MV1SetScale(mTitleModel, { 50,50,50 });
-	//MV1SetRotationXYZ(mTitleModel, { -90,0,0 });
 	MV1DrawModel(mTitleModel);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
-	DrawGraph(0, 110, mTitleHandle, TRUE);
+	float x = (WIDTH / 2) - 310.5f; //タイトルのｘ位置
+	DrawGraph(x, 110, mTitleHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	if (mState == State::WAIT)
 	{
 		long l = sin(mTimer) * 255 * 2;
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, abs(l));
-		DrawGraph(180, 320, mTextHandle, TRUE);
+		float x2 = (WIDTH / 2) - 128.0f; //[ボタンを押して下さい]のｘ位置
+		DrawGraph(x2, 370, mTextHandle, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
@@ -110,18 +110,4 @@ void Title::Wait(float deltaTime)
 	{
 		isEnd = true;
 	}
-}
-
-void Title::PlayerInit()
-{
-	PlayerStatus player;
-	std::vector<MagicList> list;
-	list.push_back(MagicList::FIREBALL);
-	player.HP = 100;
-	player.MaxHP = 100;
-	player.MP = 100;
-	player.MaxMP = 100;
-	player.List = list;
-	player.CurrentMagic = MagicList::FIREBALL;
-	PlayerSave::getInstance().Save(player);
 }

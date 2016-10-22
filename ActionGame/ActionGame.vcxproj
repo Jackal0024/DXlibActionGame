@@ -156,6 +156,7 @@
     <ClCompile Include="src\Actor\Base\ActorManager.cpp" />
     <ClCompile Include="src\Actor\Camera\Camera.cpp" />
     <ClCompile Include="src\Actor\Enemy\Goblin\Goblin.cpp" />
+    <ClCompile Include="src\Actor\Enemy\Goblin\GoblinAttack.cpp" />
     <ClCompile Include="src\Actor\Enemy\Lizard\Lizard.cpp" />
     <ClCompile Include="src\Actor\Gimmick\HealCircle.cpp" />
     <ClCompile Include="src\Actor\Gimmick\MagicStone.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="src\Actor\Base\Tag.h" />
     <ClInclude Include="src\Actor\Camera\Camera.h" />
     <ClInclude Include="src\Actor\Enemy\Goblin\Goblin.h" />
+    <ClInclude Include="src\Actor\Enemy\Goblin\GoblinAttack.h" />
     <ClInclude Include="src\Actor\Enemy\Lizard\Lizard.h" />
     <ClInclude Include="src\Actor\Gimmick\HealCircle.h" />
     <ClInclude Include="src\Actor\Gimmick\MagicStone.h" />
@@ -252,6 +254,7 @@
     <ClInclude Include="src\Scene\GamePlay\GamePlay.h" />
     <ClInclude Include="src\Scene\Title\Title.h" />
     <ClInclude Include="src\Sound\SoundManager.h" />
+    <ClInclude Include="src\System\ConstantList\WindowSize.h" />
     <ClInclude Include="src\System\MagicMenu\MagicMenu.h" />
     <ClInclude Include="src\System\PlayerStateSave\PlayerSave.h" />
     <ClInclude Include="src\World\IWorld.h" />

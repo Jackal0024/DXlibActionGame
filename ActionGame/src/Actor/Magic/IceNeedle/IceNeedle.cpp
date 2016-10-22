@@ -1,5 +1,6 @@
 #include "IceNeedle.h"
 #include"../../../Sound/SoundManager.h"
+#include"../../../AssetStorage/AssetStorage.h"
 
 IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag):
 	Actor(world, "AttackProcess",position - Vector3(0,30,0), { Vector3(0,15,0),5 },tag),
@@ -11,7 +12,7 @@ IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num
 	mAtkPower(10)
 {
 	SoundManager::getInstance().Play("./res/Sound/Ice.mp3");
-	mModelHandle = MV1LoadModel("./res/IceNeedle/IceNeedle.mv1");
+	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("IceNeedle"));
 }
 
 void IceNeedle::onUpdate(float deltaTime)

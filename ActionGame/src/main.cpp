@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include"Game\Game.h"
+#include"System\ConstantList\WindowSize.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -8,8 +9,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//Œo‰ßŽžŠÔ
 	float timer = 0;
 	SetUseZBuffer3D(TRUE);
+	SetGraphMode(WIDTH, HEIGHT, 16);
 	ChangeWindowMode(TRUE);
-	//SetWindowSizeExtendRate(1.3f);
 
 	SetBackgroundColor(0, 0, 255);
 	DxLib_Init();
@@ -23,8 +24,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		game.Update(deltatime);
 		game.Draw();
 
-		DrawFormatString(0, 440, GetColor(255, 255, 255), "Timer =%f", timer);
-		DrawFormatString(0, 460, GetColor(255, 255, 255), "DeltaTimer =%f", deltatime);
+		DrawFormatString(0, 680, GetColor(255, 255, 255), "Timer =%f", timer);
+		DrawFormatString(0, 700, GetColor(255, 255, 255), "DeltaTimer =%f", deltatime);
 		/*DrawLine3D(Vector3(0, 0, 0), Vector3(100, 0, 0), GetColor(255, 0, 0));
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 100, 0), GetColor(0, 255, 0));
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 0, 100), GetColor(0, 0, 255));*/

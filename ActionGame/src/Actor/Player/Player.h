@@ -12,6 +12,7 @@ struct PlayerStatus
 	float MaxHP;
 	float MP;
 	float MaxMP;
+	float AtkBoost;
 	MagicList CurrentMagic;
 	std::vector<MagicList> List;
 };
@@ -82,6 +83,7 @@ private:
 	int mNextMagicEX;
 
 	float mAtk;
+	float mAtkBoost;
 	float mMagicInterval;
 
 	std::vector<MagicList> mMagicList;

@@ -9,6 +9,7 @@ public:
 	void Save(PlayerStatus player);
 	PlayerStatus Load();
 	void Clear();
+	void PlayerInit();
 
 private:
 	PlayerSave();

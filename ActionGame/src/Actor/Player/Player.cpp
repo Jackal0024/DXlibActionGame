@@ -22,6 +22,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mAtk(20),
+	mAtkBoost(0),
 	mMagicInterval(3),
 	mCurrentMagic(MagicList::FIREBALL),
 	mPowerEX(0),
@@ -39,6 +40,7 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mAtk(20),
+	mAtkBoost(0),
 	mMagicInterval(3),
 	mCurrentMagic(MagicList::FIREBALL),
 	mPowerEX(0),
@@ -58,6 +60,7 @@ Player::~Player()
 	player.MaxHP = MAXHP;
 	player.MP = mMagicPoint;
 	player.MaxMP = MAXMP;
+	player.AtkBoost = mAtkBoost;
 	player.CurrentMagic = mCurrentMagic;
 	player.List = mMagicList;
 	PlayerSave::getInstance().Save(player);
@@ -222,7 +225,7 @@ void Player::MoveProcess(float deltaTime)
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
 		StateChange(State::ATTACK);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle,mAtk));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle,mAtk + mAtkBoost));
 		mAtk = 0;
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4))
@@ -279,6 +282,7 @@ void Player::SetStatus(PlayerStatus status)
 	MAXMP = status.MaxMP;
 	mHitPoint = status.HP;
 	mMagicPoint = status.MP;
+	mAtkBoost = status.AtkBoost;
 	mCurrentMagic = status.CurrentMagic;
 	mMagicList = status.List;
 }
@@ -287,6 +291,7 @@ void Player::MagicAttack()
 {
 	switch (mCurrentMagic)
 	{
+
 	case MagicList::FIREBALL:
 	{
 		if (mMagicPoint < 5) return;
@@ -295,14 +300,21 @@ void Player::MagicAttack()
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
 		mMagicPoint -= 5;
 	}
-		break;
-	case MagicList::ICENEEDLE :
+	break;
+
+	case MagicList::ICENEEDLE:
 	{
 		if (mMagicPoint < 15) return;
 		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(),3, Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::PLAYER_ATTACK));
 		mMagicPoint -= 15;
 	}
+	break;
+
+	case MagicList::HEALING:
+		if (mMagicPoint < 20) return;
+		mHitPoint = min(mHitPoint += 50, MAXHP);
+		mMagicPoint -= 20;
 		break;
 	}
 	mMagicInterval = 0;
@@ -315,6 +327,7 @@ void Player::PowerUp()
 	{
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ëÃóÕÇ™è„Ç™Ç¡ÇΩ"));
 		MAXHP += 30;
+		mAtkBoost += 5;
 		MAXHP = min(MAXHP, 999);
 		mNextPowerEX += 3;
 	}
