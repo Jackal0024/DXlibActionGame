@@ -159,7 +159,7 @@ void Lizard::AttackProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition, VNorm(mVelocity), Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition, VNorm(mVelocity), Tag::ENEMY_ATTACK));
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE, Motion::IDLE_MOTION);
 	}

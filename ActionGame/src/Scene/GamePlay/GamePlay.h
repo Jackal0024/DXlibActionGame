@@ -23,5 +23,6 @@ private:
 	MagicMenu mMenu;
 	bool isPause;
 	bool isEnd;
+	bool isDraw;
 
 };

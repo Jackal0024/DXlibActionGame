@@ -158,6 +158,8 @@
     <ClCompile Include="src\Actor\Enemy\Goblin\Goblin.cpp" />
     <ClCompile Include="src\Actor\Enemy\Goblin\GoblinAttack.cpp" />
     <ClCompile Include="src\Actor\Enemy\Lizard\Lizard.cpp" />
+    <ClCompile Include="src\Actor\Enemy\Mummy\Mummy.cpp" />
+    <ClCompile Include="src\Actor\Enemy\Mummy\MummyAttack.cpp" />
     <ClCompile Include="src\Actor\Gimmick\HealCircle.cpp" />
     <ClCompile Include="src\Actor\Gimmick\MagicStone.cpp" />
     <ClCompile Include="src\Actor\Gimmick\WarpCircle.cpp" />
@@ -210,6 +212,8 @@
     <ClInclude Include="src\Actor\Enemy\Goblin\Goblin.h" />
     <ClInclude Include="src\Actor\Enemy\Goblin\GoblinAttack.h" />
     <ClInclude Include="src\Actor\Enemy\Lizard\Lizard.h" />
+    <ClInclude Include="src\Actor\Enemy\Mummy\Mummy.h" />
+    <ClInclude Include="src\Actor\Enemy\Mummy\MummyAttack.h" />
     <ClInclude Include="src\Actor\Gimmick\HealCircle.h" />
     <ClInclude Include="src\Actor\Gimmick\MagicStone.h" />
     <ClInclude Include="src\Actor\Gimmick\WarpCircle.h" />
