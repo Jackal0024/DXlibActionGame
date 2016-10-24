@@ -42,6 +42,10 @@ void GamePlay::Start()
 	AssetStorage::getInstance().HandleRegister("./res/Mummy/mummy.mv1", "Mummy");
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
 	AssetStorage::getInstance().HandleRegister("./res/IceNeedle/IceNeedle.mv1", "IceNeedle");
+	AssetStorage::getInstance().HandleRegister("./res/RockBlast/Rock.mv1", "Rock");
+	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Needle.mv1", "Mine");
+	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Bomb.mv1", "Bomb");
+	AssetStorage::getInstance().HandleRegister("./res/FireWall/FireWall.mv1", "FireWall");
 
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
 	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.mp3");
@@ -57,9 +61,16 @@ void GamePlay::Start()
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage1/Stage1.mv1")));
 	//3Dモデル----------------------------------------------------------------------------------------------------
 
-	MapDateInput("./res/MapData01.csv");
+	//MapDateInput("./res/MapData01.csv");
 
-	//mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0, -0.5f, 0)));
+	mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0, -0.5f, 0)));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", Vector3(50.0f, 0.0f, -300), MagicList::ICENEEDLE));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", Vector3(0.0f, 0.0f, -300), MagicList::HEALING));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ロックブラスト", Vector3(-50.0f, 0.0f, -300), MagicList::ROCKBLAST));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーウォール", Vector3(-50.0f, 0.0f, -250), MagicList::FIREWALL));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "マジックマイン", Vector3(50.0f, 0.0f, -250), MagicList::MAGICMINE));
+
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -500)));
 	/*mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(50.0f, 0.0f, -290)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -290)));*/
@@ -164,5 +175,5 @@ void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rota
 	if (name == "Warp") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 	if(name == "") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
-	if (name == "") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::HEALING));
+	if (name == "") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
 }

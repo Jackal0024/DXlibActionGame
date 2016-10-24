@@ -6,6 +6,9 @@
 #include"PlayerAttack.h"
 #include"../Magic/IceNeedle/IceNeedle.h"
 #include"../Magic/FireBall/FireBall.h"
+#include"../Magic/RockBlast/RockBlast.h"
+#include"../Magic/FireWall/FireWall.h"
+#include"../Magic/MagicMine/MagicMine.h"
 #include"../../Sound/SoundManager.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../System/PlayerStateSave/PlayerSave.h"
@@ -312,10 +315,41 @@ void Player::MagicAttack()
 	break;
 
 	case MagicList::HEALING:
-		if (mMagicPoint < 20) return;
+		if (mMagicPoint < 20 || mHitPoint >= MAXHP) return;
 		mHitPoint = min(mHitPoint += 50, MAXHP);
 		mMagicPoint -= 20;
 		break;
+
+	case MagicList::ROCKBLAST:
+	{
+		if (mMagicPoint < 20) return;
+		auto camera = mWorld->GetCamera();
+		Vector3 icePos = camera->GetPosition() + (camera->GetRotate().GetForward());
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mMagicPoint -= 20;
+	}
+	break;
+
+	case MagicList::FIREWALL:
+	{
+		if (mMagicPoint < 18) return;
+		auto camera = mWorld->GetCamera();
+		Vector3 Pos = mPosition;
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mMagicPoint -= 18;
+	}
+	break;
+
+	case MagicList::MAGICMINE:
+	{
+		if (mMagicPoint < 30) return;
+		auto camera = mWorld->GetCamera();
+		Vector3 Pos = camera->GetPosition();
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mMagicPoint -= 30;
+	}
+	break;
+
 	}
 	mMagicInterval = 0;
 }

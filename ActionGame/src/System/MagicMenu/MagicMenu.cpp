@@ -46,7 +46,9 @@ void MagicMenu::Draw() const
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	DrawGraph(0,0, mFadeTexture, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawGraph(0, 0, mTextTexture[mIndex], TRUE);
+	int temp = (int)mList[mIndex];
+	DrawString(500, 400,std::to_string(temp).c_str(), GetColor(255, 255, 255));
+	//DrawGraph(0, 0, mTextTexture[mIndex], TRUE);
 }
 
 MagicMenu::~MagicMenu()

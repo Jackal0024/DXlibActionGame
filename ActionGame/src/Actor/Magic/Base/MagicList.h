@@ -4,5 +4,8 @@ enum class MagicList
 {
 	FIREBALL,
 	ICENEEDLE,
-	HEALING
+	HEALING,
+	ROCKBLAST,
+	FIREWALL,
+	MAGICMINE
 };

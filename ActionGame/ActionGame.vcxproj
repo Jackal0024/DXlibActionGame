@@ -171,7 +171,12 @@
     <ClCompile Include="src\Actor\Enemy\Golem\GolemAttack.cpp" />
     <ClCompile Include="src\Actor\Light\Light.cpp" />
     <ClCompile Include="src\Actor\Magic\Base\Magic.cpp" />
+    <ClCompile Include="src\Actor\Magic\FireWall\FireWall.cpp" />
+    <ClCompile Include="src\Actor\Magic\FireWall\FireWallParts.cpp" />
     <ClCompile Include="src\Actor\Magic\IceNeedle\IceNeedle.cpp" />
+    <ClCompile Include="src\Actor\Magic\MagicMine\Bomb.cpp" />
+    <ClCompile Include="src\Actor\Magic\MagicMine\MagicMine.cpp" />
+    <ClCompile Include="src\Actor\Magic\RockBlast\RockBlast.cpp" />
     <ClCompile Include="src\Actor\Player\Player.cpp" />
     <ClCompile Include="src\Actor\Player\PlayerAttack.cpp" />
     <ClCompile Include="src\Actor\UI\NumberTexture.cpp" />
@@ -226,7 +231,12 @@
     <ClInclude Include="src\Actor\Enemy\Golem\GolemAttack.h" />
     <ClInclude Include="src\Actor\Light\Light.h" />
     <ClInclude Include="src\Actor\Magic\Base\Magic.h" />
+    <ClInclude Include="src\Actor\Magic\FireWall\FireWall.h" />
+    <ClInclude Include="src\Actor\Magic\FireWall\FireWallParts.h" />
     <ClInclude Include="src\Actor\Magic\IceNeedle\IceNeedle.h" />
+    <ClInclude Include="src\Actor\Magic\MagicMine\Bomb.h" />
+    <ClInclude Include="src\Actor\Magic\MagicMine\MagicMine.h" />
+    <ClInclude Include="src\Actor\Magic\RockBlast\RockBlast.h" />
     <ClInclude Include="src\Actor\Player\Player.h" />
     <ClInclude Include="src\Actor\Player\PlayerAttack.h" />
     <ClInclude Include="src\Actor\UI\NumberTexture.h" />

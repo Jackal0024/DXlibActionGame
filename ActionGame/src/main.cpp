@@ -24,8 +24,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		game.Update(deltatime);
 		game.Draw();
 
-		DrawFormatString(0, 680, GetColor(255, 255, 255), "Timer =%f", timer);
-		DrawFormatString(0, 700, GetColor(255, 255, 255), "DeltaTimer =%f", deltatime);
+		DrawFormatString(0, HEIGHT-80, GetColor(255, 255, 255), "Timer =%f", timer);
+		DrawFormatString(0, HEIGHT-40, GetColor(255, 255, 255), "DeltaTimer =%f", deltatime);
 		/*DrawLine3D(Vector3(0, 0, 0), Vector3(100, 0, 0), GetColor(255, 0, 0));
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 100, 0), GetColor(0, 255, 0));
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 0, 100), GetColor(0, 0, 255));*/
