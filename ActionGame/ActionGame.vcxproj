@@ -163,6 +163,8 @@
     <ClCompile Include="src\Actor\Gimmick\HealCircle.cpp" />
     <ClCompile Include="src\Actor\Gimmick\MagicStone.cpp" />
     <ClCompile Include="src\Actor\Gimmick\WarpCircle.cpp" />
+    <ClCompile Include="src\Actor\Magic\BlackSpear\BlackSpear.cpp" />
+    <ClCompile Include="src\Actor\Magic\BlackSpear\SpearCircle.cpp" />
     <ClCompile Include="src\Actor\Magic\FireBall\FireBall.cpp" />
     <ClCompile Include="src\Actor\Effect\FireParts.cpp" />
     <ClCompile Include="src\Actor\Enemy\Ghost\Ghost.cpp" />
@@ -223,6 +225,8 @@
     <ClInclude Include="src\Actor\Gimmick\MagicStone.h" />
     <ClInclude Include="src\Actor\Gimmick\WarpCircle.h" />
     <ClInclude Include="src\Actor\Magic\Base\MagicList.h" />
+    <ClInclude Include="src\Actor\Magic\BlackSpear\BlackSpear.h" />
+    <ClInclude Include="src\Actor\Magic\BlackSpear\SpearCircle.h" />
     <ClInclude Include="src\Actor\Magic\FireBall\FireBall.h" />
     <ClInclude Include="src\Actor\Effect\FireParts.h" />
     <ClInclude Include="src\Actor\Enemy\Ghost\Ghost.h" />

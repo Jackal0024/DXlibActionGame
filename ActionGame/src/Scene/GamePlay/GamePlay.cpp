@@ -45,6 +45,8 @@ void GamePlay::Start()
 	AssetStorage::getInstance().HandleRegister("./res/RockBlast/Rock.mv1", "Rock");
 	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Needle.mv1", "Mine");
 	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Bomb.mv1", "Bomb");
+	AssetStorage::getInstance().HandleRegister("./res/BlackSpear/BlackSpear.mv1", "BlackSpear");
+	AssetStorage::getInstance().HandleRegister("./res/BlackSpear/Circle.mv1", "SpearCircle");
 	AssetStorage::getInstance().HandleRegister("./res/FireWall/FireWall.mv1", "FireWall");
 
 	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
@@ -69,8 +71,9 @@ void GamePlay::Start()
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ロックブラスト", Vector3(-50.0f, 0.0f, -300), MagicList::ROCKBLAST));
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーウォール", Vector3(-50.0f, 0.0f, -250), MagicList::FIREWALL));
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "マジックマイン", Vector3(50.0f, 0.0f, -250), MagicList::MAGICMINE));
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", Vector3(0.0f, 0.0f, -250), MagicList::TRAPSPEAR));
 
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -500)));
+	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), Vector3(0.0f, 0.0f, -500)));
 	/*mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(50.0f, 0.0f, -290)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -290)));*/

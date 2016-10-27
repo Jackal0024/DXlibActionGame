@@ -9,6 +9,7 @@
 #include"../Magic/RockBlast/RockBlast.h"
 #include"../Magic/FireWall/FireWall.h"
 #include"../Magic/MagicMine/MagicMine.h"
+#include"../Magic/BlackSpear/SpearCircle.h"
 #include"../../Sound/SoundManager.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../System/PlayerStateSave/PlayerSave.h"
@@ -347,6 +348,15 @@ void Player::MagicAttack()
 		Vector3 Pos = camera->GetPosition();
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
 		mMagicPoint -= 30;
+	}
+	break;
+
+	case MagicList::TRAPSPEAR:
+	{
+		if (mMagicPoint < 25) return;
+		Vector3 Pos = mPosition + Vector3(0,1,0);
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<SpearCircle>(mWorld, Pos, Tag::PLAYER_ATTACK));
+		mMagicPoint -= 25;
 	}
 	break;
 

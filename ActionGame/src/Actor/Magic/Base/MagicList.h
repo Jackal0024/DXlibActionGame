@@ -7,5 +7,6 @@ enum class MagicList
 	HEALING,
 	ROCKBLAST,
 	FIREWALL,
-	MAGICMINE
+	MAGICMINE,
+	TRAPSPEAR
 };
