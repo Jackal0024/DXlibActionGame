@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	float timer = 0;
 	SetUseZBuffer3D(TRUE);
 	SetGraphMode(WIDTH, HEIGHT, 16);
-	ChangeWindowMode(TRUE);
+	ChangeWindowMode(FALSE);
 
 	SetBackgroundColor(0, 0, 255);
 	DxLib_Init();

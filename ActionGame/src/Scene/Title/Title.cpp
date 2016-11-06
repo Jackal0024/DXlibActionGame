@@ -67,7 +67,7 @@ bool Title::IsEnd() const
 
 Scene Title::Next() const
 {
-	return Scene::GAMEPLAY;
+	return Scene::STAGE1;
 }
 
 void Title::End()

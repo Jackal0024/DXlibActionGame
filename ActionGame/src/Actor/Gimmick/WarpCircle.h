@@ -1,12 +1,13 @@
 #pragma once
 
 #include"../Base/Actor.h"
+#include"../../Scene/Base/Scene.h"
 
 class WarpCircle :public Actor
 {
 public:
-	WarpCircle(IWorld* world, Vector3 position);
-	WarpCircle(IWorld* world, Vector3 position, Vector3 rotate);
+	WarpCircle(IWorld* world, Vector3 position, Scene next);
+	WarpCircle(IWorld* world, Vector3 position, Vector3 rotate, Scene next);
 private:
 	void onStart() override;
 	void onUpdate(float deltaTime) override;
@@ -20,5 +21,6 @@ private:
 	bool isEnd;
 	ActorPtr mTarget;
 	float angel;
+	Scene mNext;
 
 };

@@ -21,6 +21,7 @@ void SoundManager::Play(std::string fileName,bool loop)
 
 void SoundManager::Clear()
 {
+	mHandles.clear();
 	InitSoundMem();
 }
 

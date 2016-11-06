@@ -9,7 +9,7 @@ HealCircle::HealCircle(IWorld * world, Vector3 position):
 }
 
 HealCircle::HealCircle(IWorld * world, Vector3 position, Vector3 rotate):
-	Actor(world, "Heal", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
+	Actor(world, "Heal", position,rotate,{ { 0,0,0 },3.0f }, Tag::UNTAGGET),
 	isHealing(false)
 {
 	mHandle = MV1LoadModel("./res/HealCircle/MagicCircle2.mv1");

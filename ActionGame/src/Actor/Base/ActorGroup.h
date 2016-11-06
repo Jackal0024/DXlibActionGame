@@ -9,6 +9,7 @@ enum ActorGroup
 	ENEMY,
 	ENEMYATTACK,
 	UI,
+	TOPUI,
 	Effect
 };
 

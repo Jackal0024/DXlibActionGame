@@ -17,8 +17,11 @@
 #include"../Sound/SoundManager.h"
 
 #include"../Scene/Base/Scene.h"
-#include"../Scene/GamePlay/GamePlay.h"
-#include"../Scene/GamePlay2/GamePlay2.h"
+#include"../Scene/Stage1/GamePlay.h"
+#include"../Scene/Stage2/GamePlay2.h"
+#include"../Scene/Stage1/BackStage1.h"
+#include"../Scene/Stage2/BackStage2.h"
+#include"../Scene/Stage3/GamePlay3.h"
 #include"../Scene/Title/Title.h"
 
 
@@ -35,8 +38,11 @@ void Game::initialize()
 {
 	mSceneManager.Initialize();
 	mSceneManager.Add(Scene::TITLE, std::make_shared<Title>());
-	mSceneManager.Add(Scene::GAMEPLAY, std::make_shared<GamePlay>());
-	mSceneManager.Add(Scene::GAMEPLAY2, std::make_shared<GamePlay2>());
+	mSceneManager.Add(Scene::STAGE1, std::make_shared<GamePlay>());
+	mSceneManager.Add(Scene::STAGE1_BACK, std::make_shared<BackStage1>());
+	mSceneManager.Add(Scene::STAGE2, std::make_shared<GamePlay2>());
+	mSceneManager.Add(Scene::STAGE2_BACK, std::make_shared<BackStage2>());
+	mSceneManager.Add(Scene::STAGE3, std::make_shared<GamePlay3>());
 	mSceneManager.Change(Scene::TITLE);
 }
 

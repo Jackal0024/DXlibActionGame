@@ -1,18 +1,20 @@
 #include "WarpCircle.h"
 
-WarpCircle::WarpCircle(IWorld * world, Vector3 position) :
+WarpCircle::WarpCircle(IWorld * world, Vector3 position,Scene next) :
 	Actor(world, "Warp", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
 	isEnd(false),
-	angel(0)
+	angel(0),
+	mNext(next)
 {
 	mHandle = MV1LoadModel("./res/WarpCircle/WarpCircle1.mv1");
 	mHandle2 = MV1LoadModel("./res/WarpCircle/Aura.mv1");
 }
 
-WarpCircle::WarpCircle(IWorld * world, Vector3 position, Vector3 rotate):
+WarpCircle::WarpCircle(IWorld * world, Vector3 position, Vector3 rotate, Scene next):
 	Actor(world, "Warp", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
 	isEnd(false),
-	angel(0)
+	angel(0),
+	mNext(next)
 {
 	mHandle = MV1LoadModel("./res/WarpCircle/WarpCircle1.mv1");
 	mHandle2 = MV1LoadModel("./res/WarpCircle/Aura.mv1");
@@ -31,7 +33,7 @@ void WarpCircle::onUpdate(float deltaTime)
 	if (VSize(sub) < 10.0f && !isEnd)
 	{
 		isEnd = true;
-		mWorld->SendMsg(EventMessage::SCENE_END);
+		mWorld->SendMsg(EventMessage::SCENE_END,(void*)&mNext);
 	}
 	angel += deltaTime;
 }

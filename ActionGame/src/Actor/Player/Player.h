@@ -24,7 +24,8 @@ public:
 	{
 		MOVE,
 		ATTACK,
-		DAMAGE
+		DAMAGE,
+		DEAD
 	};
 public:
 	Player(IWorld* world, Vector3 position);
@@ -52,6 +53,7 @@ private:
 	void MoveProcess(float deltaTime);
 	void AttackProcess(float deltaTime);
 	void DamegeProcess(float deltaTime);
+	void DeadProcess(float deltaTime);
 
 	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
 	void Hit(float damege);

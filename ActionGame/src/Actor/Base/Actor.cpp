@@ -24,6 +24,7 @@ void Actor::Start()
 
 void Actor::Update(float deltaTime)
 {
+
 	onUpdate(deltaTime);
 	EachChildren([&](Actor& actor) {actor.Update(deltaTime); });
 }
@@ -32,7 +33,6 @@ void Actor::Draw() const
 {
 	onDraw();
 	EachChildren([&](Actor& actor) {actor.Draw(); });
-
 }
 
 void Actor::Collide(Actor & other)

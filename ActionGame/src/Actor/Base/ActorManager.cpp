@@ -12,9 +12,11 @@ void ActorManager::Initialize()
 	mActor[ActorGroup::ENEMY] = std::make_shared<Actor>();
 	mActor[ActorGroup::ENEMYATTACK] = std::make_shared<Actor>();
 	mActor[ActorGroup::UI] = std::make_shared<Actor>();
+	mActor[ActorGroup::TOPUI] = std::make_shared<Actor>();
 	mActor[ActorGroup::Effect] = std::make_shared<Actor>();
 	mActor[ActorGroup::GIMMICK] = std::make_shared<Actor>();
 	mRoot.ClearChildren();
+	mRoot.AddChild(mActor[ActorGroup::TOPUI]);
 	mRoot.AddChild(mActor[ActorGroup::UI]);
 	mRoot.AddChild(mActor[ActorGroup::Effect]);
 	mRoot.AddChild(mActor[ActorGroup::PLAYER]);

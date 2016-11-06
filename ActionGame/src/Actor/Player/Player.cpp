@@ -14,6 +14,7 @@
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../System/PlayerStateSave/PlayerSave.h"
 #include"../UI/TextDraw.h"
+#include"../UI/DeadEffect/DeadEffect.h"
 
 enum MotionID
 {
@@ -149,7 +150,7 @@ void Player::onMessage(EventMessage message, void * p)
 	switch (message)
 	{
 	case EventMessage::PLAYER_DAMEGE:
-		if (mState != State::DAMAGE)
+		if (mState != State::DAMAGE && mState != State::DEAD)
 		{
 			float * damege = (float*)p;
 			Hit(*damege);
@@ -204,8 +205,8 @@ void Player::StateUpdate(float deltaTime)
 	case Player::MOVE: MoveProcess(deltaTime); break;
 	case Player::ATTACK: AttackProcess(deltaTime); break;
 	case Player::DAMAGE: DamegeProcess(deltaTime); break;
+	case Player::DEAD:   DeadProcess(deltaTime); break;
 	}
-	mStateTimer += deltaTime;
 }
 
 void Player::MoveProcess(float deltaTime)
@@ -253,6 +254,7 @@ void Player::AttackProcess(float deltaTime)
 
 void Player::DamegeProcess(float deltaTime)
 {
+	mStateTimer += deltaTime;
 	auto backVelcity = mPosition + (-mRotate.GetForward() * 10);
 	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
 	if (mStateTimer > 0.5f)
@@ -261,11 +263,29 @@ void Player::DamegeProcess(float deltaTime)
 	}
 }
 
+void Player::DeadProcess(float deltaTime)
+{
+	mStateTimer += deltaTime * 80;
+	MV1DeleteModel(mModelHandle);
+	if (mStateTimer < 120) {
+		mRotate = mRotate * MGetRotX(-1 * (DX_PI / 180));
+	}
+}
+
 void Player::Hit(float damege)
 {
 	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
-	StateChange(State::DAMAGE);
 	mHitPoint -= damege;
+	mHitPoint = max(0, mHitPoint);
+	if (mHitPoint <= 0)
+	{
+		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<DeadEffect>(mWorld));
+		StateChange(State::DEAD);
+	}
+	else
+	{
+		StateChange(State::DAMAGE);
+	}
 }
 
 void Player::ATKCharge(float deltaTime)
@@ -284,8 +304,16 @@ void Player::SetStatus(PlayerStatus status)
 {
 	MAXHP = status.MaxHP;
 	MAXMP = status.MaxMP;
-	mHitPoint = status.HP;
-	mMagicPoint = status.MP;
+	if (status.HP == 0)
+	{
+		mHitPoint = MAXHP;
+		mMagicPoint = MAXMP;
+	}
+	else
+	{
+		mHitPoint = status.HP;
+		mMagicPoint = status.MP;
+	}
 	mAtkBoost = status.AtkBoost;
 	mCurrentMagic = status.CurrentMagic;
 	mMagicList = status.List;
