@@ -21,6 +21,11 @@ Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 }
 
+Golem::~Golem()
+{
+	MV1DeleteModel(mModel);
+}
+
 void Golem::onStart()
 {
 	mAnimator.Initialize(mModel, mMotionid,true);

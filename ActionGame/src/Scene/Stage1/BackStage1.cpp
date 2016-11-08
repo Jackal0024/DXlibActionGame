@@ -26,6 +26,8 @@
 #include"../../Actor/Gimmick/MagicStone.h"
 #include"../../Actor/Magic/Base/MagicList.h"
 
+#include"../../Actor/UI/FadeEffect.h"
+
 #include"../../Actor/Enemy/Goblin/Goblin.h"
 #include"../../Actor/Enemy/Mummy/Mummy.h"
 
@@ -34,6 +36,8 @@ void BackStage1::Start()
 	isEnd = false;
 	isPause = false;
 	isDraw = false;
+	mFade = std::make_shared<Fadeeffect>(mWorld.get(), 255.0f, 0.0f, 1.0f, "./res/Texture/Smoke.jpg");
+	isFade = false;
 
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
@@ -95,6 +99,12 @@ void BackStage1::Start()
 void BackStage1::Update(float deltaTime)
 {
 	if (!isDraw) return;
+	if (mFade)
+	{
+		mFade->Update(deltaTime);
+		IsFadeEnd();
+		if (isFade) return;
+	}
 	if (!isPause)
 	{
 		mWorld->Update(deltaTime);
@@ -115,6 +125,7 @@ void BackStage1::Draw() const
 	if (!isDraw) return;
 	mWorld->Draw();
 	if (isPause) mMenu.Draw();
+	if (mFade) mFade->Draw();
 }
 
 bool BackStage1::IsEnd() const
@@ -143,12 +154,15 @@ void BackStage1::HandleMessage(EventMessage message, void * param)
 		{
 			Scene* next = (Scene*)param;
 			mNext = *next;
+			mFade = std::make_shared<Fadeeffect>(mWorld.get(), 0.0f, 255.0f, 1.0f, "./res/Texture/Smoke.jpg");
+			isFade = true;
 		}
 		else
 		{
 			mNext = Scene::STAGE1_BACK;
+			isEnd = true;
 		}
-		isEnd = true;
+		
 		break;
 	case EventMessage::PAUSE:
 		isPause = !isPause;
@@ -185,4 +199,14 @@ void BackStage1::CharacterCreate(std::string name, Vector3& position, Vector3& r
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 	if (name == "IceStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
 	if (name == "HeelStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
+}
+
+void BackStage1::IsFadeEnd()
+{
+	Fadeeffect* temp = (Fadeeffect*)mFade.get();
+	if (temp->IsEnd())
+	{
+		mFade = nullptr;
+		if (isFade) isEnd = true;
+	}
 }

@@ -72,6 +72,9 @@ Scene Title::Next() const
 
 void Title::End()
 {
+	DeleteGraph(mTitleHandle);
+	DeleteGraph(mTextHandle);
+	MV1DeleteModel(mTitleModel);
 }
 
 void Title::StateUpdate(float deltaTime)

@@ -36,6 +36,8 @@ void GamePlay::Start()
 	isEnd = false;
 	isPause = false;
 	isDraw = false;
+	mFade = std::make_shared<Fadeeffect>(mWorld.get(), 255.0f, 0.0f, 1.0f,"./res/Texture/Smoke.jpg");
+	isFade = false;
 
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
@@ -97,6 +99,12 @@ void GamePlay::Start()
 void GamePlay::Update(float deltaTime)
 {
 	if (!isDraw) return;
+	if (mFade)
+	{
+		mFade->Update(deltaTime);
+		IsFadeEnd();
+		if (isFade) return;
+	}
 	if (!isPause)
 	{
 		mWorld->Update(deltaTime);
@@ -117,6 +125,7 @@ void GamePlay::Draw() const
 	if (!isDraw) return;
 	mWorld->Draw();
 	if (isPause) mMenu.Draw();
+	if (mFade) mFade->Draw();
 }
 
 bool GamePlay::IsEnd() const
@@ -145,12 +154,14 @@ void GamePlay::HandleMessage(EventMessage message, void * param)
 		{
 			Scene* next = (Scene*)param;
 			mNext = *next;
+			mFade = std::make_shared<Fadeeffect>(mWorld.get(), 0.0f, 255.0f, 1.0f, "./res/Texture/Smoke.jpg");
+			isFade = true;
 		}
 		else
 		{
 			mNext = Scene::STAGE1;
+			isEnd = true;
 		}
-		isEnd = true;
 		break;
 	case EventMessage::PAUSE : 
 		isPause = !isPause;
@@ -186,4 +197,14 @@ void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rota
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 	if(name == "IceStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
 	if (name == "HeelStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
+}
+
+void GamePlay::IsFadeEnd()
+{
+	Fadeeffect* temp = (Fadeeffect*)mFade.get();
+	if (temp->IsEnd())
+	{
+		mFade = nullptr;
+		if(isFade) isEnd = true;
+	}
 }

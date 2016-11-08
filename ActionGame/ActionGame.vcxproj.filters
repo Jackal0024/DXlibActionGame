@@ -440,5 +440,8 @@
     <ClInclude Include="src\Actor\UI\DeadEffect\WhiteEnd.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\AssetStorage\AssetList.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

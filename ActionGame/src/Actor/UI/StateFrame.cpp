@@ -6,6 +6,11 @@ Frame::Frame(IWorld * world, Vector3 position):
 	mHandle = LoadGraph("./res/Texture/Frame.png");
 }
 
+Frame::~Frame()
+{
+	DeleteGraph(mHandle);
+}
+
 void Frame::onDraw() const
 {
 	DrawGraph(mPosition.x, mPosition.y, mHandle, TRUE);

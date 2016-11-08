@@ -7,6 +7,7 @@ class PlayerHP :public  Actor
 {
 public:
 	PlayerHP(IWorld* world,Vector3 position);
+	~PlayerHP();
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
 private:

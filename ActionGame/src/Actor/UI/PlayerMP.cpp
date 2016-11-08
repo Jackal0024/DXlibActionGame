@@ -9,6 +9,12 @@ PlayerMP::PlayerMP(IWorld * world, Vector3 position):
 	num = NumberTexture("./res/Texture/num.png", 10, 10, 1, 16, 32);
 }
 
+PlayerMP::~PlayerMP()
+{
+	DeleteGraph(mTextHandle);
+	DeleteGraph(mSlashHandle);
+}
+
 void PlayerMP::onUpdate(float deltaTime)
 {
 	auto player = mWorld->FindActor("Player").get();

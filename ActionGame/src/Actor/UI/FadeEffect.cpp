@@ -10,13 +10,27 @@ Fadeeffect::Fadeeffect(IWorld * world, float start, float end, float time, int c
 	mTime(time),
 	isFadeIn(false),
 	isFadeOut(false),
+	mTimer(0.0),
+	mTextureHandle(-1)
+{
+	mAlpha = mStartAlpha;
+}
+
+Fadeeffect::Fadeeffect(IWorld * world, float start, float end, float time, std::string filename):
+	mStartAlpha(start),
+	mEndAlpha(end),
+	mTime(time),
+	isFadeIn(false),
+	isFadeOut(false),
 	mTimer(0.0)
 {
+	mTextureHandle = LoadGraph(filename.c_str());
 	mAlpha = mStartAlpha;
 }
 
 Fadeeffect::~Fadeeffect()
 {
+	DeleteGraph(mTextureHandle);
 }
 
 void Fadeeffect::onUpdate(float deltaTime)
@@ -29,7 +43,8 @@ void Fadeeffect::onUpdate(float deltaTime)
 void Fadeeffect::onDraw() const
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
-	DrawBox(0, 0, WIDTH, HEIGHT, mColor, true);
+	if(mTextureHandle == -1) DrawBox(0, 0, WIDTH, HEIGHT, mColor, true);
+	else DrawGraph(0, 0, mTextureHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 

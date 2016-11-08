@@ -6,6 +6,7 @@ class Frame : public Actor
 {
 public:
 	Frame(IWorld* world,Vector3 position);
+	~Frame();
 private:
 	void onDraw() const override;
 

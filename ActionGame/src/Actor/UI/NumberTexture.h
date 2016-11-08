@@ -11,6 +11,7 @@ public:
 	NumberTexture(std::string fileName,int all
 		,int xnum, int ynum
 		,int xSize, int ySize);
+	~NumberTexture();
 	void Draw(Vector3 pos,int value) const;
 	void Draw(Vector3 pos, std::string value) const;
 

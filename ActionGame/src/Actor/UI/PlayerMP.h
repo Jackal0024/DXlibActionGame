@@ -7,6 +7,7 @@ class PlayerMP :public  Actor
 {
 public:
 	PlayerMP(IWorld* world, Vector3 position);
+	~PlayerMP();
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
 private:

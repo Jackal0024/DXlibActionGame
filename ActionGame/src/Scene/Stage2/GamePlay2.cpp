@@ -25,7 +25,7 @@
 #include"../../Actor/Gimmick/HealCircle.h"
 #include"../../Actor/Gimmick/MagicStone.h"
 #include"../../Actor/Magic/Base/MagicList.h"
-
+#include"../../Actor/UI/FadeEffect.h"
 #include"../../Actor/Enemy/Goblin/Goblin.h"
 #include"../../Actor/Enemy/Mummy/Mummy.h"
 
@@ -34,6 +34,8 @@ void GamePlay2::Start()
 	isEnd = false;
 	isPause = false;
 	isDraw = false;
+	mFade = std::make_shared<Fadeeffect>(mWorld.get(), 255.0f, 0.0f, 1.0f, "./res/Texture/Smoke.jpg");
+	isFade = false;
 
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
@@ -81,6 +83,12 @@ void GamePlay2::Start()
 void GamePlay2::Update(float deltaTime)
 {
 	if (!isDraw) return;
+	if (mFade)
+	{
+		mFade->Update(deltaTime);
+		IsFadeEnd();
+		if (isFade) return;
+	}
 	if (!isPause)
 	{
 		mWorld->Update(deltaTime);
@@ -101,6 +109,7 @@ void GamePlay2::Draw() const
 	if (!isDraw) return;
 	mWorld->Draw();
 	if (isPause) mMenu.Draw();
+	if (mFade) mFade->Draw();
 }
 
 bool GamePlay2::IsEnd() const
@@ -129,12 +138,14 @@ void GamePlay2::HandleMessage(EventMessage message, void * param)
 		{
 			Scene* next = (Scene*)param;
 			mNext = *next;
+			mFade = std::make_shared<Fadeeffect>(mWorld.get(), 0.0f, 255.0f, 1.0f, "./res/Texture/Smoke.jpg");
+			isFade = true;
 		}
 		else
 		{
 			mNext = Scene::STAGE2;
-		}
-		isEnd = true;
+			isEnd = true;
+		}		
 		break;
 	case EventMessage::PAUSE:
 		isPause = !isPause;
@@ -172,4 +183,14 @@ void GamePlay2::CharacterCreate(std::string name, Vector3& position, Vector3& ro
 	if (name == "IceStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
 	if (name == "HealStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
 	if (name == "RockStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ロックブラスト", position, MagicList::ROCKBLAST));
+}
+
+void GamePlay2::IsFadeEnd()
+{
+	Fadeeffect* temp = (Fadeeffect*)mFade.get();
+	if (temp->IsEnd())
+	{
+		mFade = nullptr;
+		if (isFade) isEnd = true;
+	}
 }

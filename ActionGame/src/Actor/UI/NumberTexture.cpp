@@ -12,6 +12,14 @@ NumberTexture::NumberTexture(std::string fileName, int all
 		mXSize, mYSize, mNumHandle);
 }
 
+NumberTexture::~NumberTexture()
+{
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	DeleteGraph(mNumHandle[i]);
+	//}
+}
+
 void NumberTexture::Draw(Vector3 pos, int value) const
 {
 	Draw(pos, std::to_string(value));

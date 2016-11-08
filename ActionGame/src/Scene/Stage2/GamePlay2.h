@@ -18,8 +18,11 @@ public:
 private:
 	void MapDateInput(std::string fileName);
 	void CharacterCreate(std::string name, Vector3& position, Vector3& rotate);
+	void IsFadeEnd();
 private:
 	std::shared_ptr<World> mWorld;
+	ActorPtr mFade;
+	bool isFade;
 	Scene mNext;
 	MagicMenu mMenu;
 	bool isPause;

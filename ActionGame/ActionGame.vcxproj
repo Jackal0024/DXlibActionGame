@@ -262,6 +262,7 @@
     <ClInclude Include="src\Actor\UI\StateFrame.h" />
     <ClInclude Include="src\Actor\UI\TextDraw.h" />
     <ClInclude Include="src\Animation\Animator.h" />
+    <ClInclude Include="src\AssetStorage\AssetList.h" />
     <ClInclude Include="src\AssetStorage\AssetStorage.h" />
     <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Field\Field.h" />
