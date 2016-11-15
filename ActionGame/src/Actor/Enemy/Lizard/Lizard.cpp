@@ -121,6 +121,7 @@ void Lizard::CautionProcess(float deltaTime)
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE, Motion::IDLE_MOTION);
 	}
+
 	float dot = VDot(VNorm(mVelocity), Vector3(0, 0, 1));
 	float rad = atan2(mVelocity.x, mVelocity.z);
 
@@ -131,27 +132,44 @@ void Lizard::CautionProcess(float deltaTime)
 
 void Lizard::DiscoveryProcess(float deltaTime)
 {
-	float dis = VSize(mTarget->GetPosition() - mPosition);
-	mVelocity = mTarget->GetPosition() - mPosition;
-
-	if (dis > 110)
-	{
-		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
-		StateChange(State::IDLE, Motion::IDLE_MOTION);
-	}
-	if (dis < 50)
-	{
-		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
-		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
-	}
 	if (mTarget)
 	{
-		float dot = VDot(VNorm(mVelocity), Vector3(0, 0, 1));
+		Vector3 to_target = mTarget->GetPosition() - mPosition;
+		Vector3 forward_cross_target = VCross(mRotate.GetForward(), to_target);
+		float forward_dot_target = VDot(Vector3::Normalize(mRotate.GetForward()), to_target.Normalize());
+		float up_dot_cross = VDot(mRotate.GetUp(), forward_cross_target);
+
+		if (up_dot_cross >= 0.0f)
+		{
+			float angle = 1 * deltaTime;
+			mRotate = mRotate * MGetRotY(angle);
+		}
+		else
+		{
+			float angle = -1 * deltaTime;
+			mRotate = mRotate * MGetRotY(angle);
+		}
+
+		float dis = VSize(mTarget->GetPosition() - mPosition);
+		mVelocity = mTarget->GetPosition() - mPosition;
+
+		if (dis > 110)
+		{
+			mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
+			StateChange(State::IDLE, Motion::IDLE_MOTION);
+		}
+		if (dis < 50 && isFront(forward_dot_target))
+		{
+			mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
+			StateChange(State::ATTACK, Motion::ATTACK_MOTION);
+		}
+
+		/*float dot = VDot(VNorm(mVelocity), Vector3(0, 0, 1));
 		float rad = atan2(mVelocity.x, mVelocity.z);
 
 		mVelocity = VNorm(mVelocity) * deltaTime;
 		mPosition += mVelocity * 10;
-		mRotate = MGetRotY(rad);
+		mRotate = MGetRotY(rad);*/
 	}
 }
 
@@ -159,7 +177,7 @@ void Lizard::AttackProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition, VNorm(mVelocity), Tag::ENEMY_ATTACK));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition, VNorm(mVelocity), Tag::ENEMY_ATTACK,20));
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE, Motion::IDLE_MOTION);
 	}
@@ -198,4 +216,9 @@ void Lizard::Hit(float damage)
 		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 	}
+}
+
+bool Lizard::isFront(float forward_dot_target)
+{
+	return (forward_dot_target >= 0.98f);
 }

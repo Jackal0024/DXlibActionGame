@@ -50,6 +50,8 @@ private:
 
 	void Hit(float damage);
 
+	bool isFront(float forward_dot_target);
+
 private:
 	int mModel = 0;
 	Animator mAnimator;

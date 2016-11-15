@@ -33,7 +33,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mPowerEX(0),
 	mMagicEX(0),
 	mNextPowerEX(3),
-	mNextMagicEX(3),
+	mNextMagicEX(10),
 	mSpeed(1)
 {
 	SetStatus(PlayerSave::getInstance().Load());
@@ -52,7 +52,7 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	mPowerEX(0),
 	mMagicEX(0),
 	mNextPowerEX(3),
-	mNextMagicEX(3),
+	mNextMagicEX(10),
 	mSpeed(1)
 {	 
 	SetStatus(PlayerSave::getInstance().Load());
@@ -230,7 +230,8 @@ void Player::MoveProcess(float deltaTime)
 		mMagicInterval = 0;
 	}
 
-	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
+	float rotateSpeed = 2;
+	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * (rotateSpeed * deltaTime)));
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0, -0.1, 0);
 
