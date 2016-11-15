@@ -14,12 +14,14 @@ public:
 	~MagicMenu();
 private:
 	void PauseEnd();
-	void ListUp();
-	void CreateMagicText(MagicList magic);
+	void CreateMagicText();
 private:
 	IWorld* mWorld;
-	int mFadeTexture;
 	std::vector<int> mTextTexture;
 	std::vector<MagicList> mList;
+	MagicList mCurrentMagic;
+	int mUnknownTexture;
+	int mEquipmentTexture;
 	int mIndex;
+	bool mMagichas;
 };

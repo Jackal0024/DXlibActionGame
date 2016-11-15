@@ -20,6 +20,11 @@ float Vector3::Length() const
 	return VSize(*this);
 }
 
+VECTOR Vector3::Normalize()
+{
+	return Normalize(*this);
+}
+
 VECTOR Vector3::Lerp(VECTOR & start, VECTOR & end, float amount)
 {
 	if (amount < 0.0f) {
@@ -28,5 +33,16 @@ VECTOR Vector3::Lerp(VECTOR & start, VECTOR & end, float amount)
 	else if (amount > 1.0f) {
 		amount = 1.0f;
 	}
-	return start * (1.0f - amount) + end * amount;
+	return start * (1.0f - amount) + end * amount;
 }
+
+VECTOR Vector3::Normalize(VECTOR & v)
+{
+	float len = VSize(v);
+	if (len != 0.0f)
+	{
+		v = v / len;
+	}
+	return v;
+}
+

@@ -33,7 +33,8 @@ Player::Player(IWorld* world, Vector3 position):
 	mPowerEX(0),
 	mMagicEX(0),
 	mNextPowerEX(3),
-	mNextMagicEX(3)
+	mNextMagicEX(3),
+	mSpeed(1)
 {
 	SetStatus(PlayerSave::getInstance().Load());
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
@@ -51,7 +52,8 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	mPowerEX(0),
 	mMagicEX(0),
 	mNextPowerEX(3),
-	mNextMagicEX(3)
+	mNextMagicEX(3),
+	mSpeed(1)
 {	 
 	SetStatus(PlayerSave::getInstance().Load());
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
@@ -99,6 +101,11 @@ float Player::GetMagicInterval()
 float Player::GetAtk()
 {
 	return mAtk;
+}
+
+MagicList Player::GetCurrentMagic()
+{
+	return mCurrentMagic;
 }
 
 std::vector<MagicList> Player::GetHaveMagic()
@@ -211,20 +218,21 @@ void Player::StateUpdate(float deltaTime)
 
 void Player::MoveProcess(float deltaTime)
 {
+	mSpeed = 1.5f;
 	mVelocity = Vector3(0,0,0);
-	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * 60 * deltaTime;
-	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * 60 * deltaTime;
+	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * deltaTime;
+	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * deltaTime;
 
 	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button9))
 	{
-		mVelocity *= 2;
+		mSpeed = 3;
 		mAtk = 0;
 		mMagicInterval = 0;
 	}
 
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * deltaTime));
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
-	mPosition += mVelocity + Vector3(0, -0.1, 0);
+	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0, -0.1, 0);
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button1))
 	{

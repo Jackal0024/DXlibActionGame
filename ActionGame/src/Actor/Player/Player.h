@@ -37,6 +37,7 @@ public:
 	float GetMaxMP();
 	float GetMagicInterval();
 	float GetAtk();
+	MagicList GetCurrentMagic();
 	std::vector<MagicList> GetHaveMagic();
 
 private:
@@ -77,6 +78,7 @@ private:
 	float mMagicPoint;
 	float mStateTimer;
 	Vector3 mVelocity;
+	float mSpeed;
 
 	int mPowerEX;
 	int mMagicEX;

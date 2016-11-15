@@ -6,22 +6,23 @@
 
 MagicMenu::MagicMenu()
 {
-	mFadeTexture = LoadGraph("./res/Texture/FadeBlack.png");
 }
 
 MagicMenu::MagicMenu(IWorld* world):
 	mWorld(world),
-	mIndex(0)
+	mIndex(0),
+	mMagichas(true)
 {
-	mFadeTexture = LoadGraph("./res/Texture/FadeBlack.png");
-
+	CreateMagicText();
+	mUnknownTexture = LoadGraph("./res/Texture/MagicListText/unknown.png");
+	mEquipmentTexture = LoadGraph("./res/Texture/MagicListText/Equipment.png");
 	auto player = mWorld->FindActor("Player");
 	if (!player)
 	{
 		std::runtime_error("Player not");
 	}
 	mList = ((Player*)player.get())->GetHaveMagic();
-	ListUp();
+	mCurrentMagic = ((Player*)player.get())->GetCurrentMagic();
 }
 
 void MagicMenu::Update(float deltaTime)
@@ -29,30 +30,42 @@ void MagicMenu::Update(float deltaTime)
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_UP))
 	{
 		mIndex = max(mIndex - 1, 0);
+		mMagichas = false;
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_DOWN))
 	{
-		mIndex = min(mIndex + 1, mList.size()-1);
+		mIndex = min(mIndex + 1, mTextTexture.size() - 1);
+		mMagichas = false;
 	}
+
+	for (auto magic : mList)
+	{
+		if (mIndex == (int)magic) mMagichas = true;
+	}
+
 	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_RETURN))
 	{
-		mWorld->SendMsg(EventMessage::MAGIC_CHANGE, (void*)&mList[mIndex]);
+		if (!mMagichas) return;
+		MagicList magic = (MagicList)mIndex;
+		mWorld->SendMsg(EventMessage::MAGIC_CHANGE, (void*)&magic);
 		PauseEnd();
 	}
 }
 
 void MagicMenu::Draw() const
 {
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
-	DrawGraph(0,0, mFadeTexture, TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	int temp = (int)mList[mIndex];
-	DrawString(500, 400,std::to_string(temp).c_str(), GetColor(255, 255, 255));
-	//DrawGraph(0, 0, mTextTexture[mIndex], TRUE);
+	DrawGraph(0, 0, mTextTexture[mIndex], TRUE);
+	if (!mMagichas) DrawGraph(0, 0, mUnknownTexture, TRUE);
+	if(mCurrentMagic == (MagicList)mIndex) DrawGraph(128, 128, mEquipmentTexture, TRUE);
 }
 
 MagicMenu::~MagicMenu()
 {
+	/*for (auto text : mTextTexture)
+	{
+		DeleteGraph(text);
+	}
+	mTextTexture.clear();*/
 }
 
 void MagicMenu::PauseEnd()
@@ -60,23 +73,13 @@ void MagicMenu::PauseEnd()
 	mWorld->SendMsg(EventMessage::PAUSE);
 }
 
-void MagicMenu::ListUp()
+void MagicMenu::CreateMagicText()
 {
-	for (int i = 0; i < mList.size(); i++)
-	{
-		CreateMagicText(mList[i]);
-	}
-}
-
-void MagicMenu::CreateMagicText(MagicList magic)
-{
-	switch (magic)
-	{
-	case MagicList::FIREBALL:
-		mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/FireBallText.png"));
-		break;
-	case MagicList::ICENEEDLE:
-		mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/IceNeedleText.png"));
-		break;
-	}
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/FireBallText.png"));
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/IceNeedleText.png"));
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/HealingText.png"));
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/RockBlastText.png"));
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/FireWallText.png"));
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/MainText.png"));
+	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/TrapText.png"));
 }
