@@ -92,10 +92,13 @@ void GamePlay3::Update(float deltaTime)
 	if (!isPause)
 	{
 		mWorld->Update(deltaTime);
-		if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
+		if (!mWorld->FindActor("Dead"))
 		{
-			mMenu = MagicMenu(mWorld.get());
-			isPause = true;
+			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
+			{
+				mMenu = MagicMenu(mWorld.get());
+				isPause = true;
+			}
 		}
 	}
 	else

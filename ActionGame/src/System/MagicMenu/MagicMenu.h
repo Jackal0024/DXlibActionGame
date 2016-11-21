@@ -6,6 +6,12 @@
 
 class MagicMenu
 {
+private:
+	enum Stick
+	{
+		UP,
+		DOWN
+	};
 public:
 	MagicMenu();
 	MagicMenu(IWorld* world);
@@ -15,6 +21,7 @@ public:
 private:
 	void PauseEnd();
 	void CreateMagicText();
+	bool StickCheck(Stick dir);
 private:
 	IWorld* mWorld;
 	std::vector<int> mTextTexture;
@@ -22,6 +29,10 @@ private:
 	MagicList mCurrentMagic;
 	int mUnknownTexture;
 	int mEquipmentTexture;
+	int mCursorRight;
+	int mCursorLeft;
 	int mIndex;
 	bool mMagichas;
+
+	int mStickX;
 };

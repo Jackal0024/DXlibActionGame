@@ -6,7 +6,8 @@ MagicStone::MagicStone(IWorld * world, std::string name, Vector3 & position, Mag
 Actor(world,name,position, { Line(position,position + Vector3(0,0,0)),10.0f }),
 mMagicName(magic),
 mTimer(0),
-mListSize(0)
+mListSize(0),
+isDraw(false)
 {
 	mModelHandle = MV1LoadModel("./res/MagicStone/MagicStone.mv1");
 }
@@ -25,7 +26,7 @@ void MagicStone::onUpdate(float deltaTime)
 void MagicStone::onDraw() const
 {
 	MV1SetMatrix(mModelHandle, MMult(MGetRotY(mTimer), GetPose()));
-	MV1DrawModel(mModelHandle);
+	if(isDraw)MV1DrawModel(mModelHandle);
 }
 
 void MagicStone::onCollide(Actor & other)
@@ -60,6 +61,10 @@ void MagicStone::OverLapSearch()
 		if (mMagicName == magiclist[i])
 		{
 			Dead();
+		}
+		else
+		{
+			isDraw = true;
 		}
 	}
 }

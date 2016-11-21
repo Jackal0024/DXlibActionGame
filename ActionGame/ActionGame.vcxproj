@@ -185,6 +185,7 @@
     <ClCompile Include="src\Actor\UI\DeadEffect\DeadTexture.cpp" />
     <ClCompile Include="src\Actor\UI\DeadEffect\WhiteEnd.cpp" />
     <ClCompile Include="src\Actor\UI\FadeEffect.cpp" />
+    <ClCompile Include="src\Actor\UI\FlashEffect.cpp" />
     <ClCompile Include="src\Actor\UI\NumberTexture.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerHP.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerMP.cpp" />
@@ -206,6 +207,7 @@
     <ClCompile Include="src\Scene\Base\SceneManager.cpp" />
     <ClCompile Include="src\Scene\Base\SceneNull.cpp" />
     <ClCompile Include="src\Scene\Debug\DebugStage.cpp" />
+    <ClCompile Include="src\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="src\Scene\Stage1\BackStage1.cpp" />
     <ClCompile Include="src\Scene\Stage2\BackStage2.cpp" />
     <ClCompile Include="src\Scene\Stage2\GamePlay2.cpp" />
@@ -256,6 +258,7 @@
     <ClInclude Include="src\Actor\UI\DeadEffect\DeadTexture.h" />
     <ClInclude Include="src\Actor\UI\DeadEffect\WhiteEnd.h" />
     <ClInclude Include="src\Actor\UI\FadeEffect.h" />
+    <ClInclude Include="src\Actor\UI\FlashEffect.h" />
     <ClInclude Include="src\Actor\UI\NumberTexture.h" />
     <ClInclude Include="src\Actor\UI\PlayerHP.h" />
     <ClInclude Include="src\Actor\UI\PlayerMP.h" />
@@ -284,6 +287,7 @@
     <ClInclude Include="src\Scene\Base\SceneManager.h" />
     <ClInclude Include="src\Scene\Base\SceneNull.h" />
     <ClInclude Include="src\Scene\Debug\DebugStage.h" />
+    <ClInclude Include="src\Scene\Result\ResultScene.h" />
     <ClInclude Include="src\Scene\Stage1\BackStage1.h" />
     <ClInclude Include="src\Scene\Stage2\BackStage2.h" />
     <ClInclude Include="src\Scene\Stage2\GamePlay2.h" />

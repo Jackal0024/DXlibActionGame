@@ -23,6 +23,7 @@
 #include"../Scene/Stage2/BackStage2.h"
 #include"../Scene/Stage3/GamePlay3.h"
 #include"../Scene/Title/Title.h"
+#include"../Scene/Result/ResultScene.h"
 
 
 
@@ -43,7 +44,8 @@ void Game::initialize()
 	mSceneManager.Add(Scene::STAGE2, std::make_shared<GamePlay2>());
 	mSceneManager.Add(Scene::STAGE2_BACK, std::make_shared<BackStage2>());
 	mSceneManager.Add(Scene::STAGE3, std::make_shared<GamePlay3>());
-	mSceneManager.Change(Scene::TITLE);
+	mSceneManager.Add(Scene::RESULT, std::make_shared<ResultScene>());
+	mSceneManager.Change(Scene::RESULT);
 }
 
 void Game::Update(float deltatime)

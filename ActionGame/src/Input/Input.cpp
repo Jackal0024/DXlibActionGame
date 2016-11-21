@@ -70,7 +70,6 @@ void Input::Debug()
 //•Ô‚è’l‚Í-1‚©‚ç1
 VECTOR Input::GetLeftAnalogStick()
 {
-
 		int x = 0, y = 0;
 		GetJoypadAnalogInput(&x, &y, DX_INPUT_PAD1);
 		if (CheckHitKey(KEY_INPUT_W))

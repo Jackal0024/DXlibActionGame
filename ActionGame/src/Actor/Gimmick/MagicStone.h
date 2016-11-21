@@ -20,6 +20,7 @@ private:
 	void Move(float deltaTime);
 
 private:
+	bool isDraw;
 	float mTimer;
 	int mModelHandle;
 	int mListSize;

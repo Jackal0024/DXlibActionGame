@@ -15,6 +15,7 @@
 #include"../../System/PlayerStateSave/PlayerSave.h"
 #include"../UI/TextDraw.h"
 #include"../UI/DeadEffect/DeadEffect.h"
+#include"../UI/FlashEffect.h"
 
 enum MotionID
 {
@@ -218,14 +219,14 @@ void Player::StateUpdate(float deltaTime)
 
 void Player::MoveProcess(float deltaTime)
 {
-	mSpeed = 1.5f;
+	mSpeed = 1.0f;
 	mVelocity = Vector3(0,0,0);
 	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * deltaTime;
 	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * deltaTime;
 
 	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button9))
 	{
-		mSpeed = 3;
+		mSpeed = 2.0f;
 		mAtk = 0;
 		mMagicInterval = 0;
 	}
@@ -235,7 +236,7 @@ void Player::MoveProcess(float deltaTime)
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0, -0.1, 0);
 
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button1))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
 	{
 		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
 		StateChange(State::ATTACK);
@@ -293,6 +294,7 @@ void Player::Hit(float damege)
 	}
 	else
 	{
+		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(255, 0, 0)));
 		StateChange(State::DAMAGE);
 	}
 }
@@ -354,6 +356,7 @@ void Player::MagicAttack()
 
 	case MagicList::HEALING:
 		if (mMagicPoint < 20 || mHitPoint >= MAXHP) return;
+		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
 		mHitPoint = min(mHitPoint += 50, MAXHP);
 		mMagicPoint -= 20;
 		break;

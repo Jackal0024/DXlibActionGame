@@ -15,6 +15,10 @@ mAtkPower(atk)
 
 FireBall::~FireBall()
 {
+	for (int i = 0; i <= 32; i++)
+	{
+		DeleteGraph(mHandle[i]);
+	}
 }
 
 void FireBall::onUpdate(float deltaTime)

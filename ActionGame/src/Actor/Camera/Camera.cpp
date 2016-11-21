@@ -15,7 +15,7 @@ void Camera::onUpdate(float deltaTime)
 	auto player = mWorld->FindActor("Player");
 	if (player)
 	{
-		mYLook += Input::getInstance().GetRightAnalogStick().y* 2 * deltaTime;
+		mYLook += -Input::getInstance().GetRightAnalogStick().y* 2 * deltaTime;
 		mYLook = min(max(mYLook, -3), 3);
 
 		mPosition = player->GetPosition() + (VNorm(player->GetRotate().GetUp()) * 13.0f) + (player->GetRotate().GetForward() * 1.0f);

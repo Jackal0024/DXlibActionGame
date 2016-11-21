@@ -4,6 +4,7 @@ enum class Scene
 {
 	NONE,
 	TITLE,
+	RESULT,
 	STAGE1,
 	STAGE1_BACK,
 	STAGE2,

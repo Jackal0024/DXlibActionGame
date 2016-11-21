@@ -2,6 +2,7 @@
 #include"GoblinAttack.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../Gimmick/MagicStone.h"
 
 Goblin::Goblin(IWorld * world, Vector3 position):
 	Actor(world, "Goblin", position, { { 0,10,0 },4.0f }, Tag::ENEMY),
@@ -180,6 +181,8 @@ void Goblin::DeadProcess(float deltaTime)
 	{
 		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
+		Vector3 pos = mPosition + Vector3(0, 10, 0);
+		mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "ファイアーウォール", pos, MagicList::FIREWALL));
 		Dead();
 	}
 }

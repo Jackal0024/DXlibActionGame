@@ -30,6 +30,9 @@ private:
 	bool mPrveButton[32];
 	bool mPrveKey[256];
 
+	VECTOR mInputVectorLPrev;
+	VECTOR mInputVectorRPrev;
+
 };
 
 #endif

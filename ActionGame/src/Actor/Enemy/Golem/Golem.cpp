@@ -169,8 +169,11 @@ void Golem::Hit(float damage)
 	}
 	else
 	{
-		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
-		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
+		if (mState != State::ATTACK)
+		{
+			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
+			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
+		}
 	}
 }
 
