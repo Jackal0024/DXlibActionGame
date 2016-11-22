@@ -24,6 +24,7 @@
 #include"../Scene/Stage3/GamePlay3.h"
 #include"../Scene/Title/Title.h"
 #include"../Scene/Result/ResultScene.h"
+#include"../Scene/Demo/DemoScene.h"
 
 
 
@@ -39,13 +40,14 @@ void Game::initialize()
 {
 	mSceneManager.Initialize();
 	mSceneManager.Add(Scene::TITLE, std::make_shared<Title>());
+	mSceneManager.Add(Scene::DEMO , std::make_shared<DemoScene>());
 	mSceneManager.Add(Scene::STAGE1, std::make_shared<GamePlay>());
 	mSceneManager.Add(Scene::STAGE1_BACK, std::make_shared<BackStage1>());
 	mSceneManager.Add(Scene::STAGE2, std::make_shared<GamePlay2>());
 	mSceneManager.Add(Scene::STAGE2_BACK, std::make_shared<BackStage2>());
 	mSceneManager.Add(Scene::STAGE3, std::make_shared<GamePlay3>());
 	mSceneManager.Add(Scene::RESULT, std::make_shared<ResultScene>());
-	mSceneManager.Change(Scene::RESULT);
+	mSceneManager.Change(Scene::TITLE);
 }
 
 void Game::Update(float deltatime)

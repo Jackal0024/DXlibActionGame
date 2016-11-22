@@ -207,6 +207,7 @@
     <ClCompile Include="src\Scene\Base\SceneManager.cpp" />
     <ClCompile Include="src\Scene\Base\SceneNull.cpp" />
     <ClCompile Include="src\Scene\Debug\DebugStage.cpp" />
+    <ClCompile Include="src\Scene\Demo\DemoScene.cpp" />
     <ClCompile Include="src\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="src\Scene\Stage1\BackStage1.cpp" />
     <ClCompile Include="src\Scene\Stage2\BackStage2.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="src\Scene\Base\SceneManager.h" />
     <ClInclude Include="src\Scene\Base\SceneNull.h" />
     <ClInclude Include="src\Scene\Debug\DebugStage.h" />
+    <ClInclude Include="src\Scene\Demo\DemoScene.h" />
     <ClInclude Include="src\Scene\Result\ResultScene.h" />
     <ClInclude Include="src\Scene\Stage1\BackStage1.h" />
     <ClInclude Include="src\Scene\Stage2\BackStage2.h" />
