@@ -33,7 +33,7 @@ void PlayerSave::PlayerInit()
 	player.MP = 100;
 	player.MaxMP = 100;
 	player.List = list;
-	player.AtkBoost = 0;
+	player.AtkBoost = 20;
 	player.CurrentMagic = MagicList::FIREBALL;
 	PlayerSave::getInstance().Save(player);
 }

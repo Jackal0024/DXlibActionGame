@@ -27,9 +27,14 @@
 #include"../../Actor/Magic/Base/MagicList.h"
 
 #include"../../Actor/UI/FadeEffect.h"
+#include"../../Actor/UI/MagicUI.h"
 
 #include"../../Actor/Enemy/Goblin/Goblin.h"
 #include"../../Actor/Enemy/Mummy/Mummy.h"
+
+#include"../../Actor/UI/Bar/HPBar.h"
+#include"../../Actor/UI/Bar/MPBar.h"
+#include"../../Actor/UI/Bar/StaminaBar.h"
 
 void BackStage1::Start()
 {
@@ -82,9 +87,10 @@ void BackStage1::Start()
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -290)));*/
 	//UI-----------------------------------------------------------------------------------------------------------
-	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerHP>(mWorld.get(), Vector3(3.0f, 7.0f, 0.0f)));
-	mWorld->AddActor(ActorGroup::UI, std::make_shared<PlayerMP>(mWorld.get(), Vector3(3.0f, 49.0f, 0.0f)));
-	mWorld->AddActor(ActorGroup::UI, std::make_shared<Frame>(mWorld.get(), Vector3(2.0f, 2.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<HPBar>(mWorld.get(), Vector3(77.0f, 15.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<MPBar>(mWorld.get(), Vector3(77.0f, 40.0f, 0.0f)));
+	mWorld->AddActor(ActorGroup::UI, std::make_shared<StaminaBar>(mWorld.get(), Vector3(77.0f, 65.0f, 0.0f)));
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));

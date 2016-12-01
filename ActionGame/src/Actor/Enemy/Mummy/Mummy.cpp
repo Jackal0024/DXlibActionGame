@@ -110,7 +110,7 @@ void Mummy::IdleProcess(float deltaTime)
 	if (mPartner)
 	{
 		Vector3 partnersub = mPartner->GetPosition() - mPosition;
-		if (VSize(partnersub) > 80)
+		if (VSize(partnersub) > 80 && mStateTimer > 1)
 		{
 			StateChange(State::MOVE);
 		}
@@ -130,7 +130,7 @@ void Mummy::MoveProcess(float deltaTime)
 		Vector3 velocity = VNorm(partnersub) * deltaTime;
 		mPosition += velocity * VSize(partnersub);
 		mRotate = MGetRotY(rad);
-		if (VSize(partnersub) < 80)
+		if (VSize(partnersub) < 40 && mStateTimer < 4)
 		{
 			StateChange(State::IDLE);
 		}

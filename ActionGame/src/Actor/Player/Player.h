@@ -36,7 +36,7 @@ public:
 	float GetMP();
 	float GetMaxMP();
 	float GetMagicInterval();
-	float GetAtk();
+	float GetStamina();
 	MagicList GetCurrentMagic();
 	std::vector<MagicList> GetHaveMagic();
 
@@ -59,7 +59,7 @@ private:
 	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
 	void Hit(float damege);
 
-	void ATKCharge(float deltaTime);
+	void StaminaCharge(float deltaTime);
 	void MagicCharge(float deltaTime);
 
 	void SetStatus(PlayerStatus status);
@@ -86,8 +86,8 @@ private:
 	int mNextPowerEX;
 	int mNextMagicEX;
 
-	float mAtk;
-	float mAtkBoost;
+	float mStamina;
+	float mAttackPower;
 	float mMagicInterval;
 
 	std::vector<MagicList> mMagicList;

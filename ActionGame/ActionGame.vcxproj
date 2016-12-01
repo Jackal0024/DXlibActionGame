@@ -161,6 +161,7 @@
     <ClCompile Include="src\Actor\Enemy\Mummy\Mummy.cpp" />
     <ClCompile Include="src\Actor\Enemy\Mummy\MummyAttack.cpp" />
     <ClCompile Include="src\Actor\Gimmick\HealCircle.cpp" />
+    <ClCompile Include="src\Actor\Gimmick\Hint.cpp" />
     <ClCompile Include="src\Actor\Gimmick\MagicStone.cpp" />
     <ClCompile Include="src\Actor\Gimmick\WarpCircle.cpp" />
     <ClCompile Include="src\Actor\Magic\BlackSpear\BlackSpear.cpp" />
@@ -181,11 +182,15 @@
     <ClCompile Include="src\Actor\Magic\RockBlast\RockBlast.cpp" />
     <ClCompile Include="src\Actor\Player\Player.cpp" />
     <ClCompile Include="src\Actor\Player\PlayerAttack.cpp" />
+    <ClCompile Include="src\Actor\UI\Bar\HPBar.cpp" />
+    <ClCompile Include="src\Actor\UI\Bar\MPBar.cpp" />
+    <ClCompile Include="src\Actor\UI\Bar\StaminaBar.cpp" />
     <ClCompile Include="src\Actor\UI\DeadEffect\DeadEffect.cpp" />
     <ClCompile Include="src\Actor\UI\DeadEffect\DeadTexture.cpp" />
     <ClCompile Include="src\Actor\UI\DeadEffect\WhiteEnd.cpp" />
     <ClCompile Include="src\Actor\UI\FadeEffect.cpp" />
     <ClCompile Include="src\Actor\UI\FlashEffect.cpp" />
+    <ClCompile Include="src\Actor\UI\MagicUI.cpp" />
     <ClCompile Include="src\Actor\UI\NumberTexture.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerHP.cpp" />
     <ClCompile Include="src\Actor\UI\PlayerMP.cpp" />
@@ -234,6 +239,7 @@
     <ClInclude Include="src\Actor\Enemy\Mummy\Mummy.h" />
     <ClInclude Include="src\Actor\Enemy\Mummy\MummyAttack.h" />
     <ClInclude Include="src\Actor\Gimmick\HealCircle.h" />
+    <ClInclude Include="src\Actor\Gimmick\Hint.h" />
     <ClInclude Include="src\Actor\Gimmick\MagicStone.h" />
     <ClInclude Include="src\Actor\Gimmick\WarpCircle.h" />
     <ClInclude Include="src\Actor\Magic\Base\MagicList.h" />
@@ -255,11 +261,15 @@
     <ClInclude Include="src\Actor\Magic\RockBlast\RockBlast.h" />
     <ClInclude Include="src\Actor\Player\Player.h" />
     <ClInclude Include="src\Actor\Player\PlayerAttack.h" />
+    <ClInclude Include="src\Actor\UI\Bar\HPBar.h" />
+    <ClInclude Include="src\Actor\UI\Bar\MPBar.h" />
+    <ClInclude Include="src\Actor\UI\Bar\StaminaBar.h" />
     <ClInclude Include="src\Actor\UI\DeadEffect\DeadEffect.h" />
     <ClInclude Include="src\Actor\UI\DeadEffect\DeadTexture.h" />
     <ClInclude Include="src\Actor\UI\DeadEffect\WhiteEnd.h" />
     <ClInclude Include="src\Actor\UI\FadeEffect.h" />
     <ClInclude Include="src\Actor\UI\FlashEffect.h" />
+    <ClInclude Include="src\Actor\UI\MagicUI.h" />
     <ClInclude Include="src\Actor\UI\NumberTexture.h" />
     <ClInclude Include="src\Actor\UI\PlayerHP.h" />
     <ClInclude Include="src\Actor\UI\PlayerMP.h" />

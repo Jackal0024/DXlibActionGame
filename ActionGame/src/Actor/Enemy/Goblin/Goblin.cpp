@@ -8,7 +8,8 @@ Goblin::Goblin(IWorld * world, Vector3 position):
 	Actor(world, "Goblin", position, { { 0,10,0 },4.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
-	mCenterPoint(position)
+	mCenterPoint(position),
+	mStateTimer(0.0f)
 {
 	mHitPoint = 200;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
@@ -18,7 +19,8 @@ Goblin::Goblin(IWorld * world, Vector3 position, Vector3 rotate):
 	Actor(world, "Goblin", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
-	mCenterPoint(position)
+	mCenterPoint(position),
+	mStateTimer(0.0f)
 {
 	mHitPoint = 200;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
@@ -84,16 +86,20 @@ void Goblin::StateUpdate(float deltaTime)
 	{
 	case State::IDLE: IdleProcess(deltaTime); break;
 	case State::MOVE : MoveProcess(deltaTime); break;
+	case State::RUN: RunProcess(deltaTime); break;
 	case State::LIGHT_ATTACK: LightAttackProcess(deltaTime); break;
 	case State::HEAVY_ATTACK: HeavyAttackProcess(deltaTime); break;
 	case State::DAMAGE: DamageProcess(deltaTime); break;
 	case State::DEAD: DeadProcess(deltaTime); break;
 	}
+
+	mStateTimer += deltaTime;
 }
 
 void Goblin::StateChange(State nextState, Motion nextMotion)
 {
 	if (mState == nextState) return;
+	mStateTimer = 0.0f;
 	mState = nextState;
 	mMotionid = nextMotion;
 }
@@ -112,48 +118,50 @@ void Goblin::IdleProcess(float deltaTime)
 void Goblin::MoveProcess(float deltaTime)
 {
 	Vector3 subVec = mTarget->GetPosition() - mPosition;
-	if (VSize(subVec) <= 30)
-	{
-		mAnimator.AnimationChange(Motion::WALK_MOTION , 0.3f, 0.5f, true);
-		float dot = VDot(VNorm(subVec), Vector3(0, 0, 1));
-		float rad = atan2(subVec.x, subVec.z);
 
-		Vector3 velocity = VNorm(subVec) * deltaTime;
-		mPosition += velocity * 10;
-		mRotate = MGetRotY(rad);
-		if (VSize(subVec) <= 10)
-		{
-			//UŒ‚
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-				+ (mRotate.GetForward() * 10), 0.4f));
-			StateChange(State::LIGHT_ATTACK);
-		}
+	mAnimator.AnimationChange(Motion::WALK_MOTION, 0.3f, 0.5f, true);
+	float dot = VDot(VNorm(subVec), Vector3(0, 0, 1));
+	float rad = atan2(subVec.x, subVec.z);
+
+	Vector3 velocity = VNorm(subVec) * deltaTime;
+	mPosition += velocity * 10;
+	mRotate = MGetRotY(rad);
+
+	if (VSize(subVec) <= 10)
+	{
+		//UŒ‚
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
+			+ (mRotate.GetForward() * 10), 0.4f));
+		StateChange(State::LIGHT_ATTACK);
 	}
-	else if (VSize(subVec) <= 200)
+
+	else if (VSize(subVec) >= 100 && mStateTimer > 2)
 	{
-		mAnimator.AnimationChange(Motion::RUN_MOTION, 0.3f, 0.5f, true);
-
-		float dot = VDot(VNorm(subVec), Vector3(0, 0, 1));
-		float rad = atan2(subVec.x, subVec.z);
-
-		Vector3 velocity = VNorm(subVec) * deltaTime;
-		mPosition += velocity * 50;
-		mRotate = MGetRotY(rad);
+		StateChange(State::RUN);
 	}
-	else if(VSize(subVec) >= 200)
-	{
-		Vector3 backVec = mCenterPoint - mPosition;
-		mAnimator.AnimationChange(Motion::WALK_MOTION, 0.3f, 0.5f, true);
-		float dot = VDot(VNorm(backVec), Vector3(0, 0, 1));
-		float rad = atan2(backVec.x, backVec.z);
 
-		Vector3 velocity = VNorm(backVec) * deltaTime;
-		mPosition += velocity * 10;
-		mRotate = MGetRotY(rad);
-		if (VSize(backVec) <= 5)
-		{
-			StateChange(State::IDLE);
-		}
+	if (VSize(subVec) >= 200)
+	{
+		StateChange(State::IDLE);
+	}
+}
+
+void Goblin::RunProcess(float deltaTime)
+{
+	Vector3 subVec = mTarget->GetPosition() - mPosition;
+
+	mAnimator.AnimationChange(Motion::RUN_MOTION, 0.3f, 0.5f, true);
+
+	float dot = VDot(VNorm(subVec), Vector3(0, 0, 1));
+	float rad = atan2(subVec.x, subVec.z);
+
+	Vector3 velocity = VNorm(subVec) * deltaTime;
+	mPosition += velocity * 50;
+	mRotate = MGetRotY(rad);
+
+	if (VSize(subVec) <= 30 && mStateTimer > 2)
+	{
+		StateChange(State::MOVE);
 	}
 }
 

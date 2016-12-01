@@ -27,9 +27,9 @@ Player::Player(IWorld* world, Vector3 position):
 	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
-	mAtk(20),
-	mAtkBoost(0),
-	mMagicInterval(3),
+	mStamina(100),
+	mAttackPower(20),
+	mMagicInterval(1),
 	mCurrentMagic(MagicList::FIREBALL),
 	mPowerEX(0),
 	mMagicEX(0),
@@ -46,9 +46,9 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
 	Actor(world, "Player", position,rotate,{ Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
-	mAtk(20),
-	mAtkBoost(0),
-	mMagicInterval(3),
+	mStamina(100),
+	mAttackPower(20),
+	mMagicInterval(1),
 	mCurrentMagic(MagicList::FIREBALL),
 	mPowerEX(0),
 	mMagicEX(0),
@@ -68,7 +68,7 @@ Player::~Player()
 	player.MaxHP = MAXHP;
 	player.MP = mMagicPoint;
 	player.MaxMP = MAXMP;
-	player.AtkBoost = mAtkBoost;
+	player.AtkBoost = mAttackPower;
 	player.CurrentMagic = mCurrentMagic;
 	player.List = mMagicList;
 	PlayerSave::getInstance().Save(player);
@@ -99,9 +99,9 @@ float Player::GetMagicInterval()
 	return mMagicInterval;
 }
 
-float Player::GetAtk()
+float Player::GetStamina()
 {
-	return mAtk;
+	return mStamina;
 }
 
 MagicList Player::GetCurrentMagic()
@@ -137,7 +137,6 @@ void Player::onUpdate(float deltaTime)
 	MV1SetMatrix(mWeaponHandle, WeaponMatrix);
 
 	MagicCharge(deltaTime);
-	ATKCharge(deltaTime);
 
 	mAnimator.Update(deltaTime);
 
@@ -226,9 +225,17 @@ void Player::MoveProcess(float deltaTime)
 
 	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button9))
 	{
-		mSpeed = 2.0f;
-		mAtk = 0;
-		mMagicInterval = 0;
+		if (mStamina > 0)
+		{
+			mSpeed = 2.0f;
+			mStamina -= 0.5f * (60 * deltaTime);
+			mStamina = max(0, mStamina);
+			mMagicInterval = 0;
+		}
+	}
+	else
+	{
+		StaminaCharge(deltaTime);
 	}
 
 	float rotateSpeed = 2;
@@ -238,14 +245,17 @@ void Player::MoveProcess(float deltaTime)
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
 	{
-		SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
-		StateChange(State::ATTACK);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle,mAtk + mAtkBoost));
-		mAtk = 0;
+		if (mStamina >= 30)
+		{
+			SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
+			StateChange(State::ATTACK);
+			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle, mAttackPower));
+			mStamina -= 30;
+		}
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4))
 	{
-		if (mMagicInterval >= 3)
+		if (mMagicInterval >= 1)
 		{
 			MagicAttack();
 		}
@@ -264,6 +274,7 @@ void Player::AttackProcess(float deltaTime)
 
 void Player::DamegeProcess(float deltaTime)
 {
+	StaminaCharge(deltaTime);
 	mStateTimer += deltaTime;
 	auto backVelcity = mPosition + (-mRotate.GetForward() * 10);
 	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
@@ -275,6 +286,7 @@ void Player::DamegeProcess(float deltaTime)
 
 void Player::DeadProcess(float deltaTime)
 {
+	StaminaCharge(deltaTime);
 	mStateTimer += deltaTime * 80;
 	MV1DeleteModel(mModelHandle);
 	if (mStateTimer < 120) {
@@ -299,16 +311,16 @@ void Player::Hit(float damege)
 	}
 }
 
-void Player::ATKCharge(float deltaTime)
+void Player::StaminaCharge(float deltaTime)
 {
-	mAtk += 20 / 3 * deltaTime;
-	mAtk = min(mAtk, 20);
+	mStamina += (60 * deltaTime);
+	mStamina = min(mStamina, 100);
 }
 
 void Player::MagicCharge(float deltaTime)
 {
 	mMagicInterval += deltaTime;
-	mMagicInterval = min(mMagicInterval, 3);
+	mMagicInterval = min(mMagicInterval, 1);
 }
 
 void Player::SetStatus(PlayerStatus status)
@@ -325,7 +337,7 @@ void Player::SetStatus(PlayerStatus status)
 		mHitPoint = status.HP;
 		mMagicPoint = status.MP;
 	}
-	mAtkBoost = status.AtkBoost;
+	mAttackPower = status.AtkBoost;
 	mCurrentMagic = status.CurrentMagic;
 	mMagicList = status.List;
 }
@@ -411,7 +423,7 @@ void Player::PowerUp()
 	{
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ëÃóÕÇ™è„Ç™Ç¡ÇΩ"));
 		MAXHP += 30;
-		mAtkBoost += 5;
+		mAttackPower += 5;
 		MAXHP = min(MAXHP, 999);
 		mNextPowerEX += 3;
 	}

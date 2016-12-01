@@ -21,6 +21,7 @@ public:
 	{
 		IDLE,
 		MOVE,
+		RUN,
 		HEAVY_ATTACK,
 		LIGHT_ATTACK,
 		DAMAGE,
@@ -45,6 +46,7 @@ private:
 
 	void IdleProcess(float deltaTime);
 	void MoveProcess(float deltaTime);
+	void RunProcess(float deltaTime);
 	void HeavyAttackProcess(float deltaTime);
 	void LightAttackProcess(float deltaTime);
 	void DeadProcess(float deltaTime);
@@ -53,6 +55,7 @@ private:
 	void Hit(float damage);
 
 private:
+	float mStateTimer;
 	int mModel = 0;
 	Animator mAnimator;
 	Motion mMotionid;
