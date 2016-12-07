@@ -5,7 +5,7 @@
 class Hint : public Actor
 {
 public:
-	Hint(IWorld* world, std::string name, Vector3& position);
+	Hint(IWorld* world, std::string num, Vector3& position);
 	~Hint();
 
 private:
@@ -14,7 +14,9 @@ private:
 	void onCollide(Actor& other) override;
 	void onMessage(EventMessage message, void* p) override;
 private:
+	ActorPtr mTarget;
 	float mTimer;
 	int mModelHandle;
 	int mHintTexture;
+	bool isDraw;
 };

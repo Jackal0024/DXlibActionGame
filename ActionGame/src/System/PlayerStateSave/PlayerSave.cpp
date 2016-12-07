@@ -26,15 +26,13 @@ void PlayerSave::PlayerInit()
 {
 	PlayerStatus player;
 	std::vector<MagicList> list;
-	list.push_back(MagicList::FIREBALL);
-
 	player.HP = 100;
 	player.MaxHP = 100;
 	player.MP = 100;
 	player.MaxMP = 100;
 	player.List = list;
 	player.AtkBoost = 20;
-	player.CurrentMagic = MagicList::FIREBALL;
+	player.CurrentMagic = MagicList::NONE;
 	PlayerSave::getInstance().Save(player);
 }
 

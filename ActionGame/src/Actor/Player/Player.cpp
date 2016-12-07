@@ -30,7 +30,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mStamina(100),
 	mAttackPower(20),
 	mMagicInterval(1),
-	mCurrentMagic(MagicList::FIREBALL),
+	mCurrentMagic(MagicList::NONE),
 	mPowerEX(0),
 	mMagicEX(0),
 	mNextPowerEX(3),
@@ -42,14 +42,14 @@ Player::Player(IWorld* world, Vector3 position):
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }
 
-Player::Player(IWorld * world, Vector3 position, Vector3 rotate):
-	Actor(world, "Player", position,rotate,{ Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
+Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
+	Actor(world, "Player", position, rotate, { Line(position,position + Vector3(0,5,0)),2.0f }, Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mStamina(100),
 	mAttackPower(20),
 	mMagicInterval(1),
-	mCurrentMagic(MagicList::FIREBALL),
+	mCurrentMagic(MagicList::NONE),
 	mPowerEX(0),
 	mMagicEX(0),
 	mNextPowerEX(3),
@@ -223,7 +223,7 @@ void Player::MoveProcess(float deltaTime)
 	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * deltaTime;
 	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * deltaTime;
 
-	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button9))
+	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button8))
 	{
 		if (mStamina > 0)
 		{
@@ -243,7 +243,7 @@ void Player::MoveProcess(float deltaTime)
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0, -0.1, 0);
 
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button1))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button4))
 	{
 		if (mStamina >= 30)
 		{
@@ -253,7 +253,7 @@ void Player::MoveProcess(float deltaTime)
 			mStamina -= 30;
 		}
 	}
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3))
 	{
 		if (mMagicInterval >= 1)
 		{
@@ -422,7 +422,7 @@ void Player::PowerUp()
 	if (mPowerEX >= mNextPowerEX)
 	{
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "‘Ì—Í‚ªã‚ª‚Á‚½"));
-		MAXHP += 30;
+		MAXHP += 10;
 		mAttackPower += 5;
 		MAXHP = min(MAXHP, 999);
 		mNextPowerEX += 3;

@@ -21,7 +21,7 @@ void DemoScene::Start()
 
 void DemoScene::Update(float deltaTime)
 {
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button12) || mDemoTextYPos <= -856)
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10) || mDemoTextYPos <= -856)
 	{
 		isEnd = true;
 	}

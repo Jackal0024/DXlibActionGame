@@ -33,7 +33,7 @@ void ResultScene::Start()
 void ResultScene::Update(float deltaTime)
 {
 	mTimer += deltaTime;
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button12))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10))
 	{
 		isEnd = true;
 	}

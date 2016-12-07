@@ -116,7 +116,7 @@ void BackStage1::Update(float deltaTime)
 		mWorld->Update(deltaTime);
 		if (!mWorld->FindActor("Dead"))
 		{
-			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
+			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
 			{
 				mMenu = MagicMenu(mWorld.get());
 				isPause = true;
@@ -206,8 +206,7 @@ void BackStage1::CharacterCreate(std::string name, Vector3& position, Vector3& r
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::RESULT));
 	if (name == "WarpNext") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
-	if (name == "IceStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
-	if (name == "HeelStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
+	if (name == "FireStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーボール", position, MagicList::FIREBALL));
 }
 
 void BackStage1::IsFadeEnd()

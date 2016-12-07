@@ -13,7 +13,7 @@ MagicMenu::MagicMenu()
 MagicMenu::MagicMenu(IWorld* world):
 	mWorld(world),
 	mIndex(0),
-	mMagichas(true)
+	mMagichas(false)
 {
 	CreateMagicText();
 	mUnknownTexture = LoadGraph("./res/Texture/MagicListText/unknown.png");
@@ -26,6 +26,10 @@ MagicMenu::MagicMenu(IWorld* world):
 		std::runtime_error("Player not");
 	}
 	mList = ((Player*)player.get())->GetHaveMagic();
+	for (auto magic : mList)
+	{
+		if (mIndex == (int)magic) mMagichas = true;
+	}
 	mCurrentMagic = ((Player*)player.get())->GetCurrentMagic();
 }
 
@@ -48,14 +52,14 @@ void MagicMenu::Update(float deltaTime)
 		if (mIndex == (int)magic) mMagichas = true;
 	}
 
-	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3) || Input::getInstance().GetKeyTrigger(KEY_INPUT_RETURN))
+	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_RETURN))
 	{
 		if (!mMagichas) return;
 		MagicList magic = (MagicList)mIndex;
 		mWorld->SendMsg(EventMessage::MAGIC_CHANGE, (void*)&magic);
 		PauseEnd();
 	}
-	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button4) || Input::getInstance().GetKeyTrigger(KEY_INPUT_BACK))
+	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3) || Input::getInstance().GetKeyTrigger(KEY_INPUT_BACK))
 	{
 		PauseEnd();
 	}

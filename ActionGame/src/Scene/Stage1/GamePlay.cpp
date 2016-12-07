@@ -36,6 +36,8 @@
 #include"../../Actor/UI/Bar/MPBar.h"
 #include"../../Actor/UI/Bar/StaminaBar.h"
 
+#include"../../Actor/Gimmick/Hint.h"
+
 void GamePlay::Start()
 {
 	isEnd = false;
@@ -86,6 +88,8 @@ void GamePlay::Start()
 	/*mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(50.0f, 0.0f, -290)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -290)));*/
+
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<Hint>(mWorld.get(), "1", Vector3(0, 0, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f,0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<HPBar>(mWorld.get(), Vector3(77.0f, 15.0f, 0.0f)));
@@ -116,7 +120,7 @@ void GamePlay::Update(float deltaTime)
 		mWorld->Update(deltaTime);
 		if (!mWorld->FindActor("Dead"))
 		{
-			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
+			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
 			{
 				mMenu = MagicMenu(mWorld.get());
 				isPause = true;
@@ -201,11 +205,10 @@ void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rota
 {
 	if(name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position,rotate));
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));
-	if(name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate));
-	if (name == "Warp") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate,Scene::STAGE2));
+	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::RESULT));
+	if (name == "WarpNext") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
-	if(name == "IceStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
-	if (name == "HeelStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
+	if (name == "FireStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーボール", position, MagicList::FIREBALL));
 }
 
 void GamePlay::IsFadeEnd()

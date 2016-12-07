@@ -20,6 +20,7 @@ private:
 	void Move(float deltaTime);
 
 private:
+	ActorPtr mPlayer;
 	bool isDraw;
 	float mTimer;
 	int mModelHandle;

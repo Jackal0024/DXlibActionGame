@@ -97,7 +97,7 @@ void Title::Demo(float deltaTime)
 		mAlpha += 1;
 		mAlpha = min(mAlpha, 255);
 	}
-	if (mAlpha >= 255 || Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button12))
+	if (mAlpha >= 255 || Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10))
 	{
 		mState = State::WAIT;
 	}
@@ -109,7 +109,7 @@ void Title::Wait(float deltaTime)
 	mPos = { 0,-10,0 };
 	mRotate = Matrix(mRotate).SetPosition(mPos);
 	mRotate = mRotate * Matrix(MGetRotY((60 * deltaTime) * (DX_PI / 180)));
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button12))
+	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10))
 	{
 		isEnd = true;
 	}

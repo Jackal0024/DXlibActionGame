@@ -100,7 +100,7 @@ void GamePlay3::Update(float deltaTime)
 		mWorld->Update(deltaTime);
 		if (!mWorld->FindActor("Dead"))
 		{
-			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
+			if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10) || Input::getInstance().GetKeyTrigger(KEY_INPUT_P))
 			{
 				mMenu = MagicMenu(mWorld.get());
 				isPause = true;

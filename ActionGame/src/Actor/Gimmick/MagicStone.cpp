@@ -6,9 +6,10 @@ MagicStone::MagicStone(IWorld * world, std::string name, Vector3 & position, Mag
 Actor(world,name,position, { Line(position,position + Vector3(0,0,0)),10.0f }),
 mMagicName(magic),
 mTimer(0),
-mListSize(0),
+mListSize(-1),
 isDraw(false)
 {
+	mPlayer = mWorld->FindActor("Player");
 	mModelHandle = MV1LoadModel("./res/MagicStone/MagicStone.mv1");
 }
 
@@ -47,13 +48,19 @@ void MagicStone::onMessage(EventMessage message, void * p)
 void MagicStone::OverLapSearch()
 {
 	//プレイヤーが持っている魔法の検索
-	auto player = mWorld->FindActor("Player");
-	if (!player) return;
-	auto magiclist = ((Player*)player.get())->GetHaveMagic();
+	if (!mPlayer) return;
+	auto magiclist = ((Player*)mPlayer.get())->GetHaveMagic();
 
 	//プレイヤーの持ってる魔法数が変わったら検索開始
-	if (mListSize == magiclist.size()) return;
-	mListSize = magiclist.size();
+	//if (mListSize == magiclist.size()) return;
+	//mListSize = magiclist.size();
+
+	//プレイヤーが魔法を一つも持ってなかったら描画
+	if (magiclist.size() == 0)
+	{
+		isDraw = true; 
+		return;
+	}
 
 	//プレイヤーが同じ魔法を持っていたら自身を消滅
 	for (int i = 0; i < magiclist.size(); i++)

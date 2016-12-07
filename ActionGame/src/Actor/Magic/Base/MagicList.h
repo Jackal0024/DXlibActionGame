@@ -8,5 +8,6 @@ enum class MagicList
 	ROCKBLAST,
 	FIREWALL,
 	MAGICMINE,
-	TRAPSPEAR
+	TRAPSPEAR,
+	NONE
 };
