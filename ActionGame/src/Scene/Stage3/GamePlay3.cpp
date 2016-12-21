@@ -42,26 +42,6 @@ void GamePlay3::Start()
 	mFade = std::make_shared<Fadeeffect>(mWorld.get(), 255.0f, 0.0f, 1.0f, "./res/Texture/Smoke.jpg");
 	isFade = false;
 
-	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
-	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
-	AssetStorage::getInstance().HandleRegister("./res/lizard/lizard.mv1", "Lizard");
-	AssetStorage::getInstance().HandleRegister("./res/Goblin/Goblin.mv1", "Goblin");
-	AssetStorage::getInstance().HandleRegister("./res/Mummy/mummy.mv1", "Mummy");
-	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
-	AssetStorage::getInstance().HandleRegister("./res/IceNeedle/IceNeedle.mv1", "IceNeedle");
-	AssetStorage::getInstance().HandleRegister("./res/RockBlast/Rock.mv1", "Rock");
-	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Needle.mv1", "Mine");
-	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Bomb.mv1", "Bomb");
-	AssetStorage::getInstance().HandleRegister("./res/BlackSpear/BlackSpear.mv1", "BlackSpear");
-	AssetStorage::getInstance().HandleRegister("./res/BlackSpear/Circle.mv1", "SpearCircle");
-	AssetStorage::getInstance().HandleRegister("./res/FireWall/FireWall.mv1", "FireWall");
-
-	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
-	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.mp3");
-	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
-	SoundManager::getInstance().Register("./res/Sound/Fire.mp3");
-	SoundManager::getInstance().Register("./res/Sound/Ice.mp3");
-
 	mWorld = std::make_shared<World>();
 	mWorld->AddEventMessageListener(
 		[=](EventMessage msg, void* param) {
@@ -133,8 +113,6 @@ Scene GamePlay3::Next() const
 
 void GamePlay3::End()
 {
-	AssetStorage::getInstance().Clear();
-	SoundManager::getInstance().Clear();
 	mWorld = nullptr;
 }
 

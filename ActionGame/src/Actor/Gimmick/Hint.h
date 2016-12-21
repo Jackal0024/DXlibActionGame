@@ -6,6 +6,7 @@ class Hint : public Actor
 {
 public:
 	Hint(IWorld* world, std::string num, Vector3& position);
+	Hint(IWorld* world, std::string num, Vector3 position, Vector3 rotate);
 	~Hint();
 
 private:

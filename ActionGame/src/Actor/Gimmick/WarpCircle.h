@@ -8,6 +8,7 @@ class WarpCircle :public Actor
 public:
 	WarpCircle(IWorld* world, Vector3 position, Scene next);
 	WarpCircle(IWorld* world, Vector3 position, Vector3 rotate, Scene next);
+	~WarpCircle();
 private:
 	void onStart() override;
 	void onUpdate(float deltaTime) override;

@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		ScreenFlip();
 		deltatime = GetNowCount() - Time;
-		deltatime /= 1000;
+		deltatime /= 1000; //1•b=1000m/s
 		deltatime = min(deltatime, 0.1f);
 	}
 	game.Finish();

@@ -20,6 +20,7 @@ MagicMenu::MagicMenu(IWorld* world):
 	mEquipmentTexture = LoadGraph("./res/Texture/MagicListText/Equipment.png");
 	mCursorLeft = LoadGraph("./res/Texture/MagicListText/CursorLeft.png");
 	mCursorRight = LoadGraph("./res/Texture/MagicListText/CursorRight.png");
+	mHelpTexture = LoadGraph("./res/Texture/MagicListText/help.png");
 	auto player = mWorld->FindActor("Player");
 	if (!player)
 	{
@@ -72,6 +73,7 @@ void MagicMenu::Draw() const
 	if(mCurrentMagic == (MagicList)mIndex) DrawGraph(128, 128, mEquipmentTexture, TRUE);
 	if(mIndex != 0) DrawGraph(0, (HEIGHT / 2) - 52, mCursorLeft, TRUE);
 	if (mIndex != mTextTexture.size() - 1) DrawGraph((WIDTH - 73),(HEIGHT / 2) - 52, mCursorRight, TRUE);
+	DrawGraph(670, 480, mHelpTexture, TRUE);
 }
 
 MagicMenu::~MagicMenu()

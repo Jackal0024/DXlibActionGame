@@ -72,6 +72,9 @@ Player::~Player()
 	player.CurrentMagic = mCurrentMagic;
 	player.List = mMagicList;
 	PlayerSave::getInstance().Save(player);
+
+	MV1DeleteModel(mModelHandle);
+	MV1DeleteModel(mWeaponHandle);
 }
 
 float Player::GetHP()

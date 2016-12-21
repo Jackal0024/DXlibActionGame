@@ -27,6 +27,7 @@ Lizard::Lizard(IWorld * world, Vector3 position, Vector3 rotate):
 
 Lizard::~Lizard()
 {
+	MV1DeleteModel(mModel);
 }
 
 void Lizard::onStart()
@@ -114,7 +115,17 @@ void Lizard::IdleProcess(float deltaTime)
 
 void Lizard::CautionProcess(float deltaTime)
 {
+
+	float dis = VSize(mTarget->GetPosition() - mPosition);
+	if (dis < 100)
+	{
+		mAnimator.AnimationChange(Motion::MOVE_MOTION, 0.3f, 0.5f, true);
+		StateChange(State::DISCOVERY, Motion::MOVE_MOTION);
+	}
+
 	mTimer += deltaTime;
+
+
 	if (mTimer > 3)
 	{
 		mTimer = 0;
@@ -158,7 +169,7 @@ void Lizard::DiscoveryProcess(float deltaTime)
 			mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 			StateChange(State::IDLE, Motion::IDLE_MOTION);
 		}
-		if (dis < 50 && isFront(forward_dot_target))
+		if (dis <= 110 && isFront(forward_dot_target))
 		{
 			mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::ATTACK, Motion::ATTACK_MOTION);

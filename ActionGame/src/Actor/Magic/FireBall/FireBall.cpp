@@ -3,7 +3,7 @@
 #include"../../../Sound/SoundManager.h"
 
 FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity,Tag tag,float atk) :
-Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
+Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),5.0f },tag),
 mVelocity(Velocity),
 mTimer(0),
 mIndex(0),
@@ -35,7 +35,7 @@ void FireBall::onUpdate(float deltaTime)
 
 void FireBall::onDraw() const
 {
-	DrawBillboard3D(mPosition, 0.5f, 0.5f, 32, 0, mHandle[mIndex], TRUE,TRUE);
+	DrawBillboard3D(mPosition, 0.5f, 0.5f, 32, 0, mHandle[mIndex],TRUE);
 }
 
 void FireBall::onCollide(Actor & other)

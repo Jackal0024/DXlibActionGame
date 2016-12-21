@@ -17,6 +17,7 @@
 #include"../Sound/SoundManager.h"
 
 #include"../Scene/Base/Scene.h"
+#include"../Scene/LoadAsset/LoadAssetScnen.h"
 #include"../Scene/Stage1/GamePlay.h"
 #include"../Scene/Stage2/GamePlay2.h"
 #include"../Scene/Stage1/BackStage1.h"
@@ -39,6 +40,7 @@ Game::~Game()
 void Game::initialize()
 {
 	mSceneManager.Initialize();
+	mSceneManager.Add(Scene::LOAD, std::make_shared<LoadAssetScnen>());
 	mSceneManager.Add(Scene::TITLE, std::make_shared<Title>());
 	mSceneManager.Add(Scene::DEMO , std::make_shared<DemoScene>());
 	mSceneManager.Add(Scene::STAGE1, std::make_shared<GamePlay>());
@@ -47,7 +49,7 @@ void Game::initialize()
 	mSceneManager.Add(Scene::STAGE2_BACK, std::make_shared<BackStage2>());
 	mSceneManager.Add(Scene::STAGE3, std::make_shared<GamePlay3>());
 	mSceneManager.Add(Scene::RESULT, std::make_shared<ResultScene>());
-	mSceneManager.Change(Scene::TITLE);
+	mSceneManager.Change(Scene::LOAD);
 }
 
 void Game::Update(float deltatime)

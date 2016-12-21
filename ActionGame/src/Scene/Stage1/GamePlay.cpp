@@ -14,10 +14,8 @@
 #include"../../Actor/Enemy/Golem/Golem.h"
 #include"../../Field/Field.h"
 #include"../../Actor/UI/PlayerMP.h"
-#include"../../Sound/SoundManager.h"
 #include"../../Actor/Enemy/Ghost/Ghost.h"
 #include"../Base/Scene.h"
-#include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
 #include"../../Actor/UI/StateFrame.h"
 #include"../../Actor/Gimmick/WarpCircle.h"
@@ -46,26 +44,6 @@ void GamePlay::Start()
 	mFade = std::make_shared<Fadeeffect>(mWorld.get(), 255.0f, 0.0f, 1.0f,"./res/Texture/Smoke.jpg");
 	isFade = false;
 
-	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
-	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
-	AssetStorage::getInstance().HandleRegister("./res/lizard/lizard.mv1", "Lizard");
-	AssetStorage::getInstance().HandleRegister("./res/Goblin/Goblin.mv1", "Goblin");
-	AssetStorage::getInstance().HandleRegister("./res/Mummy/mummy.mv1", "Mummy");
-	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
-	AssetStorage::getInstance().HandleRegister("./res/IceNeedle/IceNeedle.mv1", "IceNeedle");
-	AssetStorage::getInstance().HandleRegister("./res/RockBlast/Rock.mv1", "Rock");
-	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Needle.mv1", "Mine");
-	AssetStorage::getInstance().HandleRegister("./res/NeedleBomb/Bomb.mv1", "Bomb");
-	AssetStorage::getInstance().HandleRegister("./res/BlackSpear/BlackSpear.mv1", "BlackSpear");
-	AssetStorage::getInstance().HandleRegister("./res/BlackSpear/Circle.mv1", "SpearCircle");
-	AssetStorage::getInstance().HandleRegister("./res/FireWall/FireWall.mv1", "FireWall");
-
-	SoundManager::getInstance().Register("./res/Sound/PlayerDamage.ogg");
-	SoundManager::getInstance().Register("./res/Sound/PlayerAttack.mp3");
-	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
-	SoundManager::getInstance().Register("./res/Sound/Fire.mp3");
-	SoundManager::getInstance().Register("./res/Sound/Ice.mp3");
-
 	mWorld = std::make_shared<World>();
 	mWorld->AddEventMessageListener(
 		[=](EventMessage msg, void* param) {
@@ -89,7 +67,6 @@ void GamePlay::Start()
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
 	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -290)));*/
 
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<Hint>(mWorld.get(), "1", Vector3(0, 0, 0)));
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f,0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<HPBar>(mWorld.get(), Vector3(77.0f, 15.0f, 0.0f)));
@@ -100,7 +77,7 @@ void GamePlay::Start()
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
 	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
 
-	mMenu = MagicMenu(mWorld.get());
+	//mMenu = MagicMenu(mWorld.get());
 
 	isDraw = true;
 
@@ -153,8 +130,6 @@ Scene GamePlay::Next() const
 
 void GamePlay::End()
 {
-	AssetStorage::getInstance().Clear();
-	SoundManager::getInstance().Clear();
 	mWorld = nullptr;
 }
 
@@ -209,6 +184,8 @@ void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rota
 	if (name == "WarpNext") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 	if (name == "FireStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーボール", position, MagicList::FIREBALL));
+	//rotateのx回転にどのテクスチャを使うかを隠しておくHintObjはrotateのxとzの影響は受けない
+	if (name == "Hint") mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<Hint>(mWorld.get(), std::to_string((int)rotate.x), position, rotate));
 }
 
 void GamePlay::IsFadeEnd()

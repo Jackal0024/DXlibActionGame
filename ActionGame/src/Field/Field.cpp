@@ -8,6 +8,11 @@ Field::Field(int modelhandle)
 	MV1SetupCollInfo(mModelHandle, -1);
 }
 
+Field::~Field()
+{
+	MV1DeleteModel(mModelHandle);
+}
+
 bool Field::Collision(const Vector3& start, const Vector3& end, Vector3& out_heigt) const
 {	
 	auto HitPoly = MV1CollCheck_Line(mModelHandle, -1, start, end);

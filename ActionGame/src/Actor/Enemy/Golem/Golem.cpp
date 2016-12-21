@@ -125,7 +125,7 @@ void Golem::MoveProcess(float deltaTime)
 		float rad = atan2(velocity.x,velocity.z);
 
 		velocity = VNorm(velocity) * deltaTime;
-		mPosition += velocity * 10;
+		mPosition += velocity * 15;
 		mRotate = MGetRotY(rad);
 	}
 }

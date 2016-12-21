@@ -189,8 +189,6 @@ void Goblin::DeadProcess(float deltaTime)
 	{
 		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
-		Vector3 pos = mPosition + Vector3(0, 10, 0);
-		mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "ファイアーウォール", pos, MagicList::FIREWALL));
 		Dead();
 	}
 }
@@ -209,6 +207,8 @@ void Goblin::Hit(float damage)
 	mHitPoint -= damage;
 	if (mHitPoint <= 0)
 	{
+		Vector3 pos = mPosition + Vector3(0, 10, 0);
+		mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "ファイアーウォール", pos, MagicList::FIREWALL));
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DEAD, Motion::DEAD_MOTION);

@@ -12,7 +12,21 @@ Hint::Hint(IWorld * world, std::string num, Vector3 & position):
 	mTarget = mWorld->FindActor("Player");
 }
 
-Hint::~Hint(){}
+Hint::Hint(IWorld * world, std::string num,Vector3 position, Vector3 rotate) :
+	Actor(world, "Hint", position, {0,rotate.y,0}, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
+	isDraw(false)
+{
+	mModelHandle = MV1LoadModel("./res/Hint/Hint.mv1");
+	auto str = "./res/Texture/Hint/" + num + ".png";
+	mHintTexture = LoadGraph(str.c_str());
+
+	mTarget = mWorld->FindActor("Player");
+}
+
+Hint::~Hint(){
+	MV1DeleteModel(mModelHandle);
+	DeleteGraph(mHintTexture);
+}
 
 void Hint::onUpdate(float deltaTime)
 {

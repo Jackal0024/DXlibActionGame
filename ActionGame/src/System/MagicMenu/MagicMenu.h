@@ -28,6 +28,7 @@ private:
 	std::vector<MagicList> mList;
 	MagicList mCurrentMagic;
 	int mUnknownTexture;
+	int mHelpTexture;
 	int mEquipmentTexture;
 	int mCursorRight;
 	int mCursorLeft;

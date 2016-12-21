@@ -20,13 +20,19 @@ WarpCircle::WarpCircle(IWorld * world, Vector3 position, Vector3 rotate, Scene n
 	mHandle2 = MV1LoadModel("./res/WarpCircle/Aura.mv1");
 }
 
+WarpCircle::~WarpCircle()
+{
+	MV1DeleteModel(mHandle);
+	MV1DeleteModel(mHandle2);
+}
+
 void WarpCircle::onStart()
 {
+	mTarget = mWorld->FindActor("Player");
 }
 
 void WarpCircle::onUpdate(float deltaTime)
 {
-	mTarget = mWorld->FindActor("Player");
 	if (!mTarget) return;
 	Vector3 sub = mTarget->GetPosition() - mPosition;
 	sub.y = 0;

@@ -16,6 +16,11 @@ HealCircle::HealCircle(IWorld * world, Vector3 position, Vector3 rotate):
 	mHandle = MV1LoadModel("./res/HealCircle/MagicCircle2.mv1");
 }
 
+HealCircle::~HealCircle()
+{
+	MV1DeleteModel(mHandle);
+}
+
 void HealCircle::onStart()
 {
 }

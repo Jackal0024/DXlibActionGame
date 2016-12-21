@@ -3,6 +3,7 @@
 enum class Scene
 {
 	NONE,
+	LOAD,
 	TITLE,
 	DEMO,
 	RESULT,

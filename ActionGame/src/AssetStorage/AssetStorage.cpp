@@ -25,6 +25,9 @@ int AssetStorage::GetHandle(std::string key)
 
 void AssetStorage::Clear()
 {
+	for (auto itr = mAssets.begin(); itr != mAssets.end(); ++itr) {
+		MV1DeleteModel(itr->second);
+	}
 	mAssets.clear();
 }
 
