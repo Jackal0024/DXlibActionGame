@@ -3,6 +3,7 @@
 
 #include"../../Base/Actor.h"
 #include"../../../Animation/Animator.h"
+#include"../../Magic/Base/MagicList.h"
 
 class Golem : public Actor
 {
@@ -27,6 +28,7 @@ public:
 
 public:
 	Golem(IWorld* world, Vector3 position);
+	Golem(IWorld* world, Vector3 position,MagicList magic);
 	Golem(IWorld* world, Vector3 position,Vector3 rotate);
 	~Golem();
 

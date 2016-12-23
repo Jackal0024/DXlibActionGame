@@ -36,6 +36,23 @@ void LoadAssetScnen::Update(float deltaTime)
 	SoundManager::getInstance().Register("./res/Sound/EnemyVoice.ogg");
 	SoundManager::getInstance().Register("./res/Sound/Fire.mp3");
 	SoundManager::getInstance().Register("./res/Sound/Ice.mp3");
+	SoundManager::getInstance().Register("./res/Sound/PlayerDead.mp3");
+	SoundManager::getInstance().Register("./res/Sound/Healing.mp3");
+	SoundManager::getInstance().Register("./res/Sound/PlayerHeal.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MagicStoneGet.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MagicMine1.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MagicMine2.mp3");
+	SoundManager::getInstance().Register("./res/Sound/Spear.mp3");
+	SoundManager::getInstance().Register("./res/Sound/Trap.mp3");
+	SoundManager::getInstance().Register("./res/Sound/FireWall.mp3");
+	SoundManager::getInstance().Register("./res/Sound/Rock.mp3");
+	SoundManager::getInstance().Register("./res/Sound/Warp.mp3");
+	SoundManager::getInstance().Register("./res/Sound/PowerUp.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MagicUp.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MenuClose.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MenuOpen.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MenuSubmit.mp3");
+	SoundManager::getInstance().Register("./res/Sound/MenuSelect.mp3");
 	isEnd = true;
 }
 

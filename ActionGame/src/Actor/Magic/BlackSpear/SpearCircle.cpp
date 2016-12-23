@@ -7,7 +7,8 @@ SpearCircle::SpearCircle(IWorld * world, Vector3 position, Tag tag) :
 	Actor(world, "SpearCircle", position, { { 0,0,0 },3.0f }, tag),
 	mTimer(0.0f)
 {
-	mModelHandle = AssetStorage::getInstance().GetHandle("SpearCircle");
+	SoundManager::getInstance().Play("./res/Sound/Trap.mp3");
+	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("SpearCircle"));
 }
 
 SpearCircle::~SpearCircle()
@@ -26,18 +27,19 @@ void SpearCircle::onUpdate(float deltaTime)
 
 void SpearCircle::onDraw() const
 {
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(mTimer), GetPose().SetScale(Vector3(0.8f, 0.8f, 0.8f))));
+	Matrix mat = MGetRotY(mTimer) * GetPose();
+	MV1SetMatrix(mModelHandle, mat);
 	MV1DrawModel(mModelHandle);
 }
 
 void SpearCircle::onCollide(Actor & other)
 {
-	if (other.GetTag() == Tag::PLAYER)
+	if (other.GetTag() == Tag::PLAYER && mTag == Tag::ENEMY_ATTACK)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<BlackSpear>(mWorld, mPosition, mTag));
 		Dead();
 	}
-	if (other.GetTag() == Tag::ENEMY)
+	if (other.GetTag() == Tag::ENEMY && mTag == Tag::PLAYER_ATTACK)
 	{
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<BlackSpear>(mWorld, mPosition, mTag));
 		Dead();

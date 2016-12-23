@@ -5,6 +5,7 @@
 #include"../../Actor/Player/Player.h"
 #include"../../Input/Input.h"
 #include"../ConstantList/WindowSize.h"
+#include"../../Sound/SoundManager.h"
 
 MagicMenu::MagicMenu()
 {
@@ -32,17 +33,20 @@ MagicMenu::MagicMenu(IWorld* world):
 		if (mIndex == (int)magic) mMagichas = true;
 	}
 	mCurrentMagic = ((Player*)player.get())->GetCurrentMagic();
+	SoundManager::getInstance().Play("./res/Sound/MenuOpen.mp3");
 }
 
 void MagicMenu::Update(float deltaTime)
 {
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_UP) || StickCheck(Stick::UP))
 	{
+		SoundManager::getInstance().Play("./res/Sound/MenuSelect.mp3");
 		mIndex = max(mIndex - 1, 0);
 		mMagichas = false;
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_DOWN) || StickCheck(Stick::DOWN))
 	{
+		SoundManager::getInstance().Play("./res/Sound/MenuSelect.mp3");
 		mIndex = min(mIndex + 1, mTextTexture.size() - 1);
 		mMagichas = false;
 	}
@@ -56,12 +60,14 @@ void MagicMenu::Update(float deltaTime)
 	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button2) || Input::getInstance().GetKeyTrigger(KEY_INPUT_RETURN))
 	{
 		if (!mMagichas) return;
+		SoundManager::getInstance().Play("./res/Sound/MenuSubmit.mp3");
 		MagicList magic = (MagicList)mIndex;
 		mWorld->SendMsg(EventMessage::MAGIC_CHANGE, (void*)&magic);
 		PauseEnd();
 	}
 	if (Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3) || Input::getInstance().GetKeyTrigger(KEY_INPUT_BACK))
 	{
+		SoundManager::getInstance().Play("./res/Sound/MenuClose.mp3");
 		PauseEnd();
 	}
 }

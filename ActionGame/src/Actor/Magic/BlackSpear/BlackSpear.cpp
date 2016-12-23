@@ -9,8 +9,9 @@ BlackSpear::BlackSpear(IWorld * world, Vector3 position, Tag tag):
 	mHit(false),
 	mToPos(position)
 {
+	SoundManager::getInstance().Play("./res/Sound/Spear.mp3");
 	mFromPos = mPosition;
-	mModelHandle = AssetStorage::getInstance().GetHandle("BlackSpear");
+	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("BlackSpear"));
 }
 
 BlackSpear::~BlackSpear()

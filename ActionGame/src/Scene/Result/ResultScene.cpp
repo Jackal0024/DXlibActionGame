@@ -28,6 +28,8 @@ void ResultScene::Start()
 	mStampTexture = LoadGraph("./res/Texture/Result/certification.png");
 	mPressStart = LoadGraph("./res/Texture/Result/PressStart.png");
 	mNum = NumberTexture("./res/Texture/Result/num.png", 10, 10, 1, 42, 69);
+
+	PlayMusic("./res/Sound/ResultBGM.ogg", DX_PLAYTYPE_LOOP);
 }
 
 void ResultScene::Update(float deltaTime)

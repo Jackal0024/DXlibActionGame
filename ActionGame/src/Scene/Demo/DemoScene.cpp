@@ -17,6 +17,8 @@ void DemoScene::Start()
 	mDemoTextYPos = HEIGHT;
 	mBackGround = LoadGraph("./res/Texture/Result/EndingBG.png");
 	mDemoText = LoadGraph("./res/Texture/Demo/DemoText.png");
+
+	PlayMusic("./res/Sound/DemoBGM.ogg", DX_PLAYTYPE_LOOP);
 }
 
 void DemoScene::Update(float deltaTime)

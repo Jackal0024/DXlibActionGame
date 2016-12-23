@@ -1,9 +1,11 @@
 #include "FireWall.h"
 #include"FireWallParts.h"
+#include"../../../Sound/SoundManager.h"
 
 FireWall::FireWall(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag) :
-	Actor(world, "Rock", position, { Line(position,position + Vector3(0,0,0)),10.0f }, Tag::UNTAGGET)
+	Actor(world, "FireWall", position, { Line(position,position + Vector3(0,0,0)),10.0f }, Tag::UNTAGGET)
 {
+	SoundManager::getInstance().Play("./res/Sound/FireWall.mp3");
 	for (int i = 0; i < 5; i++)
 	{
 		Vector3 right = VTransform(Velocity, MGetRotY(90 * DX_PI / 180));

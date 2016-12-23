@@ -33,6 +33,8 @@ void Title::Start()
 		{ 0,0,-100 },
 		{ 0,0,0 },
 		VGet(0.0f, 1.0f, 0.0f));
+
+	PlayMusic("./res/Sound/TitleBGM.ogg", DX_PLAYTYPE_LOOP);
 }
 
 void Title::Update(float deltaTime)

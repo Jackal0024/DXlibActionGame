@@ -59,7 +59,7 @@ void BackStage2::Start()
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
-	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
+	PlayMusic("./res/Sound/Dungeon2_BGM.ogg", DX_PLAYTYPE_LOOP);
 
 	mMenu = MagicMenu(mWorld.get());
 

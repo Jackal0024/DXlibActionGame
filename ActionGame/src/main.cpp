@@ -8,24 +8,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	float deltatime = 0;
 	//Œo‰ßŽžŠÔ
 	float timer = 0;
-	SetUseZBuffer3D(TRUE);
+
 	SetGraphMode(WIDTH, HEIGHT, 16);
 	ChangeWindowMode(TRUE);
 
-	SetBackgroundColor(0, 0, 255);
 	DxLib_Init();
+	SetBackgroundColor(0, 0, 255);
+
 	SetDrawScreen(DX_SCREEN_BACK);
 	game.initialize();
+
 	while (ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0) 
 	{
 		auto Time = GetNowCount();
 		timer += deltatime;
 
 		game.Update(deltatime);
+
+		SetUseZBuffer3D(TRUE);
+		SetWriteZBuffer3D(TRUE);
 		game.Draw();
 
-		DrawFormatString(0, HEIGHT-80, GetColor(255, 255, 255), "Timer =%f", timer);
-		DrawFormatString(0, HEIGHT-40, GetColor(255, 255, 255), "DeltaTimer =%f", deltatime);
+		DrawFormatString(0, HEIGHT-80, GetColor(255, 255, 255), "Timer = %f", timer);
+		DrawFormatString(0, HEIGHT-40, GetColor(255, 255, 255), "DeltaTimer = %f", deltatime);
 
 		/*DrawLine3D(Vector3(0, 0, 0), Vector3(100, 0, 0), GetColor(255, 0, 0));
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 100, 0), GetColor(0, 255, 0));

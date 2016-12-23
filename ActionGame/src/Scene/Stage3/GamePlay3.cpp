@@ -58,7 +58,7 @@ void GamePlay3::Start()
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
 	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
-	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
+	PlayMusic("./res/Sound/Dungeon3_BGM.ogg", DX_PLAYTYPE_LOOP);
 
 	mMenu = MagicMenu(mWorld.get());
 
@@ -168,7 +168,7 @@ void GamePlay3::CharacterCreate(std::string name, Vector3& position, Vector3& ro
 	if (name == "Mummy") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2_BACK));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
-	if (name == "MineStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::MAGICMINE));
+	if (name == "MineStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "マジックマイン", position, MagicList::MAGICMINE));
 	if (name == "TrapStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", position, MagicList::TRAPSPEAR));
 }
 

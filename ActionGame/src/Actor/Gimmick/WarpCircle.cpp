@@ -1,4 +1,5 @@
 #include "WarpCircle.h"
+#include"../../Sound/SoundManager.h"
 
 WarpCircle::WarpCircle(IWorld * world, Vector3 position,Scene next) :
 	Actor(world, "Warp", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
@@ -39,6 +40,7 @@ void WarpCircle::onUpdate(float deltaTime)
 	if (VSize(sub) < 10.0f && !isEnd)
 	{
 		isEnd = true;
+		SoundManager::getInstance().Play("./res/Sound/Warp.mp3");
 		mWorld->SendMsg(EventMessage::SCENE_END,(void*)&mNext);
 	}
 	angel += deltaTime;

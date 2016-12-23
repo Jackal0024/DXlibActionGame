@@ -1,6 +1,7 @@
 #include "MagicStone.h"
 #include"../UI/TextDraw.h"
 #include"../Player/Player.h"
+#include"../../Sound/SoundManager.h"
 
 MagicStone::MagicStone(IWorld * world, std::string name, Vector3 & position, MagicList magic) :
 Actor(world,name,position, { Line(position,position + Vector3(0,0,0)),10.0f }),
@@ -34,6 +35,7 @@ void MagicStone::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER)
 	{
+		SoundManager::getInstance().Play("./res/Sound/MagicStoneGet.mp3");
 		other.HandleMessage(EventMessage::MAGIC_GET,(void*)&mMagicName);
 		mWorld->AddActor(ActorGroup::UI, std::make_shared<TextDraw>(mWorld, mName+"‚Ì–‚–@‚ðŽè‚É“ü‚ê‚½"));
 		Dead();

@@ -2,6 +2,7 @@
 #include"Bomb.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../../Sound/SoundManager.h"
 
 MagicMine::MagicMine(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag):
 	Actor(world, "Mine", position, { Line(position,position + Vector3(0,0,0)),3.0f }, tag),
@@ -9,6 +10,7 @@ MagicMine::MagicMine(IWorld * world, Vector3 position, const Vector3 & Velocity,
 	mTimer(0.0f),
 	mHit(false)
 {
+	SoundManager::getInstance().Play("./res/Sound/MagicMine1.mp3");
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mine"));
 
 	float dot = VDot(VNorm(mVelocity), Vector3(0, 0, 1));
@@ -64,6 +66,7 @@ void MagicMine::onCollide(Actor & other)
 
 void MagicMine::Explosion()
 {
+	SoundManager::getInstance().Play("./res/Sound/MagicMine2.mp3");
 	if (mTag == Tag::ENEMY_ATTACK)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<Bomb>(mWorld, mPosition, mTag));

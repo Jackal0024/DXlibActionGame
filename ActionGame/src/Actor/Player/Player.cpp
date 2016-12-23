@@ -304,6 +304,7 @@ void Player::Hit(float damege)
 	mHitPoint = max(0, mHitPoint);
 	if (mHitPoint <= 0)
 	{
+		SoundManager::getInstance().Play("./res/Sound/PlayerDead.mp3");
 		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<DeadEffect>(mWorld));
 		StateChange(State::DEAD);
 	}
@@ -354,7 +355,7 @@ void Player::MagicAttack()
 	{
 		if (mMagicPoint < 5) return;
 		auto camera = mWorld->GetCamera();
-		Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20);
+		Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20) + Vector3(0,11,0);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
 		mMagicPoint -= 5;
 	}
@@ -371,6 +372,7 @@ void Player::MagicAttack()
 
 	case MagicList::HEALING:
 		if (mMagicPoint < 20 || mHitPoint >= MAXHP) return;
+		SoundManager::getInstance().Play("./res/Sound/PlayerHeal.mp3");
 		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
 		mHitPoint = min(mHitPoint += 50, MAXHP);
 		mMagicPoint -= 20;
@@ -424,6 +426,7 @@ void Player::PowerUp()
 	mPowerEX++;
 	if (mPowerEX >= mNextPowerEX)
 	{
+		SoundManager::getInstance().Play("./res/Sound/PowerUp.mp3");
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ëÃóÕÇ™è„Ç™Ç¡ÇΩ"));
 		MAXHP += 10;
 		mAttackPower += 5;
@@ -437,6 +440,7 @@ void Player::MagicUp()
 	mMagicEX++;
 	if (mMagicEX >= mNextMagicEX)
 	{
+		SoundManager::getInstance().Play("./res/Sound/MagicUp.mp3");
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ñÇóÕÇ™è„Ç™Ç¡ÇΩ"));
 		MAXMP += 15;
 		MAXMP = min(MAXMP, 999);

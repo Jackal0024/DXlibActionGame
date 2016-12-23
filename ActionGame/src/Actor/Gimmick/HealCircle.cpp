@@ -1,6 +1,7 @@
 #include "HealCircle.h"
 #include"../UI/TextDraw.h"
 #include"../UI/FlashEffect.h"
+#include"../../Sound/SoundManager.h"
 
 HealCircle::HealCircle(IWorld * world, Vector3 position):
 	Actor(world, "Heal", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
@@ -36,6 +37,7 @@ void HealCircle::onUpdate(float deltaTime)
 		isHealing = true;
 		mWorld->AddActor(ActorGroup::UI, std::make_shared<TextDraw>(mWorld, "‰ñ•œ‚µ‚½"));
 		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
+		SoundManager::getInstance().Play("./res/Sound/Healing.mp3");
 		mWorld->SendMsg(EventMessage::PLAYER_HEALING);
 	}
 	else if(VSize(sub) > 10.0f)

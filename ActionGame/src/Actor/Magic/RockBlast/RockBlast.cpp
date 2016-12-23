@@ -10,6 +10,7 @@ RockBlast::RockBlast(IWorld * world, Vector3 position, const Vector3 & velocity,
 	mGravity(0,0,0),
 	mHit(false)
 {
+	SoundManager::getInstance().Play("./res/Sound/Rock.mp3");
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Rock"));
 }
 
