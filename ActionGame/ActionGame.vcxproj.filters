@@ -497,5 +497,8 @@
     <ClInclude Include="src\Scene\LoadAsset\LoadAssetScnen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\Actor\Base\HitInfo.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

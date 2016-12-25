@@ -5,6 +5,7 @@
 #include"../../Animation/Animator.h"
 #include"../Magic/Base/MagicList.h"
 #include<vector>
+#include"../Base/HitInfo.h"
 
 struct PlayerStatus
 {
@@ -57,7 +58,7 @@ private:
 	void DeadProcess(float deltaTime);
 
 	Matrix SetModelFramePosition(int ModelHandle, char *FrameName, int SetModelHandle) const;
-	void Hit(float damege);
+	void Hit(Hitinfo hit);
 
 	void StaminaCharge(float deltaTime);
 	void MagicCharge(float deltaTime);
@@ -92,6 +93,8 @@ private:
 
 	std::vector<MagicList> mMagicList;
 	MagicList mCurrentMagic;
+
+	Vector3 mKnockBack;
 
 private:
 	float MAXHP = 100;

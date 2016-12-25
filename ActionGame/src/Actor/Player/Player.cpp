@@ -162,8 +162,8 @@ void Player::onMessage(EventMessage message, void * p)
 	case EventMessage::PLAYER_DAMEGE:
 		if (mState != State::DAMAGE && mState != State::DEAD)
 		{
-			float * damege = (float*)p;
-			Hit(*damege);
+			Hitinfo* hit = (Hitinfo*)p;
+			Hit(*hit);
 		}
 		break;
 
@@ -279,7 +279,7 @@ void Player::DamegeProcess(float deltaTime)
 {
 	StaminaCharge(deltaTime);
 	mStateTimer += deltaTime;
-	auto backVelcity = mPosition + (-mRotate.GetForward() * 10);
+	auto backVelcity = mPosition + (mKnockBack * 10);
 	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
 	if (mStateTimer > 0.5f)
 	{
@@ -297,10 +297,12 @@ void Player::DeadProcess(float deltaTime)
 	}
 }
 
-void Player::Hit(float damege)
+void Player::Hit(Hitinfo hit)
 {
 	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
-	mHitPoint -= damege;
+	mHitPoint -= hit.damage;
+	hit.position.y = 0;
+	mKnockBack = VNorm(hit.position - mPosition);
 	mHitPoint = max(0, mHitPoint);
 	if (mHitPoint <= 0)
 	{
