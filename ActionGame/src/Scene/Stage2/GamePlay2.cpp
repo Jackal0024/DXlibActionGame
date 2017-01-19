@@ -34,6 +34,8 @@
 #include"../../Actor/UI/Bar/MPBar.h"
 #include"../../Actor/UI/Bar/StaminaBar.h"
 
+#include"../../Actor/Light/PointLight.h"
+
 void GamePlay2::Start()
 {
 	isEnd = false;
@@ -58,7 +60,7 @@ void GamePlay2::Start()
 
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
-	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
+	mWorld->AddLight(std::make_shared<PointLight>(mWorld.get()));
 	PlayMusic("./res/Sound/Dungeon2_BGM.ogg", DX_PLAYTYPE_LOOP);
 
 	//mMenu = MagicMenu(mWorld.get());

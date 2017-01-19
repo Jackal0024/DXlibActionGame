@@ -36,6 +36,9 @@ private:
 	float mTimer;
 
 	bool isEnd;
-	bool isDraw;
+
+	bool isDrawRank;
+	bool isDrawName;
+	bool isDrawStamp;
 
 };

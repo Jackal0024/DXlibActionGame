@@ -164,6 +164,7 @@
     <ClCompile Include="src\Actor\Gimmick\Hint.cpp" />
     <ClCompile Include="src\Actor\Gimmick\MagicStone.cpp" />
     <ClCompile Include="src\Actor\Gimmick\WarpCircle.cpp" />
+    <ClCompile Include="src\Actor\Light\PointLight.cpp" />
     <ClCompile Include="src\Actor\Magic\BlackSpear\BlackSpear.cpp" />
     <ClCompile Include="src\Actor\Magic\BlackSpear\SpearCircle.cpp" />
     <ClCompile Include="src\Actor\Magic\FireBall\FireBall.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="src\Actor\Gimmick\Hint.h" />
     <ClInclude Include="src\Actor\Gimmick\MagicStone.h" />
     <ClInclude Include="src\Actor\Gimmick\WarpCircle.h" />
+    <ClInclude Include="src\Actor\Light\PointLight.h" />
     <ClInclude Include="src\Actor\Magic\Base\MagicList.h" />
     <ClInclude Include="src\Actor\Magic\BlackSpear\BlackSpear.h" />
     <ClInclude Include="src\Actor\Magic\BlackSpear\SpearCircle.h" />

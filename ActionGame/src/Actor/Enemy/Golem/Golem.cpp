@@ -118,7 +118,8 @@ void Golem::MoveProcess(float deltaTime)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<EnemyArrack>(mWorld, mPosition
 			+ (mRotate.GetForward() * 10)
-			+ Vector3(0, 20, 0)));
+			+ Vector3(0, 20, 0),
+			mRotate.GetForward()));
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
 	}

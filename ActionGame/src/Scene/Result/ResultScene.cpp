@@ -10,11 +10,16 @@
 #include<vector>
 #include"../../Actor/Magic/Base/MagicList.h"
 #include"../../System/ConstantList/WindowSize.h"
+#include"../../Sound/SoundManager.h"
 
 void ResultScene::Start()
 {
 	mTimer = 0.0f;
 	isEnd = false;
+
+	isDrawRank = false;
+	isDrawName = false;
+	isDrawStamp = false;;
 
 	mMagicCount = PlayerSave::getInstance().Load().List.size();
 
@@ -39,6 +44,33 @@ void ResultScene::Update(float deltaTime)
 	{
 		isEnd = true;
 	}
+
+
+	if (mTimer >= 2)
+	{
+		if (!isDrawRank)
+		{
+			SoundManager::getInstance().Play("./res/Sound/ResultEffect.mp3");
+			isDrawRank = true;
+		}
+	}
+	if (mTimer >= 3)
+	{
+		if (!isDrawName)
+		{
+			SoundManager::getInstance().Play("./res/Sound/ResultEffect.mp3");
+			isDrawName = true;
+		}
+	}
+
+	if (mTimer >= 5)
+	{
+		if (!isDrawStamp)
+		{
+			SoundManager::getInstance().Play("./res/Sound/ResultEffect.mp3");
+			isDrawStamp = true;
+		}
+	}
 }
 
 void ResultScene::Draw() const
@@ -48,20 +80,26 @@ void ResultScene::Draw() const
 	DrawGraph((WIDTH / 2) - 187.5f - 100,50, mMagicCountText, TRUE);
 	mNum.Draw(Vector3((WIDTH / 2) + 100, 35, 0), mMagicCount);
 
-	if (mTimer >= 2)
+	if (isDrawRank)
 	{
 		DrawGraph(100, 180, mHilyoukaText, TRUE);
 		DrawGraph(200, 300, mRankText, TRUE);
 	}
-	if (mTimer >= 3)
+	if (isDrawName)
 	{
 		DrawGraph(WIDTH - 500, 180, mAnataText, TRUE);
 		DrawGraph(WIDTH - 470, 280, mNameText, TRUE);
 		DrawGraph(WIDTH - 300, 380, mTositeTexr, TRUE);
 	}
 
-	if (mTimer >= 5) DrawGraph(WIDTH - 300, 300, mStampTexture, TRUE);
-	if (mTimer >= 6 && (int)mTimer % 2 == 0) DrawGraph((WIDTH / 2) - 268, HEIGHT - 80, mPressStart, TRUE);
+	if (isDrawStamp)
+	{
+		DrawGraph(WIDTH - 300, 300, mStampTexture, TRUE);
+	}
+	if (mTimer >= 6 && (int)mTimer % 2 == 0)
+	{
+		DrawGraph((WIDTH / 2) - 268, HEIGHT - 80, mPressStart, TRUE);
+	}
 }
 
 bool ResultScene::IsEnd() const

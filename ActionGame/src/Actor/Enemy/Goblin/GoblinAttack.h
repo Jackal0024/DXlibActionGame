@@ -5,7 +5,7 @@
 class GoblinAttack : public Actor
 {
 public:
-	GoblinAttack(IWorld* world, const Vector3& position,float delay);
+	GoblinAttack(IWorld* world, const Vector3& position,Vector3 velocity,float delay);
 	void onUpdate(float deltaTime) override;
 	void onDraw() const override;
 	void onCollide(Actor& othr) override;
@@ -14,4 +14,5 @@ private:
 	float mDelay;
 	float mTimer;
 	float mAtk;
+	Vector3 mVelocity;
 };

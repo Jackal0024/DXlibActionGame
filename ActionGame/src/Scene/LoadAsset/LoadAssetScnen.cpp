@@ -53,6 +53,7 @@ void LoadAssetScnen::Update(float deltaTime)
 	SoundManager::getInstance().Register("./res/Sound/MenuOpen.mp3");
 	SoundManager::getInstance().Register("./res/Sound/MenuSubmit.mp3");
 	SoundManager::getInstance().Register("./res/Sound/MenuSelect.mp3");
+	SoundManager::getInstance().Register("./res/Sound/ResultEffect.mp3");
 	isEnd = true;
 }
 

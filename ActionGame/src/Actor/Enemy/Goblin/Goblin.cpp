@@ -131,7 +131,7 @@ void Goblin::MoveProcess(float deltaTime)
 	{
 		//UŒ‚
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10), 0.4f));
+			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f));
 		StateChange(State::LIGHT_ATTACK);
 	}
 

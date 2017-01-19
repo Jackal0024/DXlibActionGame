@@ -34,6 +34,8 @@
 #include"../../Actor/UI/Bar/MPBar.h"
 #include"../../Actor/UI/Bar/StaminaBar.h"
 
+#include"../../Actor/Light/PointLight.h"
+
 void GamePlay3::Start()
 {
 	isEnd = false;
@@ -57,7 +59,7 @@ void GamePlay3::Start()
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<StaminaBar>(mWorld.get(), Vector3(77.0f, 65.0f, 0.0f)));
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
-	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
+	mWorld->AddLight(std::make_shared<PointLight>(mWorld.get()));
 	PlayMusic("./res/Sound/Dungeon3_BGM.ogg", DX_PLAYTYPE_LOOP);
 
 	mMenu = MagicMenu(mWorld.get());

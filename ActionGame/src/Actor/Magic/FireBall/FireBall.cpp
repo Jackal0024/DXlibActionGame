@@ -4,7 +4,7 @@
 #include"../../Base/HitInfo.h"
 
 FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity,Tag tag,float atk) :
-Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),5.0f },tag),
+Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
 mVelocity(Velocity),
 mTimer(0),
 mIndex(0),
@@ -43,7 +43,7 @@ void FireBall::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER)
 	{
-		Hitinfo hit = { mPosition,mAtkPower};
+		Hitinfo hit = { VNorm(mVelocity),mAtkPower};
 		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&hit);
 	}
 	if (other.GetTag() == Tag::ENEMY)

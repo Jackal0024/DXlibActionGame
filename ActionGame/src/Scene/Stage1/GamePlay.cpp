@@ -10,6 +10,7 @@
 #include"../../Math//Matrix.h"
 #include"../../Actor/Camera/Camera.h"
 #include"../../Actor/Light/Light.h"
+#include"../../Actor/Light/PointLight.h"
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Enemy/Golem/Golem.h"
 #include"../../Field/Field.h"
@@ -54,19 +55,6 @@ void GamePlay::Start()
 
 	MapDateInput("./res/MapData01.csv");
 
-	/*mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0, -0.5f, 0)));
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", Vector3(50.0f, 0.0f, -300), MagicList::ICENEEDLE));
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", Vector3(0.0f, 0.0f, -300), MagicList::HEALING));
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ロックブラスト", Vector3(-50.0f, 0.0f, -300), MagicList::ROCKBLAST));
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーウォール", Vector3(-50.0f, 0.0f, -250), MagicList::FIREWALL));
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "マジックマイン", Vector3(50.0f, 0.0f, -250), MagicList::MAGICMINE));
-	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", Vector3(0.0f, 0.0f, -250), MagicList::TRAPSPEAR));
-
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), Vector3(0.0f, 0.0f, -500)));*/
-	/*mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(50.0f, 0.0f, -290)));
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), Vector3(0.0f, 0.0f, -250)));
-	mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), Vector3(0.0f, 0.0f, -290)));*/
-
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f,0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<HPBar>(mWorld.get(), Vector3(77.0f, 15.0f, 0.0f)));
@@ -74,7 +62,7 @@ void GamePlay::Start()
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<StaminaBar>(mWorld.get(), Vector3(77.0f, 65.0f, 0.0f)));
 	//-------------------------------------------------------------------------------------------------------------
 	mWorld->AddCamera(std::make_shared<Camera>(mWorld.get()));
-	mWorld->AddLight(std::make_shared<Light>(mWorld.get(), Vector3(0.5f, -1.0f, 1.0f)));
+	mWorld->AddLight(std::make_shared<PointLight>(mWorld.get()));
 	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
 
 	//mMenu = MagicMenu(mWorld.get());

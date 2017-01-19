@@ -24,7 +24,7 @@ enum MotionID
 };
 
 Player::Player(IWorld* world, Vector3 position):
-	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),2.0f },Tag::PLAYER),
+	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),3.0f },Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mStamina(100),
@@ -152,7 +152,12 @@ void Player::onDraw() const
 
 void Player::onCollide(Actor & other)
 {
-
+	if (other.GetTag() == Tag::ENEMY && !(mState == State::DAMAGE || mState == State::DEAD))
+	{
+		Vector3 pos = -other.GetPosition();
+		Hitinfo hit = { pos,10 };
+		Hit(hit);
+	}
 }
 
 void Player::onMessage(EventMessage message, void * p)
@@ -302,7 +307,7 @@ void Player::Hit(Hitinfo hit)
 	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 	mHitPoint -= hit.damage;
 	hit.position.y = 0;
-	mKnockBack = VNorm(hit.position - mPosition);
+	mKnockBack = hit.position;
 	mHitPoint = max(0, mHitPoint);
 	if (mHitPoint <= 0)
 	{
