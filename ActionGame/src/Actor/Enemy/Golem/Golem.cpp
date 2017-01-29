@@ -170,6 +170,7 @@ void Golem::Hit(float damage)
 	mHitPoint -= damage;
 	if (mHitPoint <= 0)
 	{
+		mBody.isAlive = false;
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DEAD, Motion::DEAD_MOTION);

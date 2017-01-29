@@ -154,7 +154,7 @@ void Player::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::ENEMY && !(mState == State::DAMAGE || mState == State::DEAD))
 	{
-		Vector3 pos = VNorm(other.GetPosition() - mPosition);
+		Vector3 pos = VNorm(mPosition - other.GetPosition());
 		Hitinfo hit = { pos,10 };
 		Hit(hit);
 	}

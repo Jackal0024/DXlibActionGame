@@ -21,7 +21,7 @@ void EnemyArrack::onUpdate(float deltaTime)
 
 void EnemyArrack::onDraw() const
 {
-	mBody.Move(mPosition).Draw();
+	//mBody.Move(mPosition).Draw();
 }
 
 void EnemyArrack::onCollide(Actor & othr)

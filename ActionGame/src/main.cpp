@@ -9,8 +9,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//Œo‰ßŽžŠÔ
 	float timer = 0;
 
+	SetOutApplicationLogValidFlag(FALSE);
 	SetGraphMode(WIDTH, HEIGHT, 16);
-	ChangeWindowMode(TRUE);
+	ChangeWindowMode(FALSE);
 	SetUsePixelLighting(TRUE);
 
 	DxLib_Init();
@@ -30,8 +31,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		SetWriteZBuffer3D(TRUE);
 		game.Draw();
 
-		DrawFormatString(0, HEIGHT-80, GetColor(255, 255, 255), "Timer = %f", timer);
-		DrawFormatString(0, HEIGHT-40, GetColor(255, 255, 255), "DeltaTimer = %f", deltatime);
+		//DrawFormatString(0, HEIGHT-80, GetColor(255, 255, 255), "Timer = %f", timer);
+		//DrawFormatString(0, HEIGHT-40, GetColor(255, 255, 255), "DeltaTimer = %f", deltatime);
 
 		/*DrawLine3D(Vector3(0, 0, 0), Vector3(100, 0, 0), GetColor(255, 0, 0));
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 100, 0), GetColor(0, 255, 0));

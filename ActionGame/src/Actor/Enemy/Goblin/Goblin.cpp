@@ -5,24 +5,24 @@
 #include"../../Gimmick/MagicStone.h"
 
 Goblin::Goblin(IWorld * world, Vector3 position):
-	Actor(world, "Goblin", position, { { 0,10,0 },4.0f }, Tag::ENEMY),
+	Actor(world, "Goblin", position, { { 0,10,0 },1.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mCenterPoint(position),
 	mStateTimer(0.0f)
 {
-	mHitPoint = 200;
+	mHitPoint = 500;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
 }
 
 Goblin::Goblin(IWorld * world, Vector3 position, Vector3 rotate):
-	Actor(world, "Goblin", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
+	Actor(world, "Goblin", position, rotate, { { 0,10,0 },1.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mCenterPoint(position),
 	mStateTimer(0.0f)
 {
-	mHitPoint = 200;
+	mHitPoint = 500;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
 }
 
@@ -69,7 +69,7 @@ void Goblin::onMessage(EventMessage message, void * p)
 	switch (message)
 	{
 	case EventMessage::ENEMY_DAMEGE:
-		if (mState != State::DEAD && mState != State::DAMAGE)
+		if (mState != State::DEAD && mState != State::DAMAGE && mState != State::HEAVY_ATTACK && mState != State::LIGHT_ATTACK)
 		{
 			float* damage = (float*)p;
 			Hit(*damage);
@@ -124,14 +124,14 @@ void Goblin::MoveProcess(float deltaTime)
 	float rad = atan2(subVec.x, subVec.z);
 
 	Vector3 velocity = VNorm(subVec) * deltaTime;
-	mPosition += velocity * 10;
+	mPosition += velocity * 15;
 	mRotate = MGetRotY(rad);
 
-	if (VSize(subVec) <= 10)
+	if (VSize(subVec) <= 15)
 	{
 		//攻撃
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f));
+			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f,20.0f));
 		StateChange(State::LIGHT_ATTACK);
 	}
 
@@ -159,9 +159,16 @@ void Goblin::RunProcess(float deltaTime)
 	mPosition += velocity * 50;
 	mRotate = MGetRotY(rad);
 
-	if (VSize(subVec) <= 30 && mStateTimer > 2)
+	if (VSize(subVec) <= 30 && mStateTimer > 5)
 	{
 		StateChange(State::MOVE);
+	}
+	else if(VSize(subVec) <= 15)
+	{
+		//攻撃
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
+			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f, 50.0f));
+		StateChange(State::HEAVY_ATTACK);
 	}
 }
 
@@ -207,6 +214,7 @@ void Goblin::Hit(float damage)
 	mHitPoint -= damage;
 	if (mHitPoint <= 0)
 	{
+		mBody.isAlive = false;
 		Vector3 pos = mPosition + Vector3(0, 10, 0);
 		mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "ファイアーウォール", pos, MagicList::FIREWALL));
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");

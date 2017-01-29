@@ -3,13 +3,15 @@
 
 Capsule::Capsule(const Line& line, const float radius):
 	mLine(line),
-	mRadius(radius)
+	mRadius(radius),
+	isAlive(true)
 {
 }
 
 Capsule::Capsule(const Vector3 length,const float radius):
 	mLine(Line({ 0,0,0 }, length)),
-	mRadius(radius)
+	mRadius(radius),
+	isAlive(true)
 {
 }
 

@@ -184,6 +184,8 @@ void Actor::onCollide(Actor & other)
 
 bool Actor::isCollide(const Actor & other) const
 {
+	if (!mBody.isAlive) return false;
+	if (!other.mBody.isAlive) return false;
 	return mBody.Move(mPosition).Intersects(other.mBody.Move(other.mPosition));
 	//return mBody.Transform(GetPose()).Intersects(other.mBody.Transform(other.GetPose()));
 }

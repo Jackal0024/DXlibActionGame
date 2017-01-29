@@ -19,6 +19,7 @@ public:
 public:
 	Line mLine;
 	float mRadius;
+	bool isAlive;
 	
 public:
 	bool CollisionCapsuleAndCapsule(const Capsule & other) const;

@@ -4550,6 +4550,107 @@ extern	int					MV1TerminateReferenceMesh(	int MHandle, int FrameIndex, int IsTra
 extern	int					MV1RefreshReferenceMesh(	int MHandle, int FrameIndex, int IsTransform, int IsPositionOnly = FALSE ) ;						// 参照用メッシュの更新
 extern	MV1_REF_POLYGONLIST	MV1GetReferenceMesh(		int MHandle, int FrameIndex, int IsTransform, int IsPositionOnly = FALSE ) ;
 
+
+static MATRIX operator -(const MATRIX& m)
+{
+	MATRIX result;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			result.m[i][j] = -m.m[i][j];
+		}
+	}
+	return result;
+}
+
+static MATRIX operator +=(MATRIX& m1 , const MATRIX& m2)
+{
+	m1 = MAdd(m1, m2);
+	return m1;
+}
+
+static MATRIX operator -=(MATRIX& m1, const MATRIX& m2)
+{
+	m1 = MAdd(m1, -m2);
+	return m1;
+}
+
+static MATRIX operator *=(MATRIX& m1, const float s)
+{
+	MATRIX result;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			result.m[i][j] = m1.m[i][j] * s;
+		}
+	}
+	m1 = result;
+	return m1;
+}
+
+static MATRIX operator /=(MATRIX& m1, const float s)
+{
+	MATRIX result;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			result.m[i][j] = m1.m[i][j] / s;
+		}
+	}
+	m1 = result;
+	return m1;
+}
+
+static MATRIX operator *(const MATRIX& m1, const MATRIX& m2)
+{
+	MATRIX result;
+	result = MMult(m1, m2);
+	return result;
+}
+
+static MATRIX operator +(const MATRIX& m1, const MATRIX& m2)
+{
+	MATRIX result;
+	result = MAdd(m1, m2);
+	return result;
+}
+
+static MATRIX operator -(const MATRIX& m1, const MATRIX& m2)
+{
+	MATRIX result;
+	result = MAdd(m1, -m2);
+	return result;
+}
+
+static MATRIX operator *(const MATRIX& m1, const float s)
+{
+	MATRIX result;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			result.m[i][j] = m1.m[i][j] * s;
+		}
+	}
+	return result;
+}
+
+static MATRIX operator /(const MATRIX& m1, const float s)
+{
+	MATRIX result;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			result.m[i][j] = m1.m[i][j] / s;
+		}
+	}
+	return result;
+}
+
 // 参照用メッシュを取得する
 
 #endif // DX_NON_MODEL

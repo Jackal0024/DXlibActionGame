@@ -1,10 +1,10 @@
 #include "GoblinAttack.h"
 #include"../../Base/HitInfo.h"
 
-GoblinAttack::GoblinAttack(IWorld * world, const Vector3 & position,Vector3 velocity ,float delay):
-	Actor(world, "GoblinAttack", position, { Vector3(0,2,0),3 }, Tag::ENEMY),
+GoblinAttack::GoblinAttack(IWorld * world, const Vector3 & position,Vector3 velocity ,float delay, float Atk):
+	Actor(world, "GoblinAttack", position, { Vector3(0,2,0),3 }, Tag::ENEMY_ATTACK),
 	mTimer(0.0f),
-	mAtk(10),
+	mAtk(Atk),
 	mDelay(delay),
 	mVelocity(velocity)
 {
