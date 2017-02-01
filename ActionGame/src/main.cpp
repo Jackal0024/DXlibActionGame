@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	SetOutApplicationLogValidFlag(FALSE);
 	SetGraphMode(WIDTH, HEIGHT, 16);
-	ChangeWindowMode(FALSE);
+	ChangeWindowMode(TRUE);
 	SetUsePixelLighting(TRUE);
 
 	DxLib_Init();

@@ -1,6 +1,7 @@
 #include "IceNeedle.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../Base/HitInfo.h"
 
 IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag):
 	Actor(world, "AttackProcess",position - Vector3(0,30,0), { Vector3(0,15,0),5 },tag),
@@ -58,7 +59,8 @@ void IceNeedle::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER)
 	{
-		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&mAtkPower);
+		Hitinfo hit = { VNorm(mVelocity),mAtkPower };
+		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&hit);
 	}
 	if (other.GetTag() == Tag::ENEMY)
 	{

@@ -12,6 +12,7 @@
 #include"../../Actor/Light/Light.h"
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Enemy/Golem/Golem.h"
+#include"../../Actor/Enemy/Golem/MagicStoneGolem.h"
 #include"../../Field/Field.h"
 #include"../../Actor/UI/PlayerHP.h"
 #include"../../Actor/UI/PlayerMP.h"
@@ -168,10 +169,10 @@ void BackStage2::CharacterCreate(std::string name, Vector3& position, Vector3& r
 	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate));
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));
 	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate));
+	if (name == "IceStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE1_BACK));
 	if (name == "WarpNext") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE3));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
-	if (name == "IceStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", position, MagicList::ICENEEDLE));
 	if (name == "HealStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ヒーリング", position, MagicList::HEALING));
 	if (name == "RockStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ロックブラスト", position, MagicList::ROCKBLAST));
 }
