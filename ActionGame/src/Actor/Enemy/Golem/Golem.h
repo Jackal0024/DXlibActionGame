@@ -28,7 +28,6 @@ public:
 
 public:
 	Golem(IWorld* world, Vector3 position);
-	Golem(IWorld* world, Vector3 position,MagicList magic);
 	Golem(IWorld* world, Vector3 position,Vector3 rotate);
 	~Golem();
 
@@ -57,7 +56,7 @@ private:
 	Motion mMotionid;
 	State mState;
 	ActorPtr mTarget;
-	float mHitPoint;
+	float mHitPoint = 0;
 };
 
 #endif

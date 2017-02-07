@@ -147,6 +147,7 @@ void Player::onUpdate(float deltaTime)
 
 void Player::onDraw() const
 {
+	//DrawFormatString(0, 300, GetColor(255, 255, 255), "X = %f : Y = %f : Z = %f", mPosition.x,mPosition.y, mPosition.z);
 	MV1DrawModel(mModelHandle);
 }
 
@@ -307,7 +308,7 @@ void Player::Hit(Hitinfo hit)
 	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");
 	mHitPoint -= hit.damage;
 	hit.position.y = 0;
-	mKnockBack = hit.position;
+	mKnockBack = VNorm(hit.position);
 	mHitPoint = max(0, mHitPoint);
 	if (mHitPoint <= 0)
 	{

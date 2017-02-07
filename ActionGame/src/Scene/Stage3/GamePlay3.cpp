@@ -20,6 +20,7 @@
 #include"../Base/Scene.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
+#include"../../Actor/Enemy/Mummy/MagicMommy.h"
 #include"../../Actor/UI/StateFrame.h"
 #include"../../Actor/Gimmick/WarpCircle.h"
 #include"../../Actor/Gimmick/HealCircle.h"
@@ -167,11 +168,11 @@ void GamePlay3::CharacterCreate(std::string name, Vector3& position, Vector3& ro
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));
 	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate));
 	if (name == "Goblin") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate));
+	if (name == "MineStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate));
+	if (name == "TrapStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", position, MagicList::TRAPSPEAR));
 	if (name == "Mummy") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2_BACK));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
-	if (name == "MineStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "マジックマイン", position, MagicList::MAGICMINE));
-	if (name == "TrapStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", position, MagicList::TRAPSPEAR));
 }
 
 void GamePlay3::IsFadeEnd()

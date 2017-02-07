@@ -12,12 +12,6 @@ Golem::Golem(IWorld* world, Vector3 position):
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 }
 
-//–‚–@Î‚¿‚ÌƒS[ƒŒƒ€‚ğ¶¬
-Golem::Golem(IWorld * world, Vector3 position, MagicList magic)
-{
-
-}
-
 Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
 	Actor(world, "Golem", position,rotate,{ { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),

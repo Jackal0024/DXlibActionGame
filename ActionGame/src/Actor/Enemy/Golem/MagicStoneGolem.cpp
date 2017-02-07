@@ -5,22 +5,25 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../Gimmick/MagicStone.h"
 #include"../../Magic/IceNeedle/IceNeedle.h"
+#include"../../Magic/RockBlast/RockBlast.h"
 
 MagicStoneGolem::MagicStoneGolem(IWorld* world, Vector3 position) :
 	Actor(world, "MagicStoneGolem", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
-	isMagicAttack(true)
+	isMagicAttack(true),
+	mMagicType(MagicList::NONE)
 {
 	mHitPoint = 300;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("MagicStoneGolem"));
 }
 
-MagicStoneGolem::MagicStoneGolem(IWorld * world, Vector3 position, Vector3 rotate) :
+MagicStoneGolem::MagicStoneGolem(IWorld * world, Vector3 position, Vector3 rotate,MagicList type) :
 	Actor(world, "MagicStoneGolem", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
-	isMagicAttack(true)
+	isMagicAttack(true),
+	mMagicType(type)
 {
 	mHitPoint = 300;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("MagicStoneGolem"));
@@ -58,7 +61,7 @@ void MagicStoneGolem::onUpdate(float deltaTime)
 
 void MagicStoneGolem::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose().SetScale(Vector3(1.0f,1.0f,1.0f))));
+	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose().SetScale(Vector3(1.2f,1.2f,1.2f))));
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -102,7 +105,14 @@ void MagicStoneGolem::IdleProcess(float deltaTime)
 	{
 		isMagicAttack = false;
 		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::ENEMY_ATTACK));
+		if (mMagicType == MagicList::ICENEEDLE)
+		{
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::ENEMY_ATTACK));
+		}
+		if (mMagicType == MagicList::ROCKBLAST)
+		{
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0,5,0), mRotate.GetForward(),Tag::ENEMY_ATTACK));
+		}
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
 		return;
@@ -186,7 +196,8 @@ void MagicStoneGolem::Hit(float damage)
 	{
 		mBody.isAlive = false;
 		Vector3 pos = mPosition + Vector3(0, 10, 0);
-		mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "アイスニードル", pos, MagicList::ICENEEDLE));
+		if (mMagicType == MagicList::ICENEEDLE) mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "アイスニードル", pos, MagicList::ICENEEDLE));
+		if (mMagicType == MagicList::ROCKBLAST) mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld, "ロックブラスト", pos, MagicList::ROCKBLAST));
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DEAD, Motion::DEAD_MOTION);

@@ -17,12 +17,14 @@ void LoadAssetScnen::Update(float deltaTime)
 		isUpdate = true;
 		return;
 	}
+
 	AssetStorage::getInstance().HandleRegister("./res/golem/golem.mv1", "Golem");
 	AssetStorage::getInstance().HandleRegister("./res/MagicStoneGolem/golem.mv1", "MagicStoneGolem");
 	AssetStorage::getInstance().HandleRegister("./res/overload/overlord_Arm.mv1", "Player");
 	AssetStorage::getInstance().HandleRegister("./res/lizard/lizard.mv1", "Lizard");
 	AssetStorage::getInstance().HandleRegister("./res/Goblin/Goblin.mv1", "Goblin");
 	AssetStorage::getInstance().HandleRegister("./res/Mummy/mummy.mv1", "Mummy");
+	AssetStorage::getInstance().HandleRegister("./res/MagicMummy/mummy.mv1", "MagicMummy");
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
 	AssetStorage::getInstance().HandleRegister("./res/IceNeedle/IceNeedle.mv1", "IceNeedle");
 	AssetStorage::getInstance().HandleRegister("./res/RockBlast/Rock.mv1", "Rock");

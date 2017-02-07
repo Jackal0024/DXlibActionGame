@@ -5,7 +5,7 @@
 #include"../../Magic/FireBall/FireBall.h"
 
 Mummy::Mummy(IWorld * world, Vector3 position) :
-	Actor(world, "Golem", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
+	Actor(world, "Mummy", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mStateTimer(0.0f),
@@ -16,7 +16,7 @@ Mummy::Mummy(IWorld * world, Vector3 position) :
 }
 
 Mummy::Mummy(IWorld * world, Vector3 position, Vector3 rotate) :
-	Actor(world, "Golem", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
+	Actor(world, "Mummy", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mStateTimer(0.0f),

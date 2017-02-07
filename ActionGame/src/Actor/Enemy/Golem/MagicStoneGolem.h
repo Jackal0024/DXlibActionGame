@@ -27,7 +27,7 @@ public:
 
 public:
 	MagicStoneGolem(IWorld* world, Vector3 position);
-	MagicStoneGolem(IWorld* world, Vector3 position, Vector3 rotate);
+	MagicStoneGolem(IWorld* world, Vector3 position, Vector3 rotate,MagicList type);
 	~MagicStoneGolem();
 
 private:
@@ -59,4 +59,6 @@ private:
 	float mHitPoint;
 	//魔法攻撃するか？
 	bool isMagicAttack;
+	//どの魔法攻撃をするか？
+	MagicList mMagicType;
 };
