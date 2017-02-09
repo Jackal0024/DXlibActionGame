@@ -4,6 +4,7 @@
 #include"../../Base/Actor.h"
 #include"../../../Animation/Animator.h"
 #include"../../Magic/Base/MagicList.h"
+#include"../../../Effect/Base/Effect.h"
 
 class Golem : public Actor
 {
@@ -57,6 +58,7 @@ private:
 	State mState;
 	ActorPtr mTarget;
 	float mHitPoint = 0;
+	IEffect mEffect;
 };
 
 #endif

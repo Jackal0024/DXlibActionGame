@@ -9,3 +9,9 @@ enum TextureList
 {
 
 };
+
+enum EffectList
+{
+	FireBallEffect,
+	HitEffect
+};

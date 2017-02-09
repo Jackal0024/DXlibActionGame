@@ -124,7 +124,6 @@ void Mummy::MoveProcess(float deltaTime)
 		Vector3 partnersub = mPartner->GetPosition() - mPosition;
 
 		mAnimator.AnimationChange(Motion::MOVE_MOTION, 0.3f, 0.5f, true);
-		float dot = VDot(VNorm(partnersub), Vector3(0, 0, 1));
 		float rad = atan2(partnersub.x, partnersub.z);
 
 		Vector3 velocity = VNorm(partnersub) * deltaTime;
@@ -169,7 +168,6 @@ void Mummy::KickProcess(float deltaTime)
 
 	mAnimator.AnimationChange(Motion::KICK_MOTION, 0.3f, 0.5f, false);
 
-	float dot = VDot(VNorm(targetsub), Vector3(0, 0, 1));
 	float rad = atan2(targetsub.x, targetsub.z);
 
 	mRotate = MGetRotY(rad);

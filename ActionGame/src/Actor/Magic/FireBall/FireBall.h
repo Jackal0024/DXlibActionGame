@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../../Base/Actor.h"
+#include"../../../Effect/Base/Effect.h"
 
 class FireBall : public Actor
 {
@@ -14,6 +15,7 @@ private:
 
 
 private:
+	IEffect mEffect;
 	int mHandle[32];
 	int mIndex;
 	float mTimer;

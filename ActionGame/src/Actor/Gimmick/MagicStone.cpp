@@ -3,7 +3,7 @@
 #include"../Player/Player.h"
 #include"../../Sound/SoundManager.h"
 
-MagicStone::MagicStone(IWorld * world, std::string name, Vector3 & position, MagicList magic) :
+MagicStone::MagicStone(IWorld * world, const std::string& name, Vector3 & position, MagicList magic) :
 Actor(world,name,position, { Line(position,position + Vector3(0,0,0)),10.0f }),
 mMagicName(magic),
 mTimer(0),

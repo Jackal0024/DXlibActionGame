@@ -2,6 +2,7 @@
 
 #include"../../Base/Actor.h"
 #include"../../../Animation/Animator.h"
+#include"../../../Effect/Base/Effect.h"
 
 class Goblin : public Actor
 {
@@ -63,5 +64,6 @@ private:
 	ActorPtr mTarget;
 	float mHitPoint;
 	Vector3 mCenterPoint;
+	IEffect mEffect;
 
 };

@@ -6,7 +6,7 @@
 class MagicStone : public Actor
 {
 public:
-	MagicStone(IWorld* world,std::string name,Vector3& position,MagicList magic);
+	MagicStone(IWorld* world,const std::string& name,Vector3& position,MagicList magic);
 	~MagicStone();
 
 private:

@@ -1,7 +1,7 @@
 #include "TextDraw.h"
 #include"../../System/ConstantList/WindowSize.h"
 
-TextDraw::TextDraw(IWorld * world, std::string text):
+TextDraw::TextDraw(IWorld * world,const std::string& text):
 	Actor(world,"Text",Vector3(WIDTH/2,HEIGHT-100,0), Capsule(Vector3(0, 0, 0), 0)),
 	mText(text),
 	mTimer(0)

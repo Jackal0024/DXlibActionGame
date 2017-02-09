@@ -2,6 +2,8 @@
 
 #include"../../Base/Actor.h"
 
+#include"EffekseerForDXLib.h"
+
 class IceNeedle : public Actor
 {
 public:

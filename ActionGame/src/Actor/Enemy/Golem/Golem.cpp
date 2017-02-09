@@ -2,6 +2,7 @@
 #include"GolemAttack.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 Golem::Golem(IWorld* world, Vector3 position):
 	Actor(world, "Golem", position, { {0,10,0},3.0f },Tag::ENEMY),
@@ -10,6 +11,7 @@ Golem::Golem(IWorld* world, Vector3 position):
 {
 	mHitPoint = 60;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
+	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
 
 Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
@@ -19,6 +21,7 @@ Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
 {
 	mHitPoint = 60;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
+	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
 
 Golem::~Golem()
@@ -122,7 +125,6 @@ void Golem::MoveProcess(float deltaTime)
 	{
 		Vector3 velocity = mTarget->GetPosition() - mPosition;
 
-		float dot = VDot(VNorm(velocity), Vector3(0,0,1));
 		float rad = atan2(velocity.x,velocity.z);
 
 		velocity = VNorm(velocity) * deltaTime;
@@ -173,6 +175,8 @@ void Golem::Hit(float damage)
 	{
 		if (mState != State::ATTACK)
 		{
+			mEffect.Play();
+			mEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 		}

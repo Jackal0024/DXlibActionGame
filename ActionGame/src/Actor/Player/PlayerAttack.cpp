@@ -1,5 +1,6 @@
 #include "PlayerAttack.h"
 #include"../../Math/Matrix.h"
+#include"EffekseerForDXLib.h"
 
 PlayerAttack::PlayerAttack(IWorld* world, int weapon,float atk) :
 	Actor(world, "AttackProcess", { MV1GetMatrix(weapon).m[3][0],MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,3,0),2 },Tag::PLAYER_ATTACK),
@@ -7,7 +8,6 @@ PlayerAttack::PlayerAttack(IWorld* world, int weapon,float atk) :
 	mTimer(0.0f),
 	mAtk(atk)
 {
-
 }
 
 void PlayerAttack::onUpdate(float deltaTime)

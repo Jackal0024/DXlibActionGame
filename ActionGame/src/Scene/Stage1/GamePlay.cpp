@@ -145,7 +145,7 @@ void GamePlay::HandleMessage(EventMessage message, void * param)
 	}
 }
 
-void GamePlay::MapDateInput(std::string fileName)
+void GamePlay::MapDateInput(const std::string& fileName)
 {
 	std::ifstream ifs(fileName);
 	if (!ifs) {
@@ -164,7 +164,7 @@ void GamePlay::MapDateInput(std::string fileName)
 	}
 }
 
-void GamePlay::CharacterCreate(std::string name,Vector3& position, Vector3& rotate)
+void GamePlay::CharacterCreate(const std::string& name,Vector3& position, Vector3& rotate)
 {
 	if(name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position,rotate));
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));

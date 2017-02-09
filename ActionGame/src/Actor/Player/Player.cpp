@@ -57,6 +57,7 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
 	mSpeed(1)
 {	 
 	SetStatus(PlayerSave::getInstance().Load());
+	
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }

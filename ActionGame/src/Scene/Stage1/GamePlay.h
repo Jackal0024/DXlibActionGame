@@ -16,8 +16,8 @@ public:
 	void HandleMessage(EventMessage message, void* param);
 
 private:
-	void MapDateInput(std::string fileName);
-	void CharacterCreate(std::string name,Vector3& position,Vector3& rotate);
+	void MapDateInput(const std::string& fileName);
+	void CharacterCreate(const std::string& name,Vector3& position,Vector3& rotate);
 	void IsFadeEnd();
 
 private:

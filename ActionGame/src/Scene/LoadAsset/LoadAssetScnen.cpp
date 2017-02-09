@@ -3,6 +3,7 @@
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Sound/SoundManager.h"
 #include"../../System/ConstantList/WindowSize.h"
+#include"../../AssetStorage/EffectStorage.h"
 
 void LoadAssetScnen::Start()
 {
@@ -57,6 +58,10 @@ void LoadAssetScnen::Update(float deltaTime)
 	SoundManager::getInstance().Register("./res/Sound/MenuSubmit.mp3");
 	SoundManager::getInstance().Register("./res/Sound/MenuSelect.mp3");
 	SoundManager::getInstance().Register("./res/Sound/ResultEffect.mp3");
+
+	EffectStorage::getInstance().HandleRegister("./res/Effect/FireEffect.efk",EffectList::FireBallEffect);
+	EffectStorage::getInstance().HandleRegister("./res/Effect/Hit.efk",EffectList::HitEffect);
+
 	isEnd = true;
 }
 

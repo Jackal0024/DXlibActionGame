@@ -1,7 +1,7 @@
 #include "Hint.h"
 #include"../../System/ConstantList/WindowSize.h"
 
-Hint::Hint(IWorld * world, std::string num, Vector3 & position):
+Hint::Hint(IWorld * world,const std::string& num, Vector3 & position):
 	Actor(world, "Hint", position, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
 	isDraw(false)
 {
@@ -12,7 +12,7 @@ Hint::Hint(IWorld * world, std::string num, Vector3 & position):
 	mTarget = mWorld->FindActor("Player");
 }
 
-Hint::Hint(IWorld * world, std::string num,Vector3 position, Vector3 rotate) :
+Hint::Hint(IWorld * world,const std::string& num,Vector3 position, Vector3 rotate) :
 	Actor(world, "Hint", position, {0,rotate.y,0}, { { 0,0,0 },3.0f }, Tag::UNTAGGET),
 	isDraw(false)
 {

@@ -5,7 +5,7 @@
 class TextDraw : public Actor
 {
 public:
-	TextDraw(IWorld* world,std::string text);
+	TextDraw(IWorld* world,const std::string& text);
 	~TextDraw();
 private:
 	void onStart() override;

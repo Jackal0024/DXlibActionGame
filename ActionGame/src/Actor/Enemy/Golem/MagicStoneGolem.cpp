@@ -147,7 +147,6 @@ void MagicStoneGolem::MoveProcess(float deltaTime)
 	{
 		Vector3 velocity = mTarget->GetPosition() - mPosition;
 
-		float dot = VDot(VNorm(velocity), Vector3(0, 0, 1));
 		float rad = atan2(velocity.x, velocity.z);
 
 		velocity = VNorm(velocity) * deltaTime;

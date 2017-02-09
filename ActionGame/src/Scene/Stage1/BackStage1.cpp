@@ -159,7 +159,7 @@ void BackStage1::HandleMessage(EventMessage message, void * param)
 	}
 }
 
-void BackStage1::MapDateInput(std::string fileName)
+void BackStage1::MapDateInput(const std::string& fileName)
 {
 	std::ifstream ifs(fileName);
 	if (!ifs) {
@@ -178,7 +178,7 @@ void BackStage1::MapDateInput(std::string fileName)
 	}
 }
 
-void BackStage1::CharacterCreate(std::string name, Vector3& position, Vector3& rotate)
+void BackStage1::CharacterCreate(const std::string& name, Vector3& position, Vector3& rotate)
 {
 	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate));
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));

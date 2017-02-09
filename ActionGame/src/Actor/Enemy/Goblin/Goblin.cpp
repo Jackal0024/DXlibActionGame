@@ -3,6 +3,7 @@
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../Gimmick/MagicStone.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 Goblin::Goblin(IWorld * world, Vector3 position):
 	Actor(world, "Goblin", position, { { 0,10,0 },1.0f }, Tag::ENEMY),
@@ -13,6 +14,7 @@ Goblin::Goblin(IWorld * world, Vector3 position):
 {
 	mHitPoint = 500;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
+	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
 
 Goblin::Goblin(IWorld * world, Vector3 position, Vector3 rotate):
@@ -24,6 +26,7 @@ Goblin::Goblin(IWorld * world, Vector3 position, Vector3 rotate):
 {
 	mHitPoint = 500;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
+	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
 
 Goblin::~Goblin()
@@ -120,7 +123,6 @@ void Goblin::MoveProcess(float deltaTime)
 	Vector3 subVec = mTarget->GetPosition() - mPosition;
 
 	mAnimator.AnimationChange(Motion::WALK_MOTION, 0.3f, 0.5f, true);
-	float dot = VDot(VNorm(subVec), Vector3(0, 0, 1));
 	float rad = atan2(subVec.x, subVec.z);
 
 	Vector3 velocity = VNorm(subVec) * deltaTime;
@@ -152,7 +154,6 @@ void Goblin::RunProcess(float deltaTime)
 
 	mAnimator.AnimationChange(Motion::RUN_MOTION, 0.3f, 0.5f, true);
 
-	float dot = VDot(VNorm(subVec), Vector3(0, 0, 1));
 	float rad = atan2(subVec.x, subVec.z);
 
 	Vector3 velocity = VNorm(subVec) * deltaTime;
@@ -223,6 +224,8 @@ void Goblin::Hit(float damage)
 	}
 	else
 	{
+		mEffect.Play();
+		mEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 	}
