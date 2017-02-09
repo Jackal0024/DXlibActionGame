@@ -1,5 +1,6 @@
 #pragma once
 #include"../../Base/Actor.h"
+#include"../../../Effect/Base/Effect.h"
 
 class FireWallParts :public  Actor
 {
@@ -16,5 +17,6 @@ private:
 	Vector3 mVelocity;
 	float mAtkPower;
 	bool mHit;
+	IEffect mFireEffect;
 
 };

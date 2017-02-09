@@ -61,6 +61,9 @@ void LoadAssetScnen::Update(float deltaTime)
 
 	EffectStorage::getInstance().HandleRegister("./res/Effect/FireEffect.efk",EffectList::FireBallEffect);
 	EffectStorage::getInstance().HandleRegister("./res/Effect/Hit.efk",EffectList::HitEffect);
+	EffectStorage::getInstance().HandleRegister("./res/Effect/IceNeedleEffect.efk", EffectList::IceNeedleEffect);
+	EffectStorage::getInstance().HandleRegister("./res/Effect/MagicMine.efk", EffectList::MagicMineEffect);
+	EffectStorage::getInstance().HandleRegister("./res/Effect/FireWall.efk", EffectList::FireWallEffect);
 
 	isEnd = true;
 }

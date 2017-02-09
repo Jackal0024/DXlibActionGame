@@ -2,6 +2,7 @@
 
 #include"../../Base/Actor.h"
 #include"../../../Animation/Animator.h"
+#include"../../../Effect/Base/Effect.h"
 
 class Lizard : public Actor
 {
@@ -63,5 +64,7 @@ private:
 	Vector3 mCenterPosition;
 	Vector3 mVelocity;
 	float mTimer;
+	IEffect mHitEffect;
+
 
 };

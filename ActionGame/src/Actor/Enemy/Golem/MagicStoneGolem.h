@@ -3,6 +3,7 @@
 #include"../../Base/Actor.h"
 #include"../../../Animation/Animator.h"
 #include"../../Magic/Base/MagicList.h"
+#include"../../../Effect/Base/Effect.h"
 
 class MagicStoneGolem : public Actor
 {
@@ -61,4 +62,5 @@ private:
 	bool isMagicAttack;
 	//Ç«ÇÃñÇñ@çUåÇÇÇ∑ÇÈÇ©ÅH
 	MagicList mMagicType;
+	IEffect mHitEffect;
 };

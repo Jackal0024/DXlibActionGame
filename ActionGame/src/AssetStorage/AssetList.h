@@ -13,5 +13,8 @@ enum TextureList
 enum EffectList
 {
 	FireBallEffect,
-	HitEffect
+	HitEffect,
+	IceNeedleEffect,
+	MagicMineEffect,
+	FireWallEffect
 };

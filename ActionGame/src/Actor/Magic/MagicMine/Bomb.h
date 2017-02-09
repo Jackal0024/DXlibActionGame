@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../../Base/Actor.h"
+#include"../../../Effect/Base/Effect.h"
 
 class Bomb : public Actor
 {
@@ -16,5 +17,6 @@ private:
 	float mTimer;
 	float mAtkPower;
 	bool mHit;
+	IEffect mBombEffect;
 
 };

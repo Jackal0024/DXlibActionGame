@@ -3,6 +3,7 @@
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../Magic/FireBall/FireBall.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 Mummy::Mummy(IWorld * world, Vector3 position) :
 	Actor(world, "Mummy", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
@@ -11,6 +12,7 @@ Mummy::Mummy(IWorld * world, Vector3 position) :
 	mStateTimer(0.0f),
 	mStateBool(false)
 {
+	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = 60;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
 }
@@ -22,6 +24,7 @@ Mummy::Mummy(IWorld * world, Vector3 position, Vector3 rotate) :
 	mStateTimer(0.0f),
 	mStateBool(false)
 {
+	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = 60;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
 }
@@ -215,6 +218,8 @@ void Mummy::Hit(float damage)
 	}
 	else
 	{
+		mHitEffect.Play();
+		mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 		mAnimator.AnimationChange(Motion::MIN_DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::MIN_DAMAGE_MOTION);
 	}

@@ -6,6 +6,7 @@
 #include"../../Gimmick/MagicStone.h"
 #include"../../Magic/IceNeedle/IceNeedle.h"
 #include"../../Magic/RockBlast/RockBlast.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 MagicStoneGolem::MagicStoneGolem(IWorld* world, Vector3 position) :
 	Actor(world, "MagicStoneGolem", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
@@ -14,6 +15,7 @@ MagicStoneGolem::MagicStoneGolem(IWorld* world, Vector3 position) :
 	isMagicAttack(true),
 	mMagicType(MagicList::NONE)
 {
+	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = 300;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("MagicStoneGolem"));
 }
@@ -25,6 +27,7 @@ MagicStoneGolem::MagicStoneGolem(IWorld * world, Vector3 position, Vector3 rotat
 	isMagicAttack(true),
 	mMagicType(type)
 {
+	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = 300;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("MagicStoneGolem"));
 }
@@ -205,6 +208,8 @@ void MagicStoneGolem::Hit(float damage)
 	{
 		if (mState != State::ATTACK)
 		{
+			mHitEffect.Play();
+			mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 		}

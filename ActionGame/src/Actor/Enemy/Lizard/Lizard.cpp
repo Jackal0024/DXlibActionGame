@@ -2,6 +2,7 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../Magic/FireBall/FireBall.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 Lizard::Lizard(IWorld * world, Vector3 position):
 Actor(world, "Lizard", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
@@ -10,6 +11,7 @@ mState(State::IDLE),
 mCenterPosition(position),
 mTimer(0)
 {
+	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = 100;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Lizard"));
 }
@@ -21,6 +23,7 @@ Lizard::Lizard(IWorld * world, Vector3 position, Vector3 rotate):
 	mCenterPosition(position),
 	mTimer(0)
 {
+	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = 100;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Lizard"));
 }
@@ -226,6 +229,8 @@ void Lizard::Hit(float damage)
 	}
 	else
 	{
+		mHitEffect.Play();
+		mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 	}

@@ -1,6 +1,7 @@
 #include "FireWallParts.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 FireWallParts::FireWallParts(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag):
 	Actor(world, "Rock", position, { Line(position,position + Vector3(0,3,0)),10.0f }, tag),
@@ -9,7 +10,9 @@ FireWallParts::FireWallParts(IWorld * world, Vector3 position, const Vector3 & V
 	mAtkPower(10.0f),
 	mHit(false)
 {
+	mFireEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::FireWallEffect));
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("FireWall"));
+	mFireEffect.Play();
 }
 
 FireWallParts::~FireWallParts()
@@ -19,10 +22,12 @@ FireWallParts::~FireWallParts()
 
 void FireWallParts::onUpdate(float deltaTime)
 {
+	mFireEffect.SetPosition(mPosition);
 	mVelocity = VNorm(mVelocity);
 	mPosition += (mVelocity)* 2;
 	if (mTimer > 4 || mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 0, 0), mBody.mRadius))
 	{
+		mFireEffect.Stop();
 		Dead();
 	}
 
@@ -38,8 +43,8 @@ void FireWallParts::onUpdate(float deltaTime)
 
 void FireWallParts::onDraw() const
 {
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(mTimer), GetPose().SetScale(Vector3(0.8f, 0.8f, 0.8f))));
-	MV1DrawModel(mModelHandle);
+	//MV1SetMatrix(mModelHandle, MMult(MGetRotY(mTimer), GetPose().SetScale(Vector3(0.8f, 0.8f, 0.8f))));
+	//MV1DrawModel(mModelHandle);
 	//mBody.Move(mPosition).Draw();
 }
 

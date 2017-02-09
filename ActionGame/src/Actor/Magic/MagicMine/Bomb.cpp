@@ -1,14 +1,18 @@
 #include "Bomb.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../../AssetStorage/EffectStorage.h"
 
 Bomb::Bomb(IWorld * world, Vector3 position, Tag tag) :
-	Actor(world, "Bomb", position, { Line(position,position + Vector3(0,0,0)),0.0f }, tag),
+	Actor(world, "Bomb", position, { Line(position,position + Vector3(0,0,0)),15.0f }, tag),
 	mTimer(0.0f),
 	mAtkPower(20.0f),
 	mHit(false)
 {
+	mBombEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::MagicMineEffect));
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Bomb"));
+	mBombEffect.Play();
+	mBombEffect.SetPosition(mPosition);
 }
 
 Bomb::~Bomb()
@@ -23,14 +27,14 @@ void Bomb::onUpdate(float deltaTime)
 		Dead();
 	}
 	mTimer += deltaTime;
-	mBody.mRadius += 20 * deltaTime;
+	//mBody.mRadius += 20 * deltaTime;
 }
 
 void Bomb::onDraw() const
 {
-	Vector3 scale = Vector3(mBody.mRadius * 0.3f, mBody.mRadius* 0.3f, mBody.mRadius* 0.3f);
-	MV1SetMatrix(mModelHandle, MGetRotY(180 * DX_PI / 180) * GetPose().SetScale(scale));
-	MV1DrawModel(mModelHandle);
+	//Vector3 scale = Vector3(mBody.mRadius * 0.3f, mBody.mRadius* 0.3f, mBody.mRadius* 0.3f);
+	//MV1SetMatrix(mModelHandle, MGetRotY(180 * DX_PI / 180) * GetPose().SetScale(scale));
+	//MV1DrawModel(mModelHandle);
 	//mBody.Move(mPosition).Draw();
 }
 

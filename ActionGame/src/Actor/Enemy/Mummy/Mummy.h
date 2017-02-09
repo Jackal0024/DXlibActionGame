@@ -2,6 +2,7 @@
 
 #include"../../Base/Actor.h"
 #include"../../../Animation/Animator.h"
+#include"../../../Effect/Base/Effect.h"
 
 class Mummy : public Actor
 {
@@ -62,4 +63,6 @@ private:
 	float mHitPoint;
 	float mStateTimer;
 	bool mStateBool;
+
+	IEffect mHitEffect;
 };

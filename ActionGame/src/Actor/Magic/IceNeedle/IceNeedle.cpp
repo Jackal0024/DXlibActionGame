@@ -1,6 +1,7 @@
 #include "IceNeedle.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../../AssetStorage/EffectStorage.h"
 #include"../../Base/HitInfo.h"
 
 IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag):
@@ -12,8 +13,10 @@ IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num
 	isNext(false),
 	mAtkPower(10)
 {
+	mIceEffect = EffectStorage::getInstance().GetHandle(EffectList::IceNeedleEffect);
 	SoundManager::getInstance().Play("./res/Sound/Ice.mp3");
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("IceNeedle"));
+	mIceEffect.Play();
 }
 
 void IceNeedle::onUpdate(float deltaTime)
@@ -21,8 +24,10 @@ void IceNeedle::onUpdate(float deltaTime)
 	mNum--;
 	mLifeTimer_ -= deltaTime;
 	mPosition = Vector3::Lerp(mPosition, mDestination, 0.05);
+	mIceEffect.SetPosition(mPosition);
 	if (mLifeTimer_ <= 0)
 	{
+		mIceEffect.Stop();
 		Dead();
 	}
 	if (mNum > 0 && !isNext)

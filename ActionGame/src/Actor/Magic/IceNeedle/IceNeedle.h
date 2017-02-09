@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../../Base/Actor.h"
+#include"../../../Effect/Base/Effect.h"
 
 #include"EffekseerForDXLib.h"
 
@@ -23,5 +24,6 @@ private:
 	float mAtkPower;
 	bool isNext;
 	bool mHit = false;
+	IEffect mIceEffect;
 
 };
