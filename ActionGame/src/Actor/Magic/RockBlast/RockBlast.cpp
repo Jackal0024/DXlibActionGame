@@ -1,6 +1,7 @@
 #include "RockBlast.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
+#include"../../Base/HitInfo.h"
 
 RockBlast::RockBlast(IWorld * world, Vector3 position, const Vector3 & velocity, Tag tag):
 	Actor(world,"Rock",position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
@@ -43,7 +44,8 @@ void RockBlast::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER)
 	{
-		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&mAtkPower);
+		Hitinfo hit = { VNorm(mVelocity),mAtkPower };
+		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&hit);
 	}
 	if (other.GetTag() == Tag::ENEMY)
 	{

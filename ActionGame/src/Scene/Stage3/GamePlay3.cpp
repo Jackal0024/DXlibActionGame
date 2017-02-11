@@ -164,13 +164,14 @@ void GamePlay3::MapDateInput(const std::string& fileName)
 
 void GamePlay3::CharacterCreate(const std::string& name, Vector3& position, Vector3& rotate)
 {
-	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate));
+	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate,200,60));
+	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 210, 60));
+	if (name == "Goblin") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate, 600, 80));
+	if (name == "MineStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate, 200, 40));
+	if (name == "Mummy") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate, 150, 40));
+
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));
-	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate));
-	if (name == "Goblin") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate));
-	if (name == "MineStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate));
 	if (name == "TrapStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", position, MagicList::TRAPSPEAR));
-	if (name == "Mummy") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2_BACK));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 }

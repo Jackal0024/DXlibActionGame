@@ -364,7 +364,7 @@ void Player::MagicAttack()
 	{
 		if (mMagicPoint < 5) return;
 		auto camera = mWorld->GetCamera();
-		Vector3 icePos = mPosition + (camera->GetRotate().GetForward() * 20) + Vector3(0,11,0);
+		Vector3 icePos = mPosition + (camera->GetRotate().GetForward()) + Vector3(0,11,0);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
 		mMagicPoint -= 5;
 	}

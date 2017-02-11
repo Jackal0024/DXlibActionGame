@@ -10,21 +10,25 @@ Goblin::Goblin(IWorld * world, Vector3 position):
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mCenterPoint(position),
-	mStateTimer(0.0f)
+	mStateTimer(0.0f),
+	mStartHitPoint(500),
+	mAttackPower(30)
 {
-	mHitPoint = 500;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
 	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
 
-Goblin::Goblin(IWorld * world, Vector3 position, Vector3 rotate):
+Goblin::Goblin(IWorld * world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower):
 	Actor(world, "Goblin", position, rotate, { { 0,10,0 },1.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mCenterPoint(position),
-	mStateTimer(0.0f)
+	mStateTimer(0.0f),
+	mStartHitPoint(startHitPoint),
+	mAttackPower(attackPower)
 {
-	mHitPoint = 500;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Goblin"));
 	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
@@ -133,7 +137,7 @@ void Goblin::MoveProcess(float deltaTime)
 	{
 		//UŒ‚
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f,20.0f));
+			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f,mAttackPower));
 		StateChange(State::LIGHT_ATTACK);
 	}
 
@@ -168,7 +172,7 @@ void Goblin::RunProcess(float deltaTime)
 	{
 		//UŒ‚
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f, 50.0f));
+			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f, mAttackPower * 2));
 		StateChange(State::HEAVY_ATTACK);
 	}
 }
@@ -213,6 +217,8 @@ void Goblin::DamageProcess(float deltaTime)
 void Goblin::Hit(float damage)
 {
 	mHitPoint -= damage;
+	mEffect.Play();
+	mEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
 		mBody.isAlive = false;
@@ -224,8 +230,6 @@ void Goblin::Hit(float damage)
 	}
 	else
 	{
-		mEffect.Play();
-		mEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 	}

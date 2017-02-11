@@ -1,10 +1,10 @@
 #include "MummyAttack.h"
 #include "../../Base/HitInfo.h"
 
-MummyAttack::MummyAttack(IWorld * world, const Vector3 & position):
+MummyAttack::MummyAttack(IWorld * world, const Vector3 & position,float Atk):
 	Actor(world, "MummyAttack", position, { Vector3(0,2,0),7 }, Tag::ENEMY_ATTACK),
 	mTimer(0.0f),
-	mAtk(10)
+	mAtk(Atk)
 {
 }
 

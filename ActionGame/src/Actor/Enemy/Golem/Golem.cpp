@@ -7,19 +7,23 @@
 Golem::Golem(IWorld* world, Vector3 position):
 	Actor(world, "Golem", position, { {0,10,0},3.0f },Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
-	mState(State::IDLE)
+	mState(State::IDLE),
+	mStartHitPoint(60),
+	mAttackPower(40)
 {
-	mHitPoint = 60;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
 
-Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate) :
+Golem::Golem(IWorld * world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower) :
 	Actor(world, "Golem", position,rotate,{ { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
-	mState(State::IDLE)
+	mState(State::IDLE),
+	mStartHitPoint(startHitPoint),
+	mAttackPower(attackPower)
 {
-	mHitPoint = 60;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Golem"));
 	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 }
@@ -116,7 +120,8 @@ void Golem::MoveProcess(float deltaTime)
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<EnemyArrack>(mWorld, mPosition
 			+ (mRotate.GetForward() * 10)
 			+ Vector3(0, 20, 0),
-			mRotate.GetForward()));
+			mRotate.GetForward(),
+			mAttackPower));
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
 	}
@@ -164,6 +169,8 @@ void Golem::DamageProcess(float deltaTime)
 void Golem::Hit(float damage)
 {
 	mHitPoint -= damage;
+	mEffect.Play();
+	mEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
 		mBody.isAlive = false;
@@ -175,8 +182,6 @@ void Golem::Hit(float damage)
 	{
 		if (mState != State::ATTACK)
 		{
-			mEffect.Play();
-			mEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 		}

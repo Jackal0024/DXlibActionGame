@@ -30,7 +30,7 @@ public:
 
 public:
 	Mummy(IWorld* world, Vector3 position);
-	Mummy(IWorld* world, Vector3 position, Vector3 rotate);
+	Mummy(IWorld* world, Vector3 position, Vector3 rotate,float startHitPoint, float attackPower);
 
 private:
 	void onStart() override;
@@ -65,4 +65,6 @@ private:
 	bool mStateBool;
 
 	IEffect mHitEffect;
+	float mStartHitPoint;
+	float mAttackPower;
 };

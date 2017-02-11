@@ -29,7 +29,7 @@ public:
 
 public:
 	Golem(IWorld* world, Vector3 position);
-	Golem(IWorld* world, Vector3 position,Vector3 rotate);
+	Golem(IWorld* world, Vector3 position,Vector3 rotate, float startHitPoint,float attackPower);
 	~Golem();
 
 private:
@@ -59,6 +59,9 @@ private:
 	ActorPtr mTarget;
 	float mHitPoint = 0;
 	IEffect mEffect;
+
+	float mStartHitPoint;
+	float mAttackPower;
 };
 
 #endif

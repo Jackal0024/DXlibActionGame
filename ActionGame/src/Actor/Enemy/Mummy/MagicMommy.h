@@ -30,7 +30,7 @@ public:
 
 public:
 	MagicMummy(IWorld* world, Vector3 position);
-	MagicMummy(IWorld* world, Vector3 position, Vector3 rotate);
+	MagicMummy(IWorld* world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower);
 
 private:
 	void onStart() override;
@@ -64,4 +64,7 @@ private:
 	float mStateTimer;
 	bool mStateBool;
 	IEffect mHitEffect;
+
+	float mStartHitPoint;
+	float mAttackPower;
 };

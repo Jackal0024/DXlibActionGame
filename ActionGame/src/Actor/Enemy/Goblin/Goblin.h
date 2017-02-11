@@ -31,7 +31,7 @@ public:
 
 public:
 	Goblin(IWorld* world, Vector3 position);
-	Goblin(IWorld* world, Vector3 position, Vector3 rotate);
+	Goblin(IWorld* world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower);
 	~Goblin();
 
 private:
@@ -65,5 +65,8 @@ private:
 	float mHitPoint;
 	Vector3 mCenterPoint;
 	IEffect mEffect;
+
+	float mStartHitPoint;
+	float mAttackPower;
 
 };

@@ -9,22 +9,26 @@ Actor(world, "Lizard", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
 mMotionid(Motion::IDLE_MOTION),
 mState(State::IDLE),
 mCenterPosition(position),
-mTimer(0)
+mTimer(0),
+mStartHitPoint(100),
+mAttackPower(40)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
-	mHitPoint = 100;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Lizard"));
 }
 
-Lizard::Lizard(IWorld * world, Vector3 position, Vector3 rotate):
+Lizard::Lizard(IWorld * world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower):
 	Actor(world, "Lizard", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mCenterPosition(position),
-	mTimer(0)
+	mTimer(0),
+	mStartHitPoint(startHitPoint),
+	mAttackPower(attackPower)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
-	mHitPoint = 100;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Lizard"));
 }
 
@@ -192,7 +196,7 @@ void Lizard::AttackProcess(float deltaTime)
 	if (mAnimator.IsAnimationEnd())
 	{
 		Vector3 pos = mPosition + mRotate.GetForward() * 5 + Vector3(0, 12, 0);
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, pos, VNorm(mVelocity), Tag::ENEMY_ATTACK,20));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, pos, VNorm(mVelocity), Tag::ENEMY_ATTACK, mAttackPower));
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE, Motion::IDLE_MOTION);
 	}
@@ -221,6 +225,8 @@ void Lizard::Hit(float damage)
 {
 	SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 	mHitPoint -= damage;
+	mHitEffect.Play();
+	mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
 		mBody.isAlive = false;
@@ -229,8 +235,6 @@ void Lizard::Hit(float damage)
 	}
 	else
 	{
-		mHitEffect.Play();
-		mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 		mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 	}

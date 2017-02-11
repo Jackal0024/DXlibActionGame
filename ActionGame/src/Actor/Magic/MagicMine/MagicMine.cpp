@@ -3,6 +3,7 @@
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../../Sound/SoundManager.h"
+#include"../../Base/HitInfo.h"
 
 MagicMine::MagicMine(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag):
 	Actor(world, "Mine", position, { Line(position,position + Vector3(0,0,0)),3.0f }, tag),

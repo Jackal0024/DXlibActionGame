@@ -2,6 +2,7 @@
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../../AssetStorage/EffectStorage.h"
+#include"../../Base/HitInfo.h"
 
 Bomb::Bomb(IWorld * world, Vector3 position, Tag tag) :
 	Actor(world, "Bomb", position, { Line(position,position + Vector3(0,0,0)),15.0f }, tag),
@@ -42,7 +43,9 @@ void Bomb::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER)
 	{
-		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&mAtkPower);
+		auto sub = mWorld->FindActor("Player")->GetPosition() - mPosition;
+		Hitinfo hit = { VNorm(sub),mAtkPower };
+		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&hit);
 	}
 	if (other.GetTag() == Tag::ENEMY)
 	{

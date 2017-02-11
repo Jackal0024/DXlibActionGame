@@ -5,7 +5,7 @@
 #include"../../Base/HitInfo.h"
 
 FireBall::FireBall(IWorld * world, Vector3 position, const Vector3& Velocity,Tag tag,float atk) :
-Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
+Actor(world, "Fire", position, { Line(position,position + Vector3(0,0,0)),5.0f },tag),
 mVelocity(Velocity),
 mTimer(0),
 mIndex(0),
@@ -13,7 +13,7 @@ mAtkPower(atk)
 {
 	mEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::FireBallEffect));
 	SoundManager::getInstance().Play("./res/Sound/Fire.mp3");
-	LoadDivGraph("./res/Particles/FireTexture2.png", 32, 8, 4, 128, 128, mHandle);
+	LoadDivGraph("./res/Particles/FireTexture2.png", 16, 8, 4, 128, 128, mHandle);
 	mEffect.Play();
 }
 

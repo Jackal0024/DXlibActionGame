@@ -10,22 +10,26 @@ Mummy::Mummy(IWorld * world, Vector3 position) :
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mStateTimer(0.0f),
-	mStateBool(false)
+	mStateBool(false),
+	mStartHitPoint(60),
+	mAttackPower(40)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
-	mHitPoint = 60;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
 }
 
-Mummy::Mummy(IWorld * world, Vector3 position, Vector3 rotate) :
+Mummy::Mummy(IWorld * world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower) :
 	Actor(world, "Mummy", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mStateTimer(0.0f),
-	mStateBool(false)
+	mStateBool(false),
+	mStartHitPoint(startHitPoint),
+	mAttackPower(attackPower)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
-	mHitPoint = 60;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
 }
 
@@ -155,7 +159,7 @@ void Mummy::MagicProcess(float deltaTime)
 
 	if (mStateTimer > 1.0f && !mStateBool)
 	{
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition, VNorm(targetsub), Tag::ENEMY_ATTACK));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, mPosition, VNorm(targetsub), Tag::ENEMY_ATTACK, mAttackPower));
 		mStateBool = true;
 	}
 
@@ -179,7 +183,8 @@ void Mummy::KickProcess(float deltaTime)
 	if (mStateTimer > 0.3f && !mStateBool)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<MummyAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10)));
+			+ (mRotate.GetForward() * 10),
+			mAttackPower));
 	}
 
 	if (mAnimator.IsAnimationEnd())
@@ -210,6 +215,8 @@ void Mummy::DamageProcess(float deltaTime)
 void Mummy::Hit(float damage)
 {
 	mHitPoint -= damage;
+	mHitEffect.Play();
+	mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
@@ -218,8 +225,6 @@ void Mummy::Hit(float damage)
 	}
 	else
 	{
-		mHitEffect.Play();
-		mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 		mAnimator.AnimationChange(Motion::MIN_DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::MIN_DAMAGE_MOTION);
 	}

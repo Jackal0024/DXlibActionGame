@@ -12,7 +12,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	SetOutApplicationLogValidFlag(FALSE);
 	SetGraphMode(WIDTH, HEIGHT, 16);
-	ChangeWindowMode(TRUE);
+	ChangeWindowMode(FALSE);
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 	SetUsePixelLighting(TRUE);
 	SetUseDirect3DVersion(DX_DIRECT3D_9);

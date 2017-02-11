@@ -28,7 +28,7 @@ public:
 
 public:
 	MagicStoneGolem(IWorld* world, Vector3 position);
-	MagicStoneGolem(IWorld* world, Vector3 position, Vector3 rotate,MagicList type);
+	MagicStoneGolem(IWorld* world, Vector3 position, Vector3 rotate,MagicList type, float startHitPoint, float attackPower);
 	~MagicStoneGolem();
 
 private:
@@ -63,4 +63,7 @@ private:
 	//Ç«ÇÃñÇñ@çUåÇÇÇ∑ÇÈÇ©ÅH
 	MagicList mMagicType;
 	IEffect mHitEffect;
+
+	float mStartHitPoint;
+	float mAttackPower;
 };

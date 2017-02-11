@@ -28,7 +28,7 @@ public:
 
 public:
 	Lizard(IWorld* world, Vector3 position);
-	Lizard(IWorld* world, Vector3 position, Vector3 rotate);
+	Lizard(IWorld* world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower);
 	~Lizard();
 
 private:
@@ -65,6 +65,9 @@ private:
 	Vector3 mVelocity;
 	float mTimer;
 	IEffect mHitEffect;
+
+	float mStartHitPoint;
+	float mAttackPower;
 
 
 };

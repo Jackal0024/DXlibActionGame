@@ -13,22 +13,26 @@ MagicStoneGolem::MagicStoneGolem(IWorld* world, Vector3 position) :
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	isMagicAttack(true),
-	mMagicType(MagicList::NONE)
+	mMagicType(MagicList::NONE),
+	mStartHitPoint(300),
+	mAttackPower(40)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
-	mHitPoint = 300;
+	mHitPoint = 300 * mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("MagicStoneGolem"));
 }
 
-MagicStoneGolem::MagicStoneGolem(IWorld * world, Vector3 position, Vector3 rotate,MagicList type) :
+MagicStoneGolem::MagicStoneGolem(IWorld * world, Vector3 position, Vector3 rotate,MagicList type, float startHitPoint, float attackPower) :
 	Actor(world, "MagicStoneGolem", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	isMagicAttack(true),
-	mMagicType(type)
+	mMagicType(type),
+	mStartHitPoint(startHitPoint),
+	mAttackPower(attackPower)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
-	mHitPoint = 300;
+	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("MagicStoneGolem"));
 }
 
@@ -141,7 +145,8 @@ void MagicStoneGolem::MoveProcess(float deltaTime)
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<EnemyArrack>(mWorld, mPosition
 			+ (mRotate.GetForward() * 10)
 			+ Vector3(0, 20, 0),
-			mRotate.GetForward()));
+			mRotate.GetForward(),
+			mAttackPower));
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
 	}
@@ -194,6 +199,8 @@ bool MagicStoneGolem::isFront(float forward_dot_target)
 void MagicStoneGolem::Hit(float damage)
 {
 	mHitPoint -= damage;
+	mHitEffect.Play();
+	mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
 		mBody.isAlive = false;
@@ -208,8 +215,6 @@ void MagicStoneGolem::Hit(float damage)
 	{
 		if (mState != State::ATTACK)
 		{
-			mHitEffect.Play();
-			mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 		}
