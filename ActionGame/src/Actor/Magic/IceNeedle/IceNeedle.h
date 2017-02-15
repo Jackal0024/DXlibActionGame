@@ -8,7 +8,7 @@
 class IceNeedle : public Actor
 {
 public:
-	IceNeedle(IWorld* world, Vector3 position,Vector3 velocity,int num,Tag tag);
+	IceNeedle(IWorld* world, Vector3 position,Vector3 velocity,int num,Tag tag, float atk);
 
 private:
 	void onUpdate(float deltaTime) override;
@@ -25,5 +25,9 @@ private:
 	bool isNext;
 	bool mHit = false;
 	IEffect mIceEffect;
+
+private:
+	//ñÇñ@é©ëÃÇÃçUåÇóÕ
+	const float MAGICPOWER = 20;
 
 };

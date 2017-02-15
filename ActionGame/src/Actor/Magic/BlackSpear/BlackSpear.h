@@ -5,7 +5,7 @@
 class BlackSpear : public Actor
 {
 public:
-	BlackSpear(IWorld * world, Vector3 position, Tag tag);
+	BlackSpear(IWorld * world, Vector3 position, Tag tag,float atk);
 	~BlackSpear();
 private:
 	void onUpdate(float deltaTime) override;
@@ -18,5 +18,9 @@ private:
 	float mTimer;
 	float mAtkPower;
 	bool mHit;
+
+private:
+	//ñÇñ@é©ëÃÇÃçUåÇóÕ
+	const float MAGICPOWER = 20;
 
 };

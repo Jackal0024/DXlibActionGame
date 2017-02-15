@@ -4,10 +4,10 @@
 #include"../../../AssetStorage/EffectStorage.h"
 #include"../../Base/HitInfo.h"
 
-Bomb::Bomb(IWorld * world, Vector3 position, Tag tag) :
+Bomb::Bomb(IWorld * world, Vector3 position, Tag tag,float atk) :
 	Actor(world, "Bomb", position, { Line(position,position + Vector3(0,0,0)),15.0f }, tag),
 	mTimer(0.0f),
-	mAtkPower(40.0f),
+	mAtkPower(atk),
 	mHit(false)
 {
 	mBombEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::MagicMineEffect));
@@ -54,6 +54,7 @@ void Bomb::onCollide(Actor & other)
 			mHit = true;
 			mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
 		}
-		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
+		float damage = mAtkPower + MAGICPOWER;
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&damage);
 	}
 }

@@ -5,11 +5,12 @@
 #include"../../../Sound/SoundManager.h"
 #include"../../Base/HitInfo.h"
 
-MagicMine::MagicMine(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag):
+MagicMine::MagicMine(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag,float power):
 	Actor(world, "Mine", position, { Line(position,position + Vector3(0,0,0)),3.0f }, tag),
 	mVelocity(Velocity),
 	mTimer(0.0f),
-	mHit(false)
+	mHit(false),
+	mPower(power)
 {
 	SoundManager::getInstance().Play("./res/Sound/MagicMine1.mp3");
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mine"));
@@ -70,10 +71,10 @@ void MagicMine::Explosion()
 	SoundManager::getInstance().Play("./res/Sound/MagicMine2.mp3");
 	if (mTag == Tag::ENEMY_ATTACK)
 	{
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<Bomb>(mWorld, mPosition, mTag));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<Bomb>(mWorld, mPosition, mTag,mPower));
 	}
 	else
 	{
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<Bomb>(mWorld, mPosition, mTag));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<Bomb>(mWorld, mPosition, mTag,mPower));
 	}
 }

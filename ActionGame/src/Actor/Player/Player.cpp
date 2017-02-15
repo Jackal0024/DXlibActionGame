@@ -29,6 +29,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mStateTimer(0.0f),
 	mStamina(100),
 	mAttackPower(20),
+	mMagicPower(20),
 	mMagicInterval(1),
 	mCurrentMagic(MagicList::NONE),
 	mPowerEX(0),
@@ -48,6 +49,7 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
 	mStateTimer(0.0f),
 	mStamina(100),
 	mAttackPower(20),
+	mMagicPower(20),
 	mMagicInterval(1),
 	mCurrentMagic(MagicList::NONE),
 	mPowerEX(0),
@@ -72,6 +74,7 @@ Player::~Player()
 	player.Stamina = mStamina;
 	player.MaxStamina = MAXStamina;
 	player.AtkBoost = mAttackPower;
+	player.MagicBoost = mMagicPower;
 	player.CurrentMagic = mCurrentMagic;
 	player.List = mMagicList;
 	PlayerSave::getInstance().Save(player);
@@ -364,6 +367,7 @@ void Player::SetStatus(PlayerStatus status)
 		mStamina = status.Stamina;
 	}
 	mAttackPower = status.AtkBoost;
+	mMagicPower = status.MagicBoost;
 	mCurrentMagic = status.CurrentMagic;
 	mMagicList = status.List;
 }
@@ -378,7 +382,7 @@ void Player::MagicAttack()
 		if (mMagicPoint < 5) return;
 		auto camera = mWorld->GetCamera();
 		Vector3 icePos = mPosition + (camera->GetRotate().GetForward()) + Vector3(0,11,0);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK,mMagicPower));
 		mMagicPoint -= 5;
 	}
 	break;
@@ -387,7 +391,7 @@ void Player::MagicAttack()
 	{
 		if (mMagicPoint < 15) return;
 		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::PLAYER_ATTACK, mMagicPower));
 		mMagicPoint -= 15;
 	}
 	break;
@@ -405,7 +409,7 @@ void Player::MagicAttack()
 		if (mMagicPoint < 10) return;
 		auto camera = mWorld->GetCamera();
 		Vector3 icePos = camera->GetPosition() + (camera->GetRotate().GetForward()) + Vector3(0,10,0);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
 		mMagicPoint -= 10;
 	}
 	break;
@@ -415,7 +419,7 @@ void Player::MagicAttack()
 		if (mMagicPoint < 18) return;
 		auto camera = mWorld->GetCamera();
 		Vector3 Pos = mPosition;
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
 		mMagicPoint -= 18;
 	}
 	break;
@@ -425,7 +429,7 @@ void Player::MagicAttack()
 		if (mMagicPoint < 30) return;
 		auto camera = mWorld->GetCamera();
 		Vector3 Pos = camera->GetPosition();
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
 		mMagicPoint -= 30;
 	}
 	break;
@@ -434,7 +438,7 @@ void Player::MagicAttack()
 	{
 		if (mMagicPoint < 25) return;
 		Vector3 Pos = mPosition + Vector3(0,1,0);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<SpearCircle>(mWorld, Pos, Tag::PLAYER_ATTACK));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<SpearCircle>(mWorld, Pos, Tag::PLAYER_ATTACK, mMagicPower));
 		mMagicPoint -= 25;
 	}
 	break;
@@ -467,6 +471,7 @@ void Player::MagicUp()
 		SoundManager::getInstance().Play("./res/Sound/MagicUp.mp3");
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ñÇóÕÇ™è„Ç™Ç¡ÇΩ"));
 		MAXMP += 20;
+		mMagicPower += 2;
 		MAXMP = min(MAXMP, 600);
 		mNextMagicEX += 10;
 	}

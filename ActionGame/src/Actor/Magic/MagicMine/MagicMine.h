@@ -5,7 +5,7 @@
 class MagicMine : public Actor
 {
 public:
-	MagicMine(IWorld* world, Vector3 position, const Vector3& Velocity, Tag tag);
+	MagicMine(IWorld* world, Vector3 position, const Vector3& Velocity, Tag tag,float power);
 	~MagicMine();
 private:
 	void onUpdate(float deltaTime) override;
@@ -19,6 +19,7 @@ private:
 	float mTimer;
 	float mExpTimer;
 	bool mHit;
+	float mPower;
 
 
 };

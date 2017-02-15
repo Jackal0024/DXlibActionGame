@@ -22,4 +22,8 @@ private:
 	float mAtkPower;
 	Vector3 mVelocity;
 
+private:
+	//–‚–@©‘Ì‚ÌUŒ‚—Í
+	const float MAGICPOWER = 5;
+
 };

@@ -3,11 +3,11 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../../AssetStorage/EffectStorage.h"
 
-FireWallParts::FireWallParts(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag):
+FireWallParts::FireWallParts(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag, float atk):
 	Actor(world, "Rock", position, { Line(position,position + Vector3(0,3,0)),10.0f }, tag),
 	mTimer(0.0f),
 	mVelocity(Velocity),
-	mAtkPower(50.0f),
+	mAtkPower(atk),
 	mHit(false)
 {
 	mFireEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::FireWallEffect));
@@ -61,6 +61,7 @@ void FireWallParts::onCollide(Actor & other)
 			mHit = true;
 			mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
 		}
-		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
+		float damage = mAtkPower + MAGICPOWER;
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&damage);
 	}
 }

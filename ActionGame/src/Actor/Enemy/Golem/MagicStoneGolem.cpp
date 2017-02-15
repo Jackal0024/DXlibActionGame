@@ -114,11 +114,11 @@ void MagicStoneGolem::IdleProcess(float deltaTime)
 		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
 		if (mMagicType == MagicList::ICENEEDLE)
 		{
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::ENEMY_ATTACK));
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::ENEMY_ATTACK,mAttackPower));
 		}
 		if (mMagicType == MagicList::ROCKBLAST)
 		{
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0,5,0), mRotate.GetForward(),Tag::ENEMY_ATTACK));
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0,5,0), mRotate.GetForward(),Tag::ENEMY_ATTACK, mAttackPower));
 		}
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);

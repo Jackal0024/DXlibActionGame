@@ -3,9 +3,10 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"BlackSpear.h"
 
-SpearCircle::SpearCircle(IWorld * world, Vector3 position, Tag tag) :
+SpearCircle::SpearCircle(IWorld * world, Vector3 position, Tag tag, float power) :
 	Actor(world, "SpearCircle", position, { { 0,0,0 },3.0f }, tag),
-	mTimer(0.0f)
+	mTimer(0.0f),
+	mPower(power)
 {
 	SoundManager::getInstance().Play("./res/Sound/Trap.mp3");
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("SpearCircle"));
@@ -36,12 +37,12 @@ void SpearCircle::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER && mTag == Tag::ENEMY_ATTACK)
 	{
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<BlackSpear>(mWorld, mPosition, mTag));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<BlackSpear>(mWorld, mPosition, mTag,mPower));
 		Dead();
 	}
 	if (other.GetTag() == Tag::ENEMY && mTag == Tag::PLAYER_ATTACK)
 	{
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<BlackSpear>(mWorld, mPosition, mTag));
+		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<BlackSpear>(mWorld, mPosition, mTag, mPower));
 		Dead();
 	}
 }

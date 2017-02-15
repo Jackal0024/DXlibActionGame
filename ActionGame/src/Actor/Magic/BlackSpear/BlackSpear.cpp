@@ -2,10 +2,10 @@
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
 
-BlackSpear::BlackSpear(IWorld * world, Vector3 position, Tag tag):
+BlackSpear::BlackSpear(IWorld * world, Vector3 position, Tag tag, float atk):
 	Actor(world,"BlackSpear",position + Vector3(0,-30,0), { Line(position,position + Vector3(0,3,0)),10.0f }),
 	mTimer(0.0f),
-	mAtkPower(30.0f),
+	mAtkPower(atk),
 	mHit(false),
 	mToPos(position)
 {
@@ -48,6 +48,7 @@ void BlackSpear::onCollide(Actor & other)
 			mHit = true;
 			mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
 		}
-		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
+		float damage = mAtkPower + MAGICPOWER;
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&damage);
 	}
 }

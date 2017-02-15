@@ -55,7 +55,8 @@ void FireBall::onCollide(Actor & other)
 	if (other.GetTag() == Tag::ENEMY)
 	{
 		mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
-		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
+		float damage = mAtkPower + MAGICPOWER;
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&damage);
 	}
 	mEffect.Stop();
 	Dead();

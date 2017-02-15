@@ -132,7 +132,7 @@ void MagicMummy::MagicProcess(float deltaTime)
 
 	if (mStateTimer > 1.0f && !mStateBool)
 	{
-		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<MagicMine>(mWorld, mPosition + Vector3(0,10,0), VNorm(targetsub), Tag::ENEMY_ATTACK));
+		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<MagicMine>(mWorld, mPosition + Vector3(0,10,0), VNorm(targetsub), Tag::ENEMY_ATTACK, mAttackPower));
 		mStateBool = true;
 	}
 

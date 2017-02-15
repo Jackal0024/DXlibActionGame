@@ -34,6 +34,7 @@ void PlayerSave::PlayerInit()
 	player.MaxStamina = 100;
 	player.List = list;
 	player.AtkBoost = 20;
+	player.MagicBoost = 20;
 	player.CurrentMagic = MagicList::NONE;
 	PlayerSave::getInstance().Save(player);
 }

@@ -5,7 +5,7 @@
 class FireWallParts :public  Actor
 {
 public:
-	FireWallParts(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag);
+	FireWallParts(IWorld * world, Vector3 position, const Vector3 & Velocity, Tag tag,float atk);
 	~FireWallParts();
 private:
 	void onUpdate(float deltaTime) override;
@@ -18,5 +18,9 @@ private:
 	float mAtkPower;
 	bool mHit;
 	IEffect mFireEffect;
+
+private:
+	//ñÇñ@é©ëÃÇÃçUåÇóÕ
+	const float MAGICPOWER = 40;
 
 };

@@ -3,10 +3,10 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../Base/HitInfo.h"
 
-RockBlast::RockBlast(IWorld * world, Vector3 position, const Vector3 & velocity, Tag tag):
+RockBlast::RockBlast(IWorld * world, Vector3 position, const Vector3 & velocity, Tag tag,float atk):
 	Actor(world,"Rock",position, { Line(position,position + Vector3(0,0,0)),10.0f },tag),
 	mTimer(0.0f),
-	mAtkPower(50),
+	mAtkPower(atk),
 	mVelocity(velocity),
 	mGravity(0,0,0),
 	mHit(false)
@@ -54,6 +54,7 @@ void RockBlast::onCollide(Actor & other)
 			mHit = true;
 			mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
 		}
-		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
+		float damage = mAtkPower + MAGICPOWER;
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&damage);
 	}
 }

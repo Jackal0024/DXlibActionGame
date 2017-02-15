@@ -95,7 +95,7 @@ void Ghost::Attack(float deltaTime)
 {
 	Vector3 velocity = mTarget->GetPosition() - mPosition + Vector3(0, 5, 0);
 	velocity = VNorm(velocity);
-	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, mPosition,velocity,3,Tag::ENEMY_ATTACK));
+	mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, mPosition,velocity,3,Tag::ENEMY_ATTACK,200));
 	//AddChild(std::make_shared<GhostArrack>(mWorld, mPosition, velocity));
 	mAttackTimer = 0;
 	StateChange(State::IDLE);

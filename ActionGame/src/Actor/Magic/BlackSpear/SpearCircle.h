@@ -5,7 +5,7 @@
 class SpearCircle : public Actor
 {
 public:
-	SpearCircle(IWorld * world, Vector3 position, Tag tag);
+	SpearCircle(IWorld * world, Vector3 position, Tag tag, float power);
 	~SpearCircle();
 private:
 	void onUpdate(float deltaTime) override;
@@ -15,5 +15,6 @@ private:
 private:
 	int mModelHandle;
 	float mTimer;
+	float mPower;
 
 };

@@ -16,6 +16,7 @@ struct PlayerStatus
 	float Stamina;
 	float MaxStamina;
 	float AtkBoost;
+	float MagicBoost;
 	MagicList CurrentMagic;
 	std::vector<MagicList> List;
 };
@@ -92,6 +93,7 @@ private:
 
 	float mStamina;
 	float mAttackPower;
+	float mMagicPower;
 	float mMagicInterval;
 
 	std::vector<MagicList> mMagicList;

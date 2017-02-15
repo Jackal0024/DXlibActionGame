@@ -6,7 +6,7 @@
 class Bomb : public Actor
 {
 public:
-	Bomb(IWorld* world, Vector3 position,Tag tag);
+	Bomb(IWorld* world, Vector3 position,Tag tag,float atk);
 	~Bomb();
 private:
 	void onUpdate(float deltaTime) override;
@@ -18,5 +18,9 @@ private:
 	float mAtkPower;
 	bool mHit;
 	IEffect mBombEffect;
+
+private:
+	//ñÇñ@é©ëÃÇÃçUåÇóÕ
+	const float MAGICPOWER = 40;
 
 };

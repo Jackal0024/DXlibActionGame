@@ -4,14 +4,14 @@
 #include"../../../AssetStorage/EffectStorage.h"
 #include"../../Base/HitInfo.h"
 
-IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag):
+IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag, float atk):
 	Actor(world, "AttackProcess",position - Vector3(0,30,0), { Vector3(0,15,0),5 },tag),
 	mVelocity(velocity),
 	mNum(num),
 	mLifeTimer_(1),
 	mDestination(position),
 	isNext(false),
-	mAtkPower(30)
+	mAtkPower(atk)
 {
 	mIceEffect = EffectStorage::getInstance().GetHandle(EffectList::IceNeedleEffect);
 	SoundManager::getInstance().Play("./res/Sound/Ice.mp3");
@@ -36,11 +36,11 @@ void IceNeedle::onUpdate(float deltaTime)
 		Vector3 nextPos = mDestination + (mVelocity * 20);
 		if (mTag == Tag::ENEMY_ATTACK)
 		{
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, nextPos, mVelocity, mNum, mTag));
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, nextPos, mVelocity, mNum, mTag,mAtkPower));
 		}
 		else
 		{
-			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, nextPos, mVelocity, mNum, mTag));
+			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, nextPos, mVelocity, mNum, mTag,mAtkPower));
 		}
 		isNext = true;
 	}
@@ -64,7 +64,7 @@ void IceNeedle::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::PLAYER)
 	{
-		Hitinfo hit = { VNorm(mVelocity),mAtkPower };
+		Hitinfo hit = { VNorm(mVelocity),mAtkPower};
 		other.HandleMessage(EventMessage::PLAYER_DAMEGE, (void*)&hit);
 	}
 	if (other.GetTag() == Tag::ENEMY)
@@ -74,6 +74,7 @@ void IceNeedle::onCollide(Actor & other)
 			mHit = true;
 			mWorld->SendMsg(EventMessage::PLAYER_MAGICUP);
 		}
-		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtkPower);
+		float damage = mAtkPower + MAGICPOWER;
+		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&damage);
 	}
 }
