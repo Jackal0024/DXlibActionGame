@@ -14,7 +14,7 @@ public:
 	void Update(float deltaTime);
 	void Draw() const;
 
-	virtual void AddActor(ActorGroup group, const ActorPtr& actor) override;
+	virtual ActorPtr AddActor(ActorGroup group, const ActorPtr& actor) override;
 	ActorPtr FindActor(const std::string& name) override;
 	void AddCamera(const ActorPtr& camera);
 	void AddLight(const ActorPtr& light);

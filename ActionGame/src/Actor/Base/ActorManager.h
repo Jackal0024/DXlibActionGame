@@ -13,7 +13,7 @@ public:
 	void Initialize();
 	void Update(float deltaTime);
 	void Draw() const;
-	void AddActor(ActorGroup group, const ActorPtr& actor);
+	ActorPtr AddActor(ActorGroup group, const ActorPtr& actor);
 	ActorPtr FindActor(const std::string& name);
 	void HandleMessage(EventMessage message, void* param);
 

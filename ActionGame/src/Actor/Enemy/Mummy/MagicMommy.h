@@ -51,7 +51,6 @@ private:
 	void DamageProcess(float deltaTime);
 
 	void Hit(float damage);
-	void PartnerSearch();
 
 private:
 	int mModel = 0;
@@ -59,7 +58,6 @@ private:
 	Motion mMotionid;
 	State mState;
 	ActorPtr mTarget;
-	ActorPtr mPartner;
 	float mHitPoint;
 	float mStateTimer;
 	bool mStateBool;

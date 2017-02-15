@@ -38,9 +38,9 @@ void ActorManager::Draw() const
 	mRoot.Draw();
 }
 
-void ActorManager::AddActor(ActorGroup group, const ActorPtr & actor)
+ActorPtr ActorManager::AddActor(ActorGroup group, const ActorPtr & actor)
 {
-	mActor[group]->AddChild(actor);
+	return mActor[group]->AddChild(actor);
 }
 
 ActorPtr ActorManager::FindActor(const std::string & name)

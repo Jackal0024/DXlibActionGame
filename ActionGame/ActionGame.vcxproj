@@ -166,6 +166,7 @@
     <ClCompile Include="src\Actor\Enemy\Mummy\MagicMommy.cpp" />
     <ClCompile Include="src\Actor\Enemy\Mummy\Mummy.cpp" />
     <ClCompile Include="src\Actor\Enemy\Mummy\MummyAttack.cpp" />
+    <ClCompile Include="src\Actor\Gimmick\EnemyGenerator.cpp" />
     <ClCompile Include="src\Actor\Gimmick\HealCircle.cpp" />
     <ClCompile Include="src\Actor\Gimmick\Hint.cpp" />
     <ClCompile Include="src\Actor\Gimmick\MagicStone.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="src\Actor\Enemy\Mummy\MagicMommy.h" />
     <ClInclude Include="src\Actor\Enemy\Mummy\Mummy.h" />
     <ClInclude Include="src\Actor\Enemy\Mummy\MummyAttack.h" />
+    <ClInclude Include="src\Actor\Gimmick\EnemyGenerator.h" />
     <ClInclude Include="src\Actor\Gimmick\HealCircle.h" />
     <ClInclude Include="src\Actor\Gimmick\Hint.h" />
     <ClInclude Include="src\Actor\Gimmick\MagicStone.h" />

@@ -36,6 +36,7 @@
 #include"../../Actor/UI/Bar/StaminaBar.h"
 
 #include"../../Actor/Light/PointLight.h"
+#include"../../Actor/Gimmick/EnemyGenerator.h"
 
 void GamePlay3::Start()
 {
@@ -52,7 +53,7 @@ void GamePlay3::Start()
 	});
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage3/Stage3.mv1")));
 	//3Dモデル----------------------------------------------------------------------------------------------------
-	MapDateInput("./res/MapData03.csv");
+	MapDateInput("./res/MapData/MapData03.csv");
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f, 0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<HPBar>(mWorld.get(), Vector3(77.0f, 15.0f, 0.0f)));
@@ -164,16 +165,72 @@ void GamePlay3::MapDateInput(const std::string& fileName)
 
 void GamePlay3::CharacterCreate(const std::string& name, Vector3& position, Vector3& rotate)
 {
-	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate,200,60));
-	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 210, 60));
-	if (name == "Goblin") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate, 600, 80));
-	if (name == "MineStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate, 200, 40));
-	if (name == "Mummy") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate, 150, 40));
+	if (name == "Golem") GolemCreate(position,rotate);
+	if (name == "Lizard") LizardCreate(position, rotate);
+	if (name == "Goblin") GoblinCreate(position, rotate);
+	if (name == "MineStone") MagicMummyCreate(position, rotate);
+	if (name == "Mummy") MummyCreate(position, rotate);
+	if (name == "GuardMummy") GuardMummyCreate(position, rotate);
 
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));
 	if (name == "TrapStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "トラップスピアー", position, MagicList::TRAPSPEAR));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2_BACK));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
+}
+
+void GamePlay3::GolemCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 80, 40));
+	}
+	));
+}
+
+void GamePlay3::LizardCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 210, 60));
+	}
+	));
+}
+
+void GamePlay3::GoblinCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate, 600, 80));
+	}
+	));
+}
+
+void GamePlay3::MagicMummyCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate, 200, 40));
+	}
+	));
+}
+
+void GamePlay3::MummyCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate,false, 150, 40));
+	}
+	));
+}
+
+//ゴブリンの親衛隊のマミーを生成
+void GamePlay3::GuardMummyCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate,true, 150, 40));
+	}
+	));
 }
 
 void GamePlay3::IsFadeEnd()

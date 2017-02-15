@@ -11,7 +11,7 @@ IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num
 	mLifeTimer_(1),
 	mDestination(position),
 	isNext(false),
-	mAtkPower(10)
+	mAtkPower(30)
 {
 	mIceEffect = EffectStorage::getInstance().GetHandle(EffectList::IceNeedleEffect);
 	SoundManager::getInstance().Play("./res/Sound/Ice.mp3");

@@ -18,6 +18,14 @@ public:
 private:
 	void MapDateInput(const std::string& fileName);
 	void CharacterCreate(const std::string& name, Vector3& position, Vector3& rotate);
+
+	void GolemCreate(Vector3& position, Vector3& rotate);
+	void LizardCreate(Vector3& position, Vector3& rotate);
+	void GoblinCreate(Vector3& position, Vector3& rotate);
+	void MagicMummyCreate(Vector3& position, Vector3& rotate);
+	void MummyCreate(Vector3& position, Vector3& rotate);
+	void GuardMummyCreate(Vector3& position, Vector3& rotate);
+
 	void IsFadeEnd();
 private:
 	std::shared_ptr<World> mWorld;

@@ -26,7 +26,7 @@ public:
 	void Draw() const;
 	void Collide(Actor& other);
 
-	void AddChild(const ActorPtr& child);
+	ActorPtr AddChild(const ActorPtr& child);
 	void EachChildren(std::function<void(Actor&)> fn);
 	void EachChildren(std::function<void(Actor&)> fn) const;
 	void RemoveChildren(std::function <bool(Actor& actor)> fn);

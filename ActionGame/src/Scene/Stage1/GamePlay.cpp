@@ -37,6 +37,8 @@
 
 #include"../../Actor/Gimmick/Hint.h"
 
+#include"../../Actor/Gimmick/EnemyGenerator.h"
+
 void GamePlay::Start()
 {
 	isEnd = false;
@@ -53,7 +55,7 @@ void GamePlay::Start()
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage1/Stage1.mv1")));
 	//3Dモデル----------------------------------------------------------------------------------------------------
 
-	MapDateInput("./res/MapData01.csv");
+	MapDateInput("./res/MapData/MapData01.csv");
 
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f,0.0f)));
@@ -166,7 +168,7 @@ void GamePlay::MapDateInput(const std::string& fileName)
 
 void GamePlay::CharacterCreate(const std::string& name,Vector3& position, Vector3& rotate)
 {
-	if(name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position,rotate,80,40));
+	if (name == "Golem") GolemCreate(position,rotate);
 
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::RESULT));
@@ -175,6 +177,15 @@ void GamePlay::CharacterCreate(const std::string& name,Vector3& position, Vector
 	if (name == "FireStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーボール", position, MagicList::FIREBALL));
 	//rotateのx回転にどのテクスチャを使うかを隠しておくHintObjはrotateのxとzの影響は受けない
 	if (name == "Hint") mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<Hint>(mWorld.get(), std::to_string((int)rotate.x), position, rotate));
+}
+
+void GamePlay::GolemCreate(Vector3& position, Vector3& rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 50, 40));
+	}
+	));
 }
 
 void GamePlay::IsFadeEnd()

@@ -10,5 +10,6 @@ enum class EventMessage {
 	SCENE_END,
 	PAUSE,
 	MAGIC_GET,
-	MAGIC_CHANGE
+	MAGIC_CHANGE,
+	ENEMY_GENERATOR
 };

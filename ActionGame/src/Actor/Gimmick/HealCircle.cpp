@@ -39,6 +39,7 @@ void HealCircle::onUpdate(float deltaTime)
 		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
 		SoundManager::getInstance().Play("./res/Sound/Healing.mp3");
 		mWorld->SendMsg(EventMessage::PLAYER_HEALING);
+		mWorld->SendMsg(EventMessage::ENEMY_GENERATOR);
 	}
 	else if(VSize(sub) > 10.0f)
 	{

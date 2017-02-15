@@ -6,7 +6,7 @@
 class FireBall : public Actor
 {
 public:
-	FireBall(IWorld* world, Vector3 position, const Vector3& Velocity,Tag tag,float atk = 10);
+	FireBall(IWorld* world, Vector3 position, const Vector3& Velocity,Tag tag,float atk = 20);
 	~FireBall();
 private:
 	void onUpdate(float deltaTime) override;

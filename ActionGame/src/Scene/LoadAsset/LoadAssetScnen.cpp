@@ -26,6 +26,7 @@ void LoadAssetScnen::Update(float deltaTime)
 	AssetStorage::getInstance().HandleRegister("./res/Goblin/Goblin.mv1", "Goblin");
 	AssetStorage::getInstance().HandleRegister("./res/Mummy/mummy.mv1", "Mummy");
 	AssetStorage::getInstance().HandleRegister("./res/MagicMummy/mummy.mv1", "MagicMummy");
+	AssetStorage::getInstance().HandleRegister("./res/GoblinGuardMummy/GoblinGuardMummy.mv1", "GoblinGuardMummy");
 	AssetStorage::getInstance().HandleRegister("./res/Rusted Longsword/LS.x", "Sword");
 	AssetStorage::getInstance().HandleRegister("./res/IceNeedle/IceNeedle.mv1", "IceNeedle");
 	AssetStorage::getInstance().HandleRegister("./res/RockBlast/Rock.mv1", "Rock");

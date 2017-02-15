@@ -37,6 +37,9 @@ void Actor::Draw() const
 
 void Actor::Collide(Actor & other)
 {
+	if (!mBody.isAlive) return;
+	if (!other.mBody.isAlive) return;
+
 	if (isCollide(other))
 	{
 		onCollide(other);
@@ -45,10 +48,11 @@ void Actor::Collide(Actor & other)
 	EachChildren([&](Actor& actor) {actor.Collide(other); });
 }
 
-void Actor::AddChild(const ActorPtr & child)
+ActorPtr Actor::AddChild(const ActorPtr & child)
 {
 	mChildren.push_front(child);
 	child->onStart();
+	return child;
 }
 
 void Actor::EachChildren(std::function<void(Actor&)> fn)
@@ -174,7 +178,6 @@ void Actor::onUpdate(float deltaTime)
 
 void Actor::onDraw() const
 {
-	mBody.Translate(mPosition).Draw();
 }
 
 void Actor::onCollide(Actor & other)
@@ -184,8 +187,6 @@ void Actor::onCollide(Actor & other)
 
 bool Actor::isCollide(const Actor & other) const
 {
-	if (!mBody.isAlive) return false;
-	if (!other.mBody.isAlive) return false;
 	return mBody.Move(mPosition).Intersects(other.mBody.Move(other.mPosition));
 	//return mBody.Transform(GetPose()).Intersects(other.mBody.Transform(other.GetPose()));
 }

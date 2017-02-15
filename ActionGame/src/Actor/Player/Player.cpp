@@ -24,7 +24,7 @@ enum MotionID
 };
 
 Player::Player(IWorld* world, Vector3 position):
-	Actor(world, "Player", position, {Line(position,position + Vector3(0,5,0)),3.0f },Tag::PLAYER),
+	Actor(world, "Player", position, {Line(position,position + Vector3(0,30,0)),10.0f },Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mStamina(100),
@@ -43,7 +43,7 @@ Player::Player(IWorld* world, Vector3 position):
 }
 
 Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
-	Actor(world, "Player", position, rotate, { Line(position,position + Vector3(0,5,0)),2.0f }, Tag::PLAYER),
+	Actor(world, "Player", position, rotate, { Line(position,position + Vector3(0,15,0)),2.0f }, Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mStamina(100),
@@ -69,6 +69,8 @@ Player::~Player()
 	player.MaxHP = MAXHP;
 	player.MP = mMagicPoint;
 	player.MaxMP = MAXMP;
+	player.Stamina = mStamina;
+	player.MaxStamina = MAXStamina;
 	player.AtkBoost = mAttackPower;
 	player.CurrentMagic = mCurrentMagic;
 	player.List = mMagicList;
@@ -106,6 +108,11 @@ float Player::GetMagicInterval()
 float Player::GetStamina()
 {
 	return mStamina;
+}
+
+float Player::GetMaxStamina()
+{
+	return MAXStamina;
 }
 
 MagicList Player::GetCurrentMagic()
@@ -150,6 +157,9 @@ void Player::onDraw() const
 {
 	//DrawFormatString(0, 300, GetColor(255, 255, 255), "X = %f : Y = %f : Z = %f", mPosition.x,mPosition.y, mPosition.z);
 	MV1DrawModel(mModelHandle);
+	//デバッグ表示
+	//mBody.Move(mPosition).Draw();
+
 }
 
 void Player::onCollide(Actor & other)
@@ -238,7 +248,7 @@ void Player::MoveProcess(float deltaTime)
 		if (mStamina > 0)
 		{
 			mSpeed = 2.0f;
-			mStamina -= 0.5f * (60 * deltaTime);
+			mStamina -= 0.3f * (60 * deltaTime);
 			mStamina = max(0, mStamina);
 			mMagicInterval = 0;
 		}
@@ -255,12 +265,12 @@ void Player::MoveProcess(float deltaTime)
 
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button4))
 	{
-		if (mStamina >= 30)
+		if (mStamina >= 40)
 		{
 			SoundManager::getInstance().Play("./res/Sound/PlayerAttack.mp3");
 			StateChange(State::ATTACK);
 			mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<PlayerAttack>(mWorld, mWeaponHandle, mAttackPower));
-			mStamina -= 30;
+			mStamina -= 40;
 		}
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3))
@@ -326,8 +336,8 @@ void Player::Hit(Hitinfo hit)
 
 void Player::StaminaCharge(float deltaTime)
 {
-	mStamina += (60 * deltaTime);
-	mStamina = min(mStamina, 100);
+	mStamina += 0.5f * (60 * deltaTime);
+	mStamina = min(mStamina, MAXStamina);
 }
 
 void Player::MagicCharge(float deltaTime)
@@ -340,15 +350,18 @@ void Player::SetStatus(PlayerStatus status)
 {
 	MAXHP = status.MaxHP;
 	MAXMP = status.MaxMP;
+	MAXStamina = status.MaxStamina;
 	if (status.HP == 0)
 	{
 		mHitPoint = MAXHP;
 		mMagicPoint = MAXMP;
+		mStamina = MAXStamina;
 	}
 	else
 	{
 		mHitPoint = status.HP;
 		mMagicPoint = status.MP;
+		mStamina = status.Stamina;
 	}
 	mAttackPower = status.AtkBoost;
 	mCurrentMagic = status.CurrentMagic;
@@ -389,11 +402,11 @@ void Player::MagicAttack()
 
 	case MagicList::ROCKBLAST:
 	{
-		if (mMagicPoint < 20) return;
+		if (mMagicPoint < 10) return;
 		auto camera = mWorld->GetCamera();
-		Vector3 icePos = camera->GetPosition() + (camera->GetRotate().GetForward());
+		Vector3 icePos = camera->GetPosition() + (camera->GetRotate().GetForward()) + Vector3(0,10,0);
 		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK));
-		mMagicPoint -= 20;
+		mMagicPoint -= 10;
 	}
 	break;
 
@@ -437,9 +450,11 @@ void Player::PowerUp()
 	{
 		SoundManager::getInstance().Play("./res/Sound/PowerUp.mp3");
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "体力が上がった"));
-		MAXHP += 10;
-		mAttackPower += 5;
-		MAXHP = min(MAXHP, 999);
+		MAXHP += 4;
+		MAXStamina += 4;
+		mAttackPower += 2;
+		MAXStamina = min(MAXStamina, 600);
+		MAXHP = min(MAXHP, 600);
 		mNextPowerEX += 3;
 	}
 }
@@ -451,8 +466,8 @@ void Player::MagicUp()
 	{
 		SoundManager::getInstance().Play("./res/Sound/MagicUp.mp3");
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "魔力が上がった"));
-		MAXMP += 15;
-		MAXMP = min(MAXMP, 999);
-		mNextMagicEX += 15;
+		MAXMP += 20;
+		MAXMP = min(MAXMP, 600);
+		mNextMagicEX += 10;
 	}
 }

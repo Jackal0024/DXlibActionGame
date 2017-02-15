@@ -5,7 +5,7 @@
 BlackSpear::BlackSpear(IWorld * world, Vector3 position, Tag tag):
 	Actor(world,"BlackSpear",position + Vector3(0,-30,0), { Line(position,position + Vector3(0,3,0)),10.0f }),
 	mTimer(0.0f),
-	mAtkPower(15.0f),
+	mAtkPower(30.0f),
 	mHit(false),
 	mToPos(position)
 {

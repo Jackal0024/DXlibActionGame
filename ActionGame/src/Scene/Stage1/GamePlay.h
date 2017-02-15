@@ -18,6 +18,7 @@ public:
 private:
 	void MapDateInput(const std::string& fileName);
 	void CharacterCreate(const std::string& name,Vector3& position,Vector3& rotate);
+	void GolemCreate(Vector3& position, Vector3& rotate);
 	void IsFadeEnd();
 
 private:

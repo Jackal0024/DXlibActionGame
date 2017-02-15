@@ -37,6 +37,7 @@
 #include"../../Actor/UI/Bar/StaminaBar.h"
 
 #include"../../Actor/Light/PointLight.h"
+#include"../../Actor/Gimmick/EnemyGenerator.h"
 
 void BackStage1::Start()
 {
@@ -54,7 +55,7 @@ void BackStage1::Start()
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage1/Stage1.mv1")));
 	//3Dモデル----------------------------------------------------------------------------------------------------
 
-	MapDateInput("./res/MapData01Back.csv");
+	MapDateInput("./res/MapData/MapData01Back.csv");
 
 	/*mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), Vector3(0, -0.5f, 0)));
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "アイスニードル", Vector3(50.0f, 0.0f, -300), MagicList::ICENEEDLE));
@@ -180,14 +181,32 @@ void BackStage1::MapDateInput(const std::string& fileName)
 
 void BackStage1::CharacterCreate(const std::string& name, Vector3& position, Vector3& rotate)
 {
-	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 300, 80));
-	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 300, 80));
+	if (name == "Golem") GolemCreate(position, rotate);
+	if (name == "Lizard") LizardCreate(position,rotate);
 
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::RESULT));
 	if (name == "WarpNext") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE2));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 	if (name == "FireStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ファイアーボール", position, MagicList::FIREBALL));
+}
+
+void BackStage1::GolemCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 300, 80));
+	}
+	));
+}
+
+void BackStage1::LizardCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 300, 80));
+	}
+	));
 }
 
 void BackStage1::IsFadeEnd()

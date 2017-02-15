@@ -37,6 +37,7 @@
 #include"../../Actor/UI/Bar/StaminaBar.h"
 
 #include"../../Actor/Light/PointLight.h"
+#include"../../Actor/Gimmick/EnemyGenerator.h"
 
 void BackStage2::Start()
 {
@@ -53,7 +54,7 @@ void BackStage2::Start()
 	});
 	mWorld->AddField(std::make_shared<Field>(MV1LoadModel("./res/Map/Stage2/Stage2.mv1")));
 	//3Dƒ‚ƒfƒ‹----------------------------------------------------------------------------------------------------
-	MapDateInput("./res/MapData02Back.csv");
+	MapDateInput("./res/MapData/MapData02Back.csv");
 	//UI-----------------------------------------------------------------------------------------------------------
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<MagicUI>(mWorld.get(), Vector3(10.0f, 10.0f, 0.0f)));
 	mWorld->AddActor(ActorGroup::UI, std::make_shared<HPBar>(mWorld.get(), Vector3(77.0f, 15.0f, 0.0f)));
@@ -166,16 +167,52 @@ void BackStage2::MapDateInput(const std::string& fileName)
 
 void BackStage2::CharacterCreate(const std::string& name, Vector3& position, Vector3& rotate)
 {
-	if (name == "Golem") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 200, 40));
-	if (name == "Lizard") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 240, 40));
-	if (name == "IceStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ICENEEDLE, 630, 50));
-	if (name == "RockStone") mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ROCKBLAST, 630, 50));
+	if (name == "Golem") GolemCreate(position, rotate);
+	if (name == "Lizard") LizardCreate(position, rotate);
+	if (name == "IceStone") IceGolemCreate(position, rotate);
+	if (name == "RockStone") RockGolemCreate(position, rotate);
 
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position, rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE1_BACK));
 	if (name == "WarpNext") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::STAGE3));
 	if (name == "Healing") mWorld->AddActor(ActorGroup::Effect, std::make_shared<HealCircle>(mWorld.get(), position, rotate));
 	if (name == "HealStone") mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<MagicStone>(mWorld.get(), "ƒq[ƒŠƒ“ƒO", position, MagicList::HEALING));
+}
+
+void BackStage2::GolemCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 200, 40));
+	}
+	));
+}
+
+void BackStage2::LizardCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 240, 40));
+	}
+	));
+}
+
+void BackStage2::IceGolemCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ICENEEDLE, 630, 50));
+	}
+	));
+}
+
+void BackStage2::RockGolemCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ROCKBLAST, 630, 50));
+	}
+	));
 }
 
 void BackStage2::IsFadeEnd()

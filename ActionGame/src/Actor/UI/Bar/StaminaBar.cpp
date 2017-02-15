@@ -14,7 +14,7 @@ void StaminaBar::onUpdate(float deltaTime)
 {
 	auto player = mWorld->FindActor("Player").get();
 	mStaminaValue = ((Player*)player)->GetStamina();
-	mMaxStamina = 100;
+	mMaxStamina = ((Player*)player)->GetMaxStamina();
 }
 
 void StaminaBar::onDraw() const

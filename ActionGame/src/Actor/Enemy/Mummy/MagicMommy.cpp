@@ -37,7 +37,6 @@ MagicMummy::MagicMummy(IWorld * world, Vector3 position, Vector3 rotate, float s
 void MagicMummy::onStart()
 {
 	mAnimator.Initialize(mModel, mMotionid, true);
-	PartnerSearch();
 }
 
 void MagicMummy::onUpdate(float deltaTime)
@@ -114,38 +113,12 @@ void MagicMummy::IdleProcess(float deltaTime)
 	{
 		StateChange(State::KICK);
 	}
-
-	if (mPartner)
-	{
-		Vector3 partnersub = mPartner->GetPosition() - mPosition;
-		if (VSize(partnersub) > 80 && mStateTimer > 1)
-		{
-			StateChange(State::MOVE);
-		}
-	}
 }
 
 void MagicMummy::MoveProcess(float deltaTime)
 {
-	if (mPartner)
-	{
-		Vector3 partnersub = mPartner->GetPosition() - mPosition;
 
-		mAnimator.AnimationChange(Motion::MOVE_MOTION, 0.3f, 0.5f, true);
-		float rad = atan2(partnersub.x, partnersub.z);
-
-		Vector3 velocity = VNorm(partnersub) * deltaTime;
-		mPosition += velocity * VSize(partnersub);
-		mRotate = MGetRotY(rad);
-		if (VSize(partnersub) < 40 && mStateTimer < 4)
-		{
-			StateChange(State::IDLE);
-		}
-	}
-	else
-	{
-		StateChange(State::IDLE);
-	}
+	StateChange(State::IDLE);
 }
 
 void MagicMummy::MagicProcess(float deltaTime)
@@ -230,17 +203,5 @@ void MagicMummy::Hit(float damage)
 	{
 		mAnimator.AnimationChange(Motion::MIN_DAMAGE_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DAMAGE, Motion::MIN_DAMAGE_MOTION);
-	}
-}
-
-void MagicMummy::PartnerSearch()
-{
-	if (mWorld->FindActor("Goblin"))
-	{
-		mPartner = mWorld->FindActor("Goblin");
-	}
-	else
-	{
-		mPartner = nullptr;
 	}
 }

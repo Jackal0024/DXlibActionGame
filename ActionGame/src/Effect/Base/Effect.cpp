@@ -16,7 +16,7 @@ IEffect::IEffect(const int handle):
 
 IEffect::~IEffect()
 {
-
+	DeleteEffekseerEffect(mPlayEffect);
 }
 
 //エフェクトを開始する

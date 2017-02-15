@@ -30,6 +30,8 @@ void PlayerSave::PlayerInit()
 	player.MaxHP = 100;
 	player.MP = 100;
 	player.MaxMP = 100;
+	player.Stamina = 100;
+	player.MaxStamina = 100;
 	player.List = list;
 	player.AtkBoost = 20;
 	player.CurrentMagic = MagicList::NONE;

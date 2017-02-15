@@ -30,7 +30,7 @@ public:
 
 public:
 	Mummy(IWorld* world, Vector3 position);
-	Mummy(IWorld* world, Vector3 position, Vector3 rotate,float startHitPoint, float attackPower);
+	Mummy(IWorld* world, Vector3 position, Vector3 rotate,bool isPartner ,float startHitPoint, float attackPower);
 
 private:
 	void onStart() override;
@@ -67,4 +67,6 @@ private:
 	IEffect mHitEffect;
 	float mStartHitPoint;
 	float mAttackPower;
+	//パートナーがいるか？
+	bool isPartner;
 };

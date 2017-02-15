@@ -44,7 +44,7 @@ void Lizard::onStart()
 
 void Lizard::onUpdate(float deltaTime)
 {
-	mPosition += Vector3(0, -0.1, 0);
+	mPosition += Vector3(0, -0.1f, 0);
 	mTarget = mWorld->FindActor("Player");
 
 	StateUpdate(deltaTime);

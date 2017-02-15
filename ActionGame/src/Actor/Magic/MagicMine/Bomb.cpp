@@ -7,7 +7,7 @@
 Bomb::Bomb(IWorld * world, Vector3 position, Tag tag) :
 	Actor(world, "Bomb", position, { Line(position,position + Vector3(0,0,0)),15.0f }, tag),
 	mTimer(0.0f),
-	mAtkPower(20.0f),
+	mAtkPower(40.0f),
 	mHit(false)
 {
 	mBombEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::MagicMineEffect));

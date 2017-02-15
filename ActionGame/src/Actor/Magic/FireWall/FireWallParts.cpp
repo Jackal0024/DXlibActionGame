@@ -7,7 +7,7 @@ FireWallParts::FireWallParts(IWorld * world, Vector3 position, const Vector3 & V
 	Actor(world, "Rock", position, { Line(position,position + Vector3(0,3,0)),10.0f }, tag),
 	mTimer(0.0f),
 	mVelocity(Velocity),
-	mAtkPower(10.0f),
+	mAtkPower(50.0f),
 	mHit(false)
 {
 	mFireEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::FireWallEffect));

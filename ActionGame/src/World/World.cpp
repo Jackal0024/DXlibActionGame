@@ -29,9 +29,9 @@ void World::Draw() const
 	mActors.Draw();
 }
 
-void World::AddActor(ActorGroup group, const ActorPtr & actor)
+ActorPtr World::AddActor(ActorGroup group, const ActorPtr & actor)
 {
-	mActors.AddActor(group, actor);
+	return mActors.AddActor(group, actor);
 }
 
 ActorPtr World::FindActor(const std::string & name)

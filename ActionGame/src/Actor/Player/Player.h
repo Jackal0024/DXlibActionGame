@@ -13,6 +13,8 @@ struct PlayerStatus
 	float MaxHP;
 	float MP;
 	float MaxMP;
+	float Stamina;
+	float MaxStamina;
 	float AtkBoost;
 	MagicList CurrentMagic;
 	std::vector<MagicList> List;
@@ -38,6 +40,7 @@ public:
 	float GetMaxMP();
 	float GetMagicInterval();
 	float GetStamina();
+	float GetMaxStamina();
 	MagicList GetCurrentMagic();
 	std::vector<MagicList> GetHaveMagic();
 
@@ -99,6 +102,7 @@ private:
 private:
 	float MAXHP = 100;
 	float MAXMP = 100;
+	float MAXStamina = 100;
 
 };
 

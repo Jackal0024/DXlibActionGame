@@ -12,25 +12,28 @@ Mummy::Mummy(IWorld * world, Vector3 position) :
 	mStateTimer(0.0f),
 	mStateBool(false),
 	mStartHitPoint(60),
-	mAttackPower(40)
+	mAttackPower(40),
+	isPartner(false)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = mStartHitPoint;
 	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
 }
 
-Mummy::Mummy(IWorld * world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower) :
+Mummy::Mummy(IWorld * world, Vector3 position, Vector3 rotate, bool isPartner, float startHitPoint, float attackPower) :
 	Actor(world, "Mummy", position, rotate, { { 0,10,0 },3.0f }, Tag::ENEMY),
 	mMotionid(Motion::IDLE_MOTION),
 	mState(State::IDLE),
 	mStateTimer(0.0f),
 	mStateBool(false),
 	mStartHitPoint(startHitPoint),
-	mAttackPower(attackPower)
+	mAttackPower(attackPower),
+	isPartner(isPartner)
 {
 	mHitEffect = IEffect(EffectStorage::getInstance().GetHandle(EffectList::HitEffect));
 	mHitPoint = mStartHitPoint;
-	mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
+	if(isPartner) mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("GoblinGuardMummy"));
+	else mModel = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Mummy"));
 }
 
 void Mummy::onStart()
@@ -41,6 +44,7 @@ void Mummy::onStart()
 
 void Mummy::onUpdate(float deltaTime)
 {
+	PartnerSearch();
 	mTarget = mWorld->FindActor("Player");
 
 	StateUpdate(deltaTime);
@@ -134,7 +138,9 @@ void Mummy::MoveProcess(float deltaTime)
 		float rad = atan2(partnersub.x, partnersub.z);
 
 		Vector3 velocity = VNorm(partnersub) * deltaTime;
-		mPosition += velocity * VSize(partnersub);
+		velocity = velocity * VSize(partnersub);
+		mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, velocity);
+		mPosition += velocity;
 		mRotate = MGetRotY(rad);
 		if (VSize(partnersub) < 40 && mStateTimer < 4)
 		{
@@ -232,6 +238,11 @@ void Mummy::Hit(float damage)
 
 void Mummy::PartnerSearch()
 {
+	if (!isPartner)
+	{
+		mPartner = nullptr;
+		return;
+	}
 	if (mWorld->FindActor("Goblin"))
 	{
 		mPartner = mWorld->FindActor("Goblin");
