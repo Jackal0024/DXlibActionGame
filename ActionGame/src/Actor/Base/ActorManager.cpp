@@ -57,6 +57,7 @@ void ActorManager::HandleMessage(EventMessage message, void * param)
 void ActorManager::Collide()
 {
 	mActor[ActorGroup::PLAYER]->CollideChildren(*mActor[ActorGroup::ENEMY]);
+	mActor[ActorGroup::ENEMY]->CollideChildren(*mActor[ActorGroup::ENEMY]);
 	mActor[ActorGroup::PLAYER]->CollideChildren(*mActor[ActorGroup::GIMMICK]);
 	mActor[ActorGroup::PLAYER]->CollideChildren(*mActor[ActorGroup::ENEMYATTACK]);
 	mActor[ActorGroup::PLAYERATTACK]->CollideChildren(*mActor[ActorGroup::ENEMY]);

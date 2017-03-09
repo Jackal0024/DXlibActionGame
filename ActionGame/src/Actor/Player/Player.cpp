@@ -34,7 +34,7 @@ Player::Player(IWorld* world, Vector3 position):
 	mCurrentMagic(MagicList::NONE),
 	mPowerEX(0),
 	mMagicEX(0),
-	mNextPowerEX(3),
+	mNextPowerEX(15),
 	mNextMagicEX(10),
 	mSpeed(1)
 {
@@ -54,7 +54,7 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
 	mCurrentMagic(MagicList::NONE),
 	mPowerEX(0),
 	mMagicEX(0),
-	mNextPowerEX(3),
+	mNextPowerEX(15),
 	mNextMagicEX(10),
 	mSpeed(1)
 {	 
@@ -278,7 +278,7 @@ void Player::MoveProcess(float deltaTime)
 	}
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3))
 	{
-		if (mMagicInterval >= 1)
+		if (mMagicInterval >= 0.5f)
 		{
 			MagicAttack();
 		}
@@ -376,73 +376,13 @@ void Player::MagicAttack()
 {
 	switch (mCurrentMagic)
 	{
-
-	case MagicList::FIREBALL:
-	{
-		if (mMagicPoint < 5) return;
-		auto camera = mWorld->GetCamera();
-		Vector3 icePos = mPosition + (camera->GetRotate().GetForward()) + Vector3(0,11,0);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK,mMagicPower));
-		mMagicPoint -= 5;
-	}
-	break;
-
-	case MagicList::ICENEEDLE:
-	{
-		if (mMagicPoint < 15) return;
-		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::PLAYER_ATTACK, mMagicPower));
-		mMagicPoint -= 15;
-	}
-	break;
-
-	case MagicList::HEALING:
-		if (mMagicPoint < 20 || mHitPoint >= MAXHP) return;
-		SoundManager::getInstance().Play("./res/Sound/PlayerHeal.mp3");
-		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
-		mHitPoint = min(mHitPoint += 50, MAXHP);
-		mMagicPoint -= 20;
-		break;
-
-	case MagicList::ROCKBLAST:
-	{
-		if (mMagicPoint < 10) return;
-		auto camera = mWorld->GetCamera();
-		Vector3 icePos = camera->GetPosition() + (camera->GetRotate().GetForward()) + Vector3(0,10,0);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, icePos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
-		mMagicPoint -= 10;
-	}
-	break;
-
-	case MagicList::FIREWALL:
-	{
-		if (mMagicPoint < 18) return;
-		auto camera = mWorld->GetCamera();
-		Vector3 Pos = mPosition;
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
-		mMagicPoint -= 18;
-	}
-	break;
-
-	case MagicList::MAGICMINE:
-	{
-		if (mMagicPoint < 30) return;
-		auto camera = mWorld->GetCamera();
-		Vector3 Pos = camera->GetPosition();
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, Pos, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
-		mMagicPoint -= 30;
-	}
-	break;
-
-	case MagicList::TRAPSPEAR:
-	{
-		if (mMagicPoint < 25) return;
-		Vector3 Pos = mPosition + Vector3(0,1,0);
-		mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<SpearCircle>(mWorld, Pos, Tag::PLAYER_ATTACK, mMagicPower));
-		mMagicPoint -= 25;
-	}
-	break;
-
+	case MagicList::FIREBALL:FireBallInvoke(); break;
+	case MagicList::ICENEEDLE:IceNeedleInvoke(); break;
+	case MagicList::HEALING:HealingInvoke(); break;
+	case MagicList::ROCKBLAST: RockBlastInvoke(); break;
+	case MagicList::FIREWALL: FireWallInvoke(); break;
+	case MagicList::MAGICMINE: MagicMineInvoke(); break;
+	case MagicList::TRAPSPEAR: TrapSpearInvoke();  break;
 	}
 	mMagicInterval = 0;
 }
@@ -459,7 +399,7 @@ void Player::PowerUp()
 		mAttackPower += 2;
 		MAXStamina = min(MAXStamina, 600);
 		MAXHP = min(MAXHP, 600);
-		mNextPowerEX += 3;
+		mNextPowerEX += 15;
 	}
 }
 
@@ -470,9 +410,88 @@ void Player::MagicUp()
 	{
 		SoundManager::getInstance().Play("./res/Sound/MagicUp.mp3");
 		mWorld->AddActor(ActorGroup::Effect, std::make_shared<TextDraw>(mWorld, "ñÇóÕÇ™è„Ç™Ç¡ÇΩ"));
-		MAXMP += 20;
+		MAXMP += 15;
 		mMagicPower += 2;
 		MAXMP = min(MAXMP, 600);
 		mNextMagicEX += 10;
 	}
 }
+
+
+//ñÇñ@çUåÇäeéÌ-------------------------------------------------------------------
+void Player::FireBallInvoke()
+{
+	const float MPCOST = 5;
+
+	if (mMagicPoint < MPCOST) return;
+	auto camera = mWorld->GetCamera();
+	Vector3 createPosition = mPosition + (camera->GetRotate().GetForward()) + Vector3(0, 11, 0);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	mMagicPoint -= MPCOST;
+}
+
+void Player::IceNeedleInvoke()
+{
+	const float MPCOST = 15;
+
+	if (mMagicPoint < MPCOST) return;
+	Vector3 createPosition = mPosition + (mRotate.GetForward() * 20);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, createPosition, mRotate.GetForward(), 3, Tag::PLAYER_ATTACK, mMagicPower));
+	mMagicPoint -= MPCOST;
+}
+
+void Player::HealingInvoke()
+{
+	const float MPCOST = 20;
+
+	if (mMagicPoint < MPCOST || mHitPoint >= MAXHP) return;
+	SoundManager::getInstance().Play("./res/Sound/PlayerHeal.mp3");
+	mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
+	mHitPoint = min(mHitPoint += 50, MAXHP);
+	mMagicPoint -= MPCOST;
+}
+
+void Player::RockBlastInvoke()
+{
+	const float MPCOST = 10;
+
+	if (mMagicPoint < MPCOST) return;
+	auto camera = mWorld->GetCamera();
+	Vector3 createPosition = camera->GetPosition() + (camera->GetRotate().GetForward()) + Vector3(0, 3, 0);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	mMagicPoint -= MPCOST;
+}
+
+void Player::FireWallInvoke()
+{
+	const float MPCOST = 18;
+
+	if (mMagicPoint < MPCOST) return;
+	auto camera = mWorld->GetCamera();
+	Vector3 createPosition = mPosition;
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	mMagicPoint -= MPCOST;
+}
+
+void Player::MagicMineInvoke()
+{
+	const float MPCOST = 30;
+
+	if (mMagicPoint < MPCOST) return;
+	auto camera = mWorld->GetCamera();
+	Vector3 createPosition = camera->GetPosition();
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	mMagicPoint -= MPCOST;
+}
+
+void Player::TrapSpearInvoke()
+{
+	const float MPCOST = 25;
+
+	if (mMagicPoint < MPCOST) return;
+	Vector3 createPosition = mPosition + Vector3(0, 1, 0);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<SpearCircle>(mWorld, createPosition, Tag::PLAYER_ATTACK, mMagicPower));
+	mMagicPoint -= MPCOST;
+}
+
+//------------------------------------------------------------------------------------------

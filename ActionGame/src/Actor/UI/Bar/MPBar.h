@@ -12,4 +12,7 @@ public:
 private:
 	float mMaxMP;
 	float mMPValue;
+
+	float mPrevMP;
+	Vector3 mSlipBar_rb;
 };

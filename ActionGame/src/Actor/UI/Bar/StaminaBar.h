@@ -12,4 +12,7 @@ public:
 private:
 	float mMaxStamina;
 	float mStaminaValue;
+
+	float mPrevStamina;
+	Vector3 mSlipBar_rb;
 };

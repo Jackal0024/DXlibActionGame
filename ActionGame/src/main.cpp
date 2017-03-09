@@ -6,13 +6,14 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	Game game;
+	bool isWindow = FALSE;
 	float deltatime = 0;
 	//Œo‰ßŽžŠÔ
 	float timer = 0;
 
 	SetOutApplicationLogValidFlag(FALSE);
+	ChangeWindowMode(isWindow);
 	SetGraphMode(WIDTH, HEIGHT, 16);
-	ChangeWindowMode(FALSE);
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 	SetUsePixelLighting(TRUE);
 	SetUseDirect3DVersion(DX_DIRECT3D_9);
@@ -34,7 +35,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	while (ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0) 
 	{
-
 		Effekseer_Sync3DSetting();
 		auto Time = GetNowCount();
 		timer += deltatime;

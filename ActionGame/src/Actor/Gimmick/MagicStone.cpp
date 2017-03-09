@@ -12,6 +12,7 @@ isDraw(false)
 {
 	mPlayer = mWorld->FindActor("Player");
 	mModelHandle = MV1LoadModel("./res/MagicStone/MagicStone.mv1");
+	OverLapSearch();
 }
 
 MagicStone::~MagicStone()

@@ -61,6 +61,12 @@ void Mummy::onDraw() const
 
 void Mummy::onCollide(Actor & other)
 {
+	if (other.GetTag() == Tag::ENEMY)
+	{
+		Vector3 sub = mPosition - other.GetPosition();
+		sub = VNorm(sub);
+		mPosition += sub;
+	}
 }
 
 void Mummy::onMessage(EventMessage message, void * p)
@@ -203,7 +209,7 @@ void Mummy::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
+		//mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}
@@ -225,6 +231,7 @@ void Mummy::Hit(float damage)
 	mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
+		mBody.isAlive = false;
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::DEAD, Motion::DEAD_MOTION);

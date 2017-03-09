@@ -1,5 +1,6 @@
 #include "MagicStoneGolem.h"
 
+#include <random>
 #include"GolemAttack.h"
 #include"../../../Sound/SoundManager.h"
 #include"../../../AssetStorage/AssetStorage.h"
@@ -75,7 +76,12 @@ void MagicStoneGolem::onDraw() const
 
 void MagicStoneGolem::onCollide(Actor & other)
 {
-
+	if (other.GetTag() == Tag::ENEMY)
+	{
+		Vector3 sub = mPosition - other.GetPosition();
+		sub = VNorm(sub);
+		mPosition += sub;
+	}
 
 }
 
@@ -176,7 +182,7 @@ void MagicStoneGolem::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
+		//mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}
@@ -215,6 +221,8 @@ void MagicStoneGolem::Hit(float damage)
 	{
 		if (mState != State::ATTACK)
 		{
+			std::random_device rnd;
+			if (rnd() % 5 == 0) isMagicAttack = true;
 			mAnimator.AnimationChange(Motion::DAMAGE_MOTION, 0.3f, 0.5f, false);
 			StateChange(State::DAMAGE, Motion::DAMAGE_MOTION);
 		}

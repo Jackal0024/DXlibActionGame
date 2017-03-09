@@ -67,8 +67,12 @@ void Golem::onDraw() const
 
 void Golem::onCollide(Actor & other)
 {
-
-	
+	if (other.GetTag() == Tag::ENEMY)
+	{
+		Vector3 sub = mPosition - other.GetPosition();
+		sub = VNorm(sub);
+		mPosition += sub;
+	}
 }
 
 void Golem::onMessage(EventMessage message, void * p)
@@ -151,7 +155,7 @@ void Golem::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
+		//mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}

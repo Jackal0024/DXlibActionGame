@@ -37,6 +37,7 @@ void Actor::Draw() const
 
 void Actor::Collide(Actor & other)
 {
+	if (this == &other) return;
 	if (!mBody.isAlive) return;
 	if (!other.mBody.isAlive) return;
 

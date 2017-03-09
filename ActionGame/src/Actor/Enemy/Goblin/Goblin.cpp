@@ -199,7 +199,7 @@ void Goblin::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
+		//mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}

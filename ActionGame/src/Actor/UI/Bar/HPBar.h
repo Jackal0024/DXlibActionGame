@@ -11,4 +11,7 @@ public:
 private:
 	float mMaxHP;
 	float mHPValue;
+
+	float mPrevHP;
+	Vector3 mSlipBar_rb;
 };

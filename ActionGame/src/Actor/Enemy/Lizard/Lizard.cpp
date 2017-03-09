@@ -69,6 +69,12 @@ void Lizard::onDraw() const
 
 void Lizard::onCollide(Actor & other)
 {
+	if (other.GetTag() == Tag::ENEMY)
+	{
+		Vector3 sub = mPosition - other.GetPosition();
+		sub = VNorm(sub);
+		mPosition += sub;
+	}
 }
 
 void Lizard::onMessage(EventMessage message, void * p)
@@ -206,7 +212,7 @@ void Lizard::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
+		//mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}

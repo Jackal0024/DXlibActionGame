@@ -57,6 +57,12 @@ void MagicMummy::onDraw() const
 
 void MagicMummy::onCollide(Actor & other)
 {
+	if (other.GetTag() == Tag::ENEMY)
+	{
+		Vector3 sub = mPosition - other.GetPosition();
+		sub = VNorm(sub);
+		mPosition += sub;
+	}
 }
 
 void MagicMummy::onMessage(EventMessage message, void * p)
@@ -170,7 +176,7 @@ void MagicMummy::DeadProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
+		//mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		MV1DeleteModel(mModel);
 		Dead();
 	}
@@ -192,6 +198,7 @@ void MagicMummy::Hit(float damage)
 	mHitEffect.SetPosition(mPosition + Vector3(0, 10, 0));
 	if (mHitPoint <= 0)
 	{
+		mBody.isAlive = false;
 		SoundManager::getInstance().Play("./res/Sound/EnemyVoice.ogg");
 		mAnimator.AnimationChange(Motion::DEAD_MOTION, 0.3f, 0.5f, false);
 		Vector3 pos = mPosition + Vector3(0, 10, 0);

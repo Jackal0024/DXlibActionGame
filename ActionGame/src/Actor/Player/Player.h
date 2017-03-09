@@ -74,6 +74,15 @@ private:
 	void PowerUp();
 	void MagicUp();
 
+	//äeéÌñÇñ@çUåÇä÷êî
+	void FireBallInvoke();
+	void IceNeedleInvoke();
+	void HealingInvoke();
+	void RockBlastInvoke();
+	void FireWallInvoke();
+	void MagicMineInvoke();
+	void TrapSpearInvoke();
+
 private:
 	int mModelHandle;
 	int mWeaponHandle;

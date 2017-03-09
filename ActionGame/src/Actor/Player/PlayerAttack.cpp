@@ -33,6 +33,7 @@ void PlayerAttack::onCollide(Actor & other)
 {
 	if (other.GetTag() == Tag::ENEMY)
 	{
+		mWorld->SendMsg(EventMessage::PLAYER_POWERUP);
 		other.HandleMessage(EventMessage::ENEMY_DAMEGE, (void*)&mAtk);
 		Dead();
 	}
