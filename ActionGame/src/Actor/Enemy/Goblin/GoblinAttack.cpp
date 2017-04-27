@@ -18,7 +18,8 @@ void GoblinAttack::onUpdate(float deltaTime)
 
 void GoblinAttack::onDraw() const
 {
-	mBody.Move(mPosition).Draw();
+	//デバック用の表示普段は消しておく
+	//mBody.Move(mPosition).Draw();
 }
 
 void GoblinAttack::onCollide(Actor & othr)

@@ -67,8 +67,6 @@ void GamePlay::Start()
 	mWorld->AddLight(std::make_shared<PointLight>(mWorld.get()));
 	PlayMusic("./res/Sound/Dungeon1_BGM.mp3", DX_PLAYTYPE_LOOP);
 
-	//mMenu = MagicMenu(mWorld.get());
-
 	isDraw = true;
 
 }
@@ -147,6 +145,7 @@ void GamePlay::HandleMessage(EventMessage message, void * param)
 	}
 }
 
+//テキストを読み込み　キャラクターを生成する関数に渡す
 void GamePlay::MapDateInput(const std::string& fileName)
 {
 	std::ifstream ifs(fileName);
@@ -166,9 +165,11 @@ void GamePlay::MapDateInput(const std::string& fileName)
 	}
 }
 
+//名前からキャラクターを生成する
 void GamePlay::CharacterCreate(const std::string& name,Vector3& position, Vector3& rotate)
 {
 	if (name == "Golem") GolemCreate(position,rotate);
+	if (name == "Lizard") LizardCreate(position, rotate);
 
 	if (name == "Player") mWorld->AddActor(ActorGroup::PLAYER, std::make_shared<Player>(mWorld.get(), position,rotate));
 	if (name == "WarpBack") mWorld->AddActor(ActorGroup::Effect, std::make_shared<WarpCircle>(mWorld.get(), position, rotate, Scene::RESULT));
@@ -184,6 +185,15 @@ void GamePlay::GolemCreate(Vector3& position, Vector3& rotate)
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
 		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 50, 40));
+	}
+	));
+}
+
+void GamePlay::LizardCreate(Vector3 & position, Vector3 & rotate)
+{
+	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
+	{
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 300, 80));
 	}
 	));
 }

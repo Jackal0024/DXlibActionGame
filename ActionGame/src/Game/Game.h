@@ -3,18 +3,23 @@
 
 #include"../World/World.h"
 #include"../Scene/Base/SceneManager.h"
+//ゲーム本体
 class Game
 {
 public:
 	Game();
 	~Game();
+	//初期化処理
 	void initialize();
+	//更新
 	void Update(float deltatime);
+	//描画
 	void Draw();
+	//終了処理
 	void Finish();
 
 private:
-	//std::shared_ptr<World> mWorld;
+	//シーンマネージャー
 	SceneManager mSceneManager;
 
 };

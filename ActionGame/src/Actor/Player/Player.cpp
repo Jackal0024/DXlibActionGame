@@ -38,8 +38,11 @@ Player::Player(IWorld* world, Vector3 position):
 	mNextMagicEX(10),
 	mSpeed(1)
 {
+	//プレイヤーのステータスをロード
 	SetStatus(PlayerSave::getInstance().Load());
+	//プレイヤーモデルの複製
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
+	//剣モデルの複製
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }
 
@@ -57,15 +60,18 @@ Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
 	mNextPowerEX(15),
 	mNextMagicEX(10),
 	mSpeed(1)
-{	 
+{
+	//プレイヤーのステータスをロード
 	SetStatus(PlayerSave::getInstance().Load());
-	
+	//プレイヤーモデルの複製
 	mModelHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Player"));
+	//剣モデルの複製
 	mWeaponHandle = MV1DuplicateModel(AssetStorage::getInstance().GetHandle("Sword"));
 }
 
 Player::~Player()
 {
+	//プレイヤーのステートをセーブ--------------
 	PlayerStatus player;
 	player.HP = mHitPoint;
 	player.MaxHP = MAXHP;
@@ -78,7 +84,7 @@ Player::~Player()
 	player.CurrentMagic = mCurrentMagic;
 	player.List = mMagicList;
 	PlayerSave::getInstance().Save(player);
-
+	//------------------------------------------
 	MV1DeleteModel(mModelHandle);
 	MV1DeleteModel(mWeaponHandle);
 }
@@ -136,19 +142,24 @@ void Player::onStart()
 
 void Player::onUpdate(float deltaTime)
 {
+	//プレイヤーが地面に接地する処理----------------------------------------------------------------
 	Vector3 h;
 	if (mWorld->GetField().Collision(mPosition + Vector3(0,10,0), mPosition + Vector3(0,-30, 0), h))
 	{
 		mPosition.y = h.y;
 	}
+	//-----------------------------------------------------------------------------------------------
 
 	StateUpdate(deltaTime);
+	//壁との接触判定
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 
+	//表示のための計算--------------------------------------------------------------------------------------
 	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
 	Matrix S = MGetIdent();
 	Matrix WeaponMatrix = S.SetScale(Vector3(5, 5, 5)) * MGetRotY(200 * DX_PI / 180) * MGetRotZ(30 * DX_PI / 180) * SetModelFramePosition(mModelHandle, "R_HandPinky1", mWeaponHandle);
 	MV1SetMatrix(mWeaponHandle, WeaponMatrix);
+	//------------------------------------------------------------------------------------------------------
 
 	MagicCharge(deltaTime);
 
@@ -191,12 +202,14 @@ void Player::onMessage(EventMessage message, void * p)
 		mHitPoint = MAXHP;
 		mMagicPoint = MAXMP;
 		break;
+
 	case EventMessage::MAGIC_GET:
 	{
 		MagicList* magic = (MagicList*)p;
 		mMagicList.push_back(*magic);
 	}
 	break;
+
 	case EventMessage::MAGIC_CHANGE:
 	{
 		MagicList* magic = (MagicList*)p;
@@ -208,11 +221,14 @@ void Player::onMessage(EventMessage message, void * p)
 		}
 	}
 		break;
+
 	case  EventMessage::PLAYER_POWERUP: PowerUp(); break;
+
 	case EventMessage::PLAYER_MAGICUP: MagicUp(); break;
 	}
 }
 
+//剣のモデルを手にくっ付ける処理
 Matrix Player::SetModelFramePosition(int ModelHandle, char * FrameName, int SetModelHandle) const
 {
 	MATRIX FrameMatrix;
@@ -242,10 +258,13 @@ void Player::StateUpdate(float deltaTime)
 void Player::MoveProcess(float deltaTime)
 {
 	mSpeed = 1.0f;
+	//スティックによって操作する-----------------------------------------------------------------------
 	mVelocity = Vector3(0,0,0);
 	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * deltaTime;
 	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * deltaTime;
+	//-------------------------------------------------------------------------------------------------
 
+	//ダッシュボタンが押されたら
 	if (Input::getInstance().GetKeyDown(KEY_INPUT_RSHIFT) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button8))
 	{
 		if (mStamina > 0)
@@ -261,11 +280,16 @@ void Player::MoveProcess(float deltaTime)
 		StaminaCharge(deltaTime);
 	}
 
+	//右スティックでプレイヤーを回転させる-------------------------------------------------------------------------
 	float rotateSpeed = 2;
 	mRotate = MMult(mRotate, MGetRotY(Input::getInstance().GetRightAnalogStick().x * (rotateSpeed * deltaTime)));
+	//-------------------------------------------------------------------------------------------------------------
+	//移動時壁にめり込まないように計算
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
+	//重力処理
 	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0, -0.1, 0);
 
+	//攻撃ボタンが押されたら攻撃
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button4))
 	{
 		if (mStamina >= 40)
@@ -276,6 +300,7 @@ void Player::MoveProcess(float deltaTime)
 			mStamina -= 40;
 		}
 	}
+	//魔法攻撃ボタンで魔法攻撃
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_X) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button3))
 	{
 		if (mMagicInterval >= 0.5f)
@@ -285,6 +310,7 @@ void Player::MoveProcess(float deltaTime)
 	}
 }
 
+//攻撃のアニメーション処理
 void Player::AttackProcess(float deltaTime)
 {
 	mAnimator.AnimationChange(MotionID::MOTION_ATTACK, 1, 0.5f);
@@ -299,8 +325,10 @@ void Player::DamegeProcess(float deltaTime)
 {
 	StaminaCharge(deltaTime);
 	mStateTimer += deltaTime;
+	//ノックバック処理----------------------------------------------
 	auto backVelcity = mPosition + (mKnockBack * 10);
 	mPosition = Vector3::Lerp(mPosition, backVelcity, 0.1f);
+	//--------------------------------------------------------------
 	if (mStateTimer > 0.5f)
 	{
 		StateChange(State::MOVE);
@@ -313,10 +341,12 @@ void Player::DeadProcess(float deltaTime)
 	mStateTimer += deltaTime * 80;
 	MV1DeleteModel(mModelHandle);
 	if (mStateTimer < 120) {
+		//回転しながら死亡する
 		mRotate = mRotate * MGetRotX(-1 * (DX_PI / 180));
 	}
 }
 
+//ヒット時の処理
 void Player::Hit(Hitinfo hit)
 {
 	SoundManager::getInstance().Play("./res/Sound/PlayerDamage.ogg");

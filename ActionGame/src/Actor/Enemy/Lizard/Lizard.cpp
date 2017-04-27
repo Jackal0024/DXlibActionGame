@@ -44,19 +44,24 @@ void Lizard::onStart()
 
 void Lizard::onUpdate(float deltaTime)
 {
+	//重力処理
 	mPosition += Vector3(0, -0.1f, 0);
 	mTarget = mWorld->FindActor("Player");
 
 	StateUpdate(deltaTime);
-	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 
+	//壁の判定を二重にして絶対にステージ外に出ないように
+	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius);
+
+	//地面との判定
 	Vector3 h;
 	if (mWorld->GetField().Collision(mPosition + Vector3(0, 10, 0), mPosition + Vector3(0, -30, 0), h))
 	{
 		mPosition.y = h.y;
 	}
 
+	//アニメーションアップデート
 	mAnimator.Update(deltaTime);
 }
 

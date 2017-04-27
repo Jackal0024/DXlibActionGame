@@ -32,7 +32,9 @@ public:
 		DEAD
 	};
 public:
+	//デバッグ用
 	Player(IWorld* world, Vector3 position);
+	//マップデータ対応用
 	Player(IWorld* world, Vector3 position,Vector3 rotate);
 	~Player();
 	float GetHP();

@@ -19,7 +19,7 @@ class Actor
 public:
 	Actor(IWorld* world, const std::string& name,const Vector3& position, const Capsule& body,Tag tag = Tag::UNTAGGET);
 	Actor(IWorld* world, const std::string& name, const Vector3& position,const Vector3& rotate, const Capsule& body,Tag tag = Tag::UNTAGGET);
-	Actor(const std::string& name = "none");
+	Actor();
 
 	void Start();
 	void Update(float deltaTime);

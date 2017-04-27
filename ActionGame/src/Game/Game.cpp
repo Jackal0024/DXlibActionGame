@@ -39,6 +39,7 @@ Game::~Game()
 
 void Game::initialize()
 {
+	//シーンをイニシャライズして各シーンをマネージャーに追加-------------------------------
 	mSceneManager.Initialize();
 	mSceneManager.Add(Scene::LOAD, std::make_shared<LoadAssetScnen>());
 	mSceneManager.Add(Scene::TITLE, std::make_shared<Title>());
@@ -49,17 +50,22 @@ void Game::initialize()
 	mSceneManager.Add(Scene::STAGE2_BACK, std::make_shared<BackStage2>());
 	mSceneManager.Add(Scene::STAGE3, std::make_shared<GamePlay3>());
 	mSceneManager.Add(Scene::RESULT, std::make_shared<ResultScene>());
+	//-------------------------------------------------------------------------------------
+	//ロードシーンにチェンジ
 	mSceneManager.Change(Scene::LOAD);
 }
 
 void Game::Update(float deltatime)
 {
+	//インプットを更新してトリガー処理
 	Input::getInstance().Update();
+	//現在のシーンを更新
 	mSceneManager.Update(deltatime);
 }
 
 void Game::Draw()
 {
+	//現在のシーンを更新
 	mSceneManager.Draw();
 }
 
