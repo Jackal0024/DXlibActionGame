@@ -155,7 +155,7 @@ void Player::onUpdate(float deltaTime)
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 
 	//•\Ž¦‚Ì‚½‚ß‚ÌŒvŽZ--------------------------------------------------------------------------------------
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180.f * DX_PI / 180.f), GetPose()));
 	Matrix S = MGetIdent();
 	Matrix WeaponMatrix = S.SetScale(Vector3(5, 5, 5)) * MGetRotY(200 * DX_PI / 180) * MGetRotZ(30 * DX_PI / 180) * SetModelFramePosition(mModelHandle, "R_HandPinky1", mWeaponHandle);
 	MV1SetMatrix(mWeaponHandle, WeaponMatrix);
