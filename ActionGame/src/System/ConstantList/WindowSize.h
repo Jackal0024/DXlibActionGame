@@ -1,5 +1,5 @@
 #pragma once
 
-const static float WIDTH = 1024;
-const static float HEIGHT = 567;
+const static int WIDTH = 1024;
+const static int HEIGHT = 567;
 

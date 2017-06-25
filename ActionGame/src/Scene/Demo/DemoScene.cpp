@@ -16,9 +16,11 @@
 void DemoScene::Start()
 {
 	isEnd = false;
+	mTimer = 0;
 	mDemoTextYPos = HEIGHT;
 	mBackGround = LoadGraph("./res/Texture/Result/EndingBG.png");
 	mDemoText = LoadGraph("./res/Texture/Demo/DemoText.png");
+	mSkipText = LoadGraph("./res/Texture/Demo/SkipText.png");
 
 	PlayMusic("./res/Sound/DemoBGM.ogg", DX_PLAYTYPE_LOOP);
 }
@@ -30,12 +32,19 @@ void DemoScene::Update(float deltaTime)
 		isEnd = true;
 	}
 	mDemoTextYPos -= deltaTime * 30;
+	mTimer += deltaTime;
 }
 
 void DemoScene::Draw() const
 {
 	DrawGraph(0, 0, mBackGround, TRUE);
-	DrawGraph(0, mDemoTextYPos, mDemoText, TRUE);
+
+	float l = abs(sin(mTimer)) * 255;
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)l);
+	DrawGraph(WIDTH - 406, 0, mSkipText, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	DrawGraph(0, (int)mDemoTextYPos, mDemoText, TRUE);
 }
 
 bool DemoScene::IsEnd() const

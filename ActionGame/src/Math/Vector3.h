@@ -3,10 +3,11 @@
 
 #include"DxLib.h"
 
-struct Matrix;
+class Matrix;
 
 // 3DƒxƒNƒgƒ‹
-struct Vector3 {
+class Vector3 {
+public:
 	float	x;	// x¬•ª
 	float	y;	// y¬•ª
 	float	z;	// z¬•ª

@@ -13,8 +13,8 @@ public:
 private:
 	int mTextHandle;
 	int mSlashHandle;
-	int mHPValue;
-	int mMaxHPValue;
+	float mHPValue;
+	float mMaxHPValue;
 	NumberTexture num;
 
 	float mAtk;

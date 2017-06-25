@@ -49,7 +49,7 @@ int main()
 	while (ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		Effekseer_Sync3DSetting();
-		auto Time = GetNowCount();
+		int Time = GetNowCount();
 		timer += deltatime;
 
 		game.Update(deltatime);
@@ -71,7 +71,7 @@ int main()
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 0, 100), GetColor(0, 0, 255));*/
 
 		ScreenFlip();
-		deltatime = GetNowCount() - Time;
+		deltatime =  (float)(GetNowCount() - Time);
 		deltatime /= 1000; //1•b=1000m/s
 		deltatime = min(deltatime, 0.1f);
 	}
@@ -149,7 +149,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		DrawLine3D(Vector3(0, 0, 0), Vector3(0, 0, 100), GetColor(0, 0, 255));*/
 
 		ScreenFlip();
-		deltatime = GetNowCount() - Time;
+		deltatime = (float)(GetNowCount() - Time);
 		deltatime /= 1000; //1•b=1000m/s
 		deltatime = min(deltatime, 0.1f);
 	}

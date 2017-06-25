@@ -13,5 +13,5 @@ Frame::~Frame()
 
 void Frame::onDraw() const
 {
-	DrawGraph(mPosition.x, mPosition.y, mHandle, TRUE);
+	DrawGraph((int)mPosition.x, (int)mPosition.y, mHandle, TRUE);
 }

@@ -44,13 +44,14 @@ void MagicMenu::Update(float deltaTime)
 		mIndex = max(mIndex - 1, 0);
 		mMagichas = false;
 	}
-	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_DOWN) || StickCheck(Stick::DOWN))
+	else if (Input::getInstance().GetKeyTrigger(KEY_INPUT_DOWN) || StickCheck(Stick::DOWN))
 	{
 		SoundManager::getInstance().Play("./res/Sound/MenuSelect.mp3");
-		mIndex = min(mIndex + 1, mTextTexture.size() - 1);
+		mIndex = min((mIndex + 1), (int)mTextTexture.size() - 1);
 		mMagichas = false;
 	}
-	mStickX = Input::getInstance().GetLeftAnalogStick().x;
+	//連続で移動しないように前回の傾きを調べる;
+	mStickX = (int)Input::getInstance().GetLeftAnalogStick().x;
 
 	for (auto magic : mList)
 	{
@@ -78,7 +79,7 @@ void MagicMenu::Draw() const
 	if (!mMagichas) DrawGraph(0, 0, mUnknownTexture, TRUE);
 	if(mCurrentMagic == (MagicList)mIndex) DrawGraph(128, 128, mEquipmentTexture, TRUE);
 	if(mIndex != 0) DrawGraph(0, (HEIGHT / 2) - 52, mCursorLeft, TRUE);
-	if (mIndex != mTextTexture.size() - 1) DrawGraph((WIDTH - 73),(HEIGHT / 2) - 52, mCursorRight, TRUE);
+	if (mIndex != (int)mTextTexture.size() - 1) DrawGraph((WIDTH - 73),(HEIGHT / 2) - 52, mCursorRight, TRUE);
 	DrawGraph(670, 480, mHelpTexture, TRUE);
 }
 
@@ -107,6 +108,7 @@ void MagicMenu::CreateMagicText()
 	mTextTexture.push_back(LoadGraph("./res/Texture/MagicListText/TrapText.png"));
 }
 
+//ステイックを見てメニューを左右に移動する（連続で移動しないようにする）
 bool MagicMenu::StickCheck(Stick dir)
 {
 	if (Input::getInstance().GetLeftAnalogStick().x == 1 && (mStickX != 1))

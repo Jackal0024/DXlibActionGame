@@ -17,6 +17,7 @@ public:
 private:
 	int mBackGround;
 	int mDemoText;
+	int mSkipText;
 	float mDemoTextYPos;
 
 	float mTimer;

@@ -1,11 +1,12 @@
 #ifndef QUATERNION_H_
 #define QUATERNION_H_
 
-struct Vector3;
-struct Matrix;
+class Vector3;
+class Matrix;
 
 // クォータニオン
-struct Quaternion {
+class Quaternion {
+public:
 	float x;		// x成分
 	float y;		// y成分
 	float z;		// z成分

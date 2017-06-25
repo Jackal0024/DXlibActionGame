@@ -73,9 +73,9 @@ void LoadAssetScnen::Update(float deltaTime)
 void LoadAssetScnen::Draw() const
 {
 	Vector3 pos = Vector3(WIDTH/2,HEIGHT/2,0);
-	float len = GetDrawStringWidth("Now_Loading", 7);
-	pos.x -= len / 2;
-	DrawString(pos.x, pos.y, "Now_Loading", GetColor(255, 255, 255));
+	int len = GetDrawStringWidth("Now_Loading", 7);
+	pos.x -= (float)(len / 2);
+	DrawString((int)pos.x,(int)pos.y, "Now_Loading", GetColor(255, 255, 255));
 }
 
 bool LoadAssetScnen::IsEnd() const

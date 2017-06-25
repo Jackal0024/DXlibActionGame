@@ -13,8 +13,8 @@ public:
 private:
 	int mTextHandle;
 	int mSlashHandle;
-	int mMPValue;
-	int mMaxMPValue;
+	float mMPValue;
+	float mMaxMPValue;
 	NumberTexture num;
 
 	float mMagicInterval;

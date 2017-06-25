@@ -66,7 +66,7 @@ void MagicStone::OverLapSearch()
 	}
 
 	//プレイヤーが同じ魔法を持っていたら自身を消滅
-	for (int i = 0; i < magiclist.size(); i++)
+	for (int i = 0; i < (int)magiclist.size(); i++)
 	{
 		if (mMagicName == magiclist[i])
 		{

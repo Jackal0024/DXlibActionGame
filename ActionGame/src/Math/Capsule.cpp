@@ -47,10 +47,5 @@ void Capsule::Draw() const
 
 bool Capsule::CollisionCapsuleAndCapsule(const Capsule & other) const
 {
-	return HitCheck_Capsule_Capsule(mLine.mStartPos, mLine.mEndPos, mRadius
-		, other.mLine.mStartPos, other.mLine.mEndPos, other.mRadius);
-	//Vector3 p1, p2;
-	//float t1, t2;
-	//float d = Line::LineLineDistance(mLine, other.mLine, p1, p2, t1, t2);
-	//return (d <= mRadius + other.mRadius);
+	return HitCheck_Capsule_Capsule(mLine.mStartPos, mLine.mEndPos,mRadius,other.mLine.mStartPos, other.mLine.mEndPos, other.mRadius) != 0;;
 }

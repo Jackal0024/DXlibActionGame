@@ -6,8 +6,8 @@ TextDraw::TextDraw(IWorld * world,const std::string& text):
 	mText(text),
 	mTimer(0)
 {
-	float len = GetDrawStringWidth(mText.c_str(), mText.length());
-	mPosition.x -= len / 2;
+	int len = GetDrawStringWidth(mText.c_str(), mText.length());
+	mPosition.x -= (float)(len / 2);
 }
 
 TextDraw::~TextDraw()
@@ -29,7 +29,7 @@ void TextDraw::onUpdate(float deltaTime)
 
 void TextDraw::onDraw() const
 {
-	DrawString(mPosition.x, mPosition.y, mText.c_str(), GetColor(255, 255, 255));
+	DrawString((int)mPosition.x, (int)mPosition.y, mText.c_str(), GetColor(255, 255, 255));
 }
 
 void TextDraw::onMessage(EventMessage message, void * p)

@@ -26,7 +26,8 @@ void Title::Start()
 	mPos = Vector3(0, 100, 0);
 	mTimer = 0.0f;
 	mRotate.Scale({ 50,50,50 });
-	mRotate = mRotate * Matrix(MGetRotX(-90 * (DX_PI / 180)));
+	mRotate = mRotate * Matrix::CreateRotationX(-90);
+	MV1SetPosition(mTitleModel,mPos);
 
 	ChangeLightTypeDir({0,-0.5f,0.5f});
 	SetCameraPositionAndTargetAndUpVec(
@@ -49,15 +50,15 @@ void Title::Draw() const
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
 	float x = (WIDTH / 2) - 310.5f; //タイトルのｘ位置
-	DrawGraph(x, 110, mTitleHandle, TRUE);
+	DrawGraph((int)x, 110, mTitleHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	if (mState == State::WAIT)
 	{
-		long l = sin(mTimer) * 255 * 2;
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, abs(l));
+		float l = sin(mTimer) * 255 * 2;
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)abs(l));
 		float x2 = (WIDTH / 2) - 128.0f; //[ボタンを押して下さい]のｘ位置
-		DrawGraph(x2, 370, mTextHandle, TRUE);
+		DrawGraph((int)x2, (int)370, mTextHandle, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
@@ -110,7 +111,7 @@ void Title::Wait(float deltaTime)
 	mAlpha = 255;
 	mPos = { 0,-10,0 };
 	mRotate = Matrix(mRotate).Translation(mPos);
-	mRotate = mRotate * Matrix(MGetRotY((60 * deltaTime) * (DX_PI / 180)));
+	mRotate = mRotate * Matrix::CreateRotationY(60.0f * deltaTime);
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10))
 	{
 		isEnd = true;

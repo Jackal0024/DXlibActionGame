@@ -34,6 +34,5 @@ private:
 	int mCursorLeft;
 	int mIndex;
 	bool mMagichas;
-
 	int mStickX;
 };

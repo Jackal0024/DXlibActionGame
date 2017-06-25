@@ -3,10 +3,11 @@
 
 #include"DxLib.h"
 
-struct Vector3;
-struct Quaternion;
+class Vector3;
+class Quaternion;
 
-struct Matrix {
+class Matrix {
+public:
 	float m[4][4];
 
 	// コンストラクタ
