@@ -47,7 +47,7 @@ Player::Player(IWorld* world, Vector3 position):
 }
 
 Player::Player(IWorld * world, Vector3 position, Vector3 rotate) :
-	Actor(world, "Player", position, rotate, { Line(position,position + Vector3(0,15,0)),2.0f }, Tag::PLAYER),
+	Actor(world, "Player", position + Vector3(0,10,0), rotate, { Line(position,position + Vector3(0,15,0)),2.0f }, Tag::PLAYER),
 	mState(State::MOVE),
 	mStateTimer(0.0f),
 	mStamina(100),
@@ -136,7 +136,7 @@ std::vector<MagicList> Player::GetHaveMagic()
 
 void Player::onStart()
 {
-	mRotate.SetScale({ 0.8f,0.8f,0.8f });
+	mRotate.Scale({ 0.8f,0.8f,0.8f });
 	mAnimator.Initialize(mModelHandle, 0,false);
 }
 
@@ -155,9 +155,8 @@ void Player::onUpdate(float deltaTime)
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 
 	//表示のための計算--------------------------------------------------------------------------------------
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180.f * DX_PI / 180.f), GetPose()));
-	Matrix S = MGetIdent();
-	Matrix WeaponMatrix = S.SetScale(Vector3(5, 5, 5)) * MGetRotY(200 * DX_PI / 180) * MGetRotZ(30 * DX_PI / 180) * SetModelFramePosition(mModelHandle, "R_HandPinky1", mWeaponHandle);
+	Matrix S = Matrix::Identity;
+	Matrix WeaponMatrix = S.Scale(Vector3(5, 5, 5)) * Matrix::CreateRotationY(200) * Matrix::CreateRotationZ(30) * SetModelFramePosition(mModelHandle, "R_HandPinky1", mWeaponHandle);
 	MV1SetMatrix(mWeaponHandle, WeaponMatrix);
 	//------------------------------------------------------------------------------------------------------
 
@@ -169,7 +168,8 @@ void Player::onUpdate(float deltaTime)
 
 void Player::onDraw() const
 {
-	//DrawFormatString(0, 300, GetColor(255, 255, 255), "X = %f : Y = %f : Z = %f", mPosition.x,mPosition.y, mPosition.z);
+	//モデルデータが前後ろ逆なため描画時１８０度回転する
+	MV1SetMatrix(mModelHandle, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModelHandle);
 	//デバッグ表示
 	//mBody.Move(mPosition).Draw();
@@ -260,8 +260,8 @@ void Player::MoveProcess(float deltaTime)
 	mSpeed = 1.0f;
 	//スティックによって操作する-----------------------------------------------------------------------
 	mVelocity = Vector3(0,0,0);
-	mVelocity = VNorm(mRotate.GetForward()) * Input::getInstance().GetLeftAnalogStick().y * deltaTime;
-	mVelocity += VNorm(mRotate.GetLeft()) * Input::getInstance().GetLeftAnalogStick().x * deltaTime;
+	mVelocity =  VNorm(mRotate.Forward()) * Input::getInstance().GetLeftAnalogStick().y * deltaTime;
+	mVelocity += VNorm(mRotate.Left()) * Input::getInstance().GetLeftAnalogStick().x * deltaTime;
 	//-------------------------------------------------------------------------------------------------
 
 	//ダッシュボタンが押されたら
@@ -342,7 +342,7 @@ void Player::DeadProcess(float deltaTime)
 	MV1DeleteModel(mModelHandle);
 	if (mStateTimer < 120) {
 		//回転しながら死亡する
-		mRotate = mRotate * MGetRotX(-1 * (DX_PI / 180));
+		mRotate = mRotate * Matrix::CreateRotationX(-1);
 	}
 }
 
@@ -455,8 +455,8 @@ void Player::FireBallInvoke()
 
 	if (mMagicPoint < MPCOST) return;
 	auto camera = mWorld->GetCamera();
-	Vector3 createPosition = mPosition + (camera->GetRotate().GetForward()) + Vector3(0, 11, 0);
-	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	Vector3 createPosition = mPosition + (camera->GetRotate().Forward()) + Vector3(0, 11, 0);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireBall>(mWorld, createPosition, camera->GetRotate().Forward(), Tag::PLAYER_ATTACK, mMagicPower));
 	mMagicPoint -= MPCOST;
 }
 
@@ -465,8 +465,8 @@ void Player::IceNeedleInvoke()
 	const float MPCOST = 15;
 
 	if (mMagicPoint < MPCOST) return;
-	Vector3 createPosition = mPosition + (mRotate.GetForward() * 20);
-	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, createPosition, mRotate.GetForward(), 3, Tag::PLAYER_ATTACK, mMagicPower));
+	Vector3 createPosition = mPosition + (mRotate.Forward() * 20);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, createPosition, mRotate.Forward(), 3, Tag::PLAYER_ATTACK, mMagicPower));
 	mMagicPoint -= MPCOST;
 }
 
@@ -487,8 +487,8 @@ void Player::RockBlastInvoke()
 
 	if (mMagicPoint < MPCOST) return;
 	auto camera = mWorld->GetCamera();
-	Vector3 createPosition = camera->GetPosition() + (camera->GetRotate().GetForward()) + Vector3(0, 3, 0);
-	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	Vector3 createPosition = camera->GetPosition() + (camera->GetRotate().Forward()) + Vector3(0, 3, 0);
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<RockBlast>(mWorld, createPosition, camera->GetRotate().Forward(), Tag::PLAYER_ATTACK, mMagicPower));
 	mMagicPoint -= MPCOST;
 }
 
@@ -499,7 +499,7 @@ void Player::FireWallInvoke()
 	if (mMagicPoint < MPCOST) return;
 	auto camera = mWorld->GetCamera();
 	Vector3 createPosition = mPosition;
-	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<FireWall>(mWorld, createPosition, camera->GetRotate().Forward(), Tag::PLAYER_ATTACK, mMagicPower));
 	mMagicPoint -= MPCOST;
 }
 
@@ -510,7 +510,7 @@ void Player::MagicMineInvoke()
 	if (mMagicPoint < MPCOST) return;
 	auto camera = mWorld->GetCamera();
 	Vector3 createPosition = camera->GetPosition();
-	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, createPosition, camera->GetRotate().GetForward(), Tag::PLAYER_ATTACK, mMagicPower));
+	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<MagicMine>(mWorld, createPosition, camera->GetRotate().Forward(), Tag::PLAYER_ATTACK, mMagicPower));
 	mMagicPoint -= MPCOST;
 }
 

@@ -47,7 +47,7 @@ void MagicMine::onUpdate(float deltaTime)
 
 void MagicMine::onDraw() const
 {
-	MV1SetMatrix(mModelHandle,MGetRotY(180 * DX_PI / 180) * GetPose());
+	MV1SetMatrix(mModelHandle,GetPose());
 	MV1DrawModel(mModelHandle);
 	//mBody.Move(mPosition).Draw();
 }

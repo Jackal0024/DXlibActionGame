@@ -4,6 +4,7 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../Gimmick/MagicStone.h"
 #include"../../../AssetStorage/EffectStorage.h"
+#include"../../../Math/MathHelper.h"
 
 Goblin::Goblin(IWorld * world, Vector3 position):
 	Actor(world, "Goblin", position, { { 0,10,0 },1.0f }, Tag::ENEMY),
@@ -61,7 +62,8 @@ void Goblin::onUpdate(float deltaTime)
 
 void Goblin::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	//ƒ‚ƒfƒ‹ƒf[ƒ^‚ª‘OŒã‚ë‹t‚È‚½‚ß•`‰æŽž‚P‚W‚O“x‰ñ“]‚·‚é
+	MV1SetMatrix(mModel, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -137,7 +139,7 @@ void Goblin::MoveProcess(float deltaTime)
 	{
 		//UŒ‚
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f,mAttackPower));
+			+ (mRotate.Forward() * 10), mRotate.Forward(), 0.4f,mAttackPower));
 		StateChange(State::LIGHT_ATTACK);
 	}
 
@@ -172,7 +174,7 @@ void Goblin::RunProcess(float deltaTime)
 	{
 		//UŒ‚
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<GoblinAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10), mRotate.GetForward(), 0.4f, mAttackPower * 2));
+			+ (mRotate.Forward() * 10), mRotate.Forward(), 0.4f, mAttackPower * 2));
 		StateChange(State::HEAVY_ATTACK);
 	}
 }

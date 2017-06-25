@@ -1,6 +1,6 @@
 #include "FadeEffect.h"
 #include"../../System/ConstantList/WindowSize.h"
-#include"../../Math/Math.h"
+#include"../../Math/MathHelper.h"
 
 Fadeeffect::Fadeeffect(IWorld * world, float start, float end, float time, int color):
 	Actor(world, "Fade", { 0,0,0 }, Capsule(Vector3(0, 0, 0), 0)),
@@ -37,7 +37,7 @@ void Fadeeffect::onUpdate(float deltaTime)
 {
 	mTimer = min(mTimer + deltaTime,mTime);
 	float f = (mTimer / mTime);
-	mAlpha =  Math::lerp(mStartAlpha, mEndAlpha, f);
+	mAlpha =  MathHelper::Lerp(mStartAlpha, mEndAlpha, f);
 }
 
 void Fadeeffect::onDraw() const

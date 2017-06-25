@@ -60,7 +60,8 @@ void Golem::onUpdate(float deltaTime)
 
 void Golem::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	//ÉÇÉfÉãÉfÅ[É^Ç™ëOå„ÇÎãtÇ»ÇΩÇﬂï`âÊéûÇPÇWÇOìxâÒì]Ç∑ÇÈ
+	MV1SetMatrix(mModel, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -122,9 +123,9 @@ void Golem::MoveProcess(float deltaTime)
 	if (dis < 10)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<EnemyArrack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10)
+			+ (mRotate.Forward() * 10)
 			+ Vector3(0, 20, 0),
-			mRotate.GetForward(),
+			mRotate.Forward(),
 			mAttackPower));
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);

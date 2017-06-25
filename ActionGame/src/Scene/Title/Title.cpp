@@ -25,7 +25,7 @@ void Title::Start()
 	mState = State::DEMO;
 	mPos = Vector3(0, 100, 0);
 	mTimer = 0.0f;
-	mRotate.SetScale({ 50,50,50 });
+	mRotate.Scale({ 50,50,50 });
 	mRotate = mRotate * Matrix(MGetRotX(-90 * (DX_PI / 180)));
 
 	ChangeLightTypeDir({0,-0.5f,0.5f});
@@ -92,8 +92,8 @@ void Title::StateUpdate(float deltaTime)
 void Title::Demo(float deltaTime)
 {
 	mPos = Vector3::Lerp(Vector3(0, 100, 0), Vector3( 0,-10,0 ), mTimer/2);
-	mRotate = Matrix(mRotate).SetPosition(mPos);
-	mRotate = mRotate * Matrix(MGetRotY((60 * deltaTime) * (DX_PI / 180)));
+	mRotate = Matrix(mRotate).Translation(mPos);
+	mRotate = mRotate * Matrix::CreateRotationY(60 * deltaTime);
 	if (mPos.y == -10)
 	{
 		mAlpha += 1;
@@ -109,7 +109,7 @@ void Title::Wait(float deltaTime)
 {
 	mAlpha = 255;
 	mPos = { 0,-10,0 };
-	mRotate = Matrix(mRotate).SetPosition(mPos);
+	mRotate = Matrix(mRotate).Translation(mPos);
 	mRotate = mRotate * Matrix(MGetRotY((60 * deltaTime) * (DX_PI / 180)));
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_SPACE) || Input::getInstance().GetKeyTrigger(ButtonCode::PAD_Button10))
 	{

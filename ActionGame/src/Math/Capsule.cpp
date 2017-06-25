@@ -37,8 +37,7 @@ Capsule Capsule::Translate(const Vector3 & position) const
 
 Capsule Capsule::Transform(const Matrix & matrix) const
 {
-	return Capsule(Line(matrix.Transform(mLine.mStartPos), matrix.Transform(mLine.mEndPos))
-		,mRadius * matrix.GetScale().y);
+	return Capsule(Line(Vector3::Transform(mLine.mStartPos, matrix), Vector3::Transform(mLine.mEndPos, matrix)), mRadius * matrix.Scale().y);
 }
 
 void Capsule::Draw() const

@@ -9,7 +9,7 @@ FireWall::FireWall(IWorld * world, Vector3 position, const Vector3 & Velocity, T
 	for (int i = 0; i < 5; i++)
 	{
 		Vector3 right = VTransform(Velocity, MGetRotY(90 * DX_PI / 180));
-		Vector3 pos = mPosition + VNorm(right) * ((10 * i) - 20);
+		Vector3 pos = mPosition + right.Normalize() * ((10 * i) - 20);
 		if (mTag == Tag::ENEMY_ATTACK)
 		{
 			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireWallParts>(mWorld, pos, Velocity, tag,power));

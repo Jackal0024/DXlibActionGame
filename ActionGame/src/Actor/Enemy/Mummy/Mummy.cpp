@@ -54,7 +54,8 @@ void Mummy::onUpdate(float deltaTime)
 
 void Mummy::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	//ƒ‚ƒfƒ‹ƒf[ƒ^‚ª‘OŒã‚ë‹t‚È‚½‚ß•`‰æŽž‚P‚W‚O“x‰ñ“]‚·‚é
+	MV1SetMatrix(mModel, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -195,7 +196,7 @@ void Mummy::KickProcess(float deltaTime)
 	if (mStateTimer > 0.3f && !mStateBool)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<MummyAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10),
+			+ (mRotate.Forward() * 10),
 			mAttackPower));
 	}
 

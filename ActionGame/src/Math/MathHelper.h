@@ -1,31 +1,33 @@
-#pragma once
-#include<dxlib.h>
+#ifndef MATH_HELPER_H_
+#define MATH_HELPER_H_
 
-class MathHelper
-{
+// マスヘルパークラス
+class MathHelper {
 public:
-	static float Rad2Deg();
-	static float Deg2Rad();
-	static float Rad2Deg(float rad);
-	static float Deg2Rad(float deg);
+	// πの値を表します。
+	static const float Pi;
+	// 値を指定された範囲内に制限します
+	static float Clamp(float value, float min, float max);
+	// 2つの値の差の絶対値を計算します
+	static float Distance(float n1, float n2);
+	// 2つの値の間を線形補間します
+	static float Lerp(float value1, float value2, float amount);
+	// ラジアンを度に変換します。
+	static float ToDegrees(float radians);
+	// 度をラジアンに変換します。
+	static float ToRadians(float degree);
+	// サイン
+	static float Sin(float degree);
+	// コサイン
+	static float Cos(float degree);
+	// タンジェント
+	static float Tan(float degree);
+	// 逆サイン
+	static float ASin(float s);
+	// 逆コサイン
+	static float ACos(float c);
+	// 逆タンジェント
+	static float ATan(float y, float x);
 };
 
-float  MathHelper::Rad2Deg()
-{
-	return (180 / DX_PI);
-}
-
-float  MathHelper::Deg2Rad()
-{
-	return (DX_PI / 180);
-}
-
-float  MathHelper::Rad2Deg(float rad)
-{
-	return rad * (180 / DX_PI);
-}
-
-float  MathHelper::Deg2Rad(float deg)
-{
-	return deg * (DX_PI / 180);
-}
+#endif

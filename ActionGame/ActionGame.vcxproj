@@ -94,10 +94,10 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\プロジェクトに追加すべきファイル_VC用;.\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -127,7 +127,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\プロジェクトに追加すべきファイル_VC用;.\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -207,7 +207,6 @@
     <ClCompile Include="src\Animation\Animator.cpp" />
     <ClCompile Include="src\AssetStorage\AssetStorage.cpp" />
     <ClCompile Include="src\AssetStorage\EffectStorage.cpp" />
-    <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\Effect\Base\Effect.cpp" />
     <ClCompile Include="src\Field\Field.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
@@ -216,12 +215,12 @@
     <ClCompile Include="src\Math\BoundingSphere.cpp" />
     <ClCompile Include="src\Math\Capsule.cpp" />
     <ClCompile Include="src\Math\Line.cpp" />
-    <ClCompile Include="src\Math\Math.cpp" />
+    <ClCompile Include="src\Math\MathHelper.cpp" />
     <ClCompile Include="src\Math\Matrix.cpp" />
+    <ClCompile Include="src\Math\Quaternion.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />
     <ClCompile Include="src\Scene\Base\SceneManager.cpp" />
     <ClCompile Include="src\Scene\Base\SceneNull.cpp" />
-    <ClCompile Include="src\Scene\Debug\DebugStage.cpp" />
     <ClCompile Include="src\Scene\Demo\DemoScene.cpp" />
     <ClCompile Include="src\Scene\LoadAsset\LoadAssetScnen.cpp" />
     <ClCompile Include="src\Scene\Result\ResultScene.cpp" />
@@ -295,7 +294,6 @@
     <ClInclude Include="src\AssetStorage\AssetList.h" />
     <ClInclude Include="src\AssetStorage\AssetStorage.h" />
     <ClInclude Include="src\AssetStorage\EffectStorage.h" />
-    <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Effect\Base\Effect.h" />
     <ClInclude Include="src\Field\Field.h" />
     <ClInclude Include="src\Field\FieldPtr.h" />
@@ -306,16 +304,15 @@
     <ClInclude Include="src\Math\BoundingSphere.h" />
     <ClInclude Include="src\Math\Capsule.h" />
     <ClInclude Include="src\Math\Line.h" />
-    <ClInclude Include="src\Math\Math.h" />
     <ClInclude Include="src\Math\MathHelper.h" />
     <ClInclude Include="src\Math\Matrix.h" />
+    <ClInclude Include="src\Math\Quaternion.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Scene\Base\IScene.h" />
     <ClInclude Include="src\Scene\Base\IScenePtr.h" />
     <ClInclude Include="src\Scene\Base\Scene.h" />
     <ClInclude Include="src\Scene\Base\SceneManager.h" />
     <ClInclude Include="src\Scene\Base\SceneNull.h" />
-    <ClInclude Include="src\Scene\Debug\DebugStage.h" />
     <ClInclude Include="src\Scene\Demo\DemoScene.h" />
     <ClInclude Include="src\Scene\LoadAsset\LoadAssetScnen.h" />
     <ClInclude Include="src\Scene\Result\ResultScene.h" />

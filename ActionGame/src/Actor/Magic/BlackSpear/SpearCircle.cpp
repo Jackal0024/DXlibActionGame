@@ -28,7 +28,7 @@ void SpearCircle::onUpdate(float deltaTime)
 
 void SpearCircle::onDraw() const
 {
-	Matrix mat = MGetRotY(mTimer) * GetPose();
+	Matrix mat = Matrix::CreateRotationY(mTimer) * GetPose();
 	MV1SetMatrix(mModelHandle, mat);
 	MV1DrawModel(mModelHandle);
 }

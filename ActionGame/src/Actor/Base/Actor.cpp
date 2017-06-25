@@ -1,5 +1,7 @@
 #include "Actor.h"
 #include"DxLib.h"
+#include<assert.h>
+#include"Math\MathHelper.h"
 
 //
 Actor::Actor(IWorld* world,const std::string& name, const Vector3 & position, const Capsule & body, Tag tag):
@@ -9,7 +11,7 @@ Actor::Actor(IWorld* world,const std::string& name, const Vector3 & position, co
 
 //
 Actor::Actor(IWorld * world, const std::string& name, const Vector3 & position, const Vector3& rotate, const Capsule & body, Tag tag):
-	mWorld(world), mName(name), mPosition(position), mRotate(Matrix::CreateFromYawPitchRoll(rotate)), mBody(body), mDead(false),mTag(tag)
+	mWorld(world), mName(name), mPosition(position), mRotate(Matrix::CreateFromYawPitchRoll(rotate.y,rotate.x, rotate.z)), mBody(body), mDead(false),mTag(tag)
 {
 }
 
@@ -123,7 +125,7 @@ Matrix Actor::GetRotate() const
 
 Matrix Actor::GetPose() const
 {
-	return Matrix(mRotate).SetPosition(mPosition);
+	return Matrix(mRotate).Translation(mPosition);
 }
 
 Tag Actor::GetTag() const

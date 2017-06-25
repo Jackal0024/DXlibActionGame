@@ -17,7 +17,7 @@ BoundingSphere BoundingSphere::Translate(const Vector3 & position) const
 
 BoundingSphere BoundingSphere::Transform(const Matrix & matrix) const
 {
-	return BoundingSphere(matrix.Transform(mCenter),mRadius*matrix.GetScale().y);
+	return BoundingSphere(Vector3::Transform(mCenter,matrix),mRadius*matrix.Scale().y);
 }
 
 bool BoundingSphere::Intersects(const BoundingSphere & other) const

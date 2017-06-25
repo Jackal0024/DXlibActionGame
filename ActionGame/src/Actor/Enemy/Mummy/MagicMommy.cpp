@@ -5,6 +5,7 @@
 #include"../../Magic/MagicMine/MagicMine.h"
 #include"../../Gimmick/MagicStone.h"
 #include"../../../AssetStorage/EffectStorage.h"
+#include"../../../Math/MathHelper.h"
 
 MagicMummy::MagicMummy(IWorld * world, Vector3 position) :
 	Actor(world, "MagicMummy", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
@@ -50,7 +51,8 @@ void MagicMummy::onUpdate(float deltaTime)
 
 void MagicMummy::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	//ƒ‚ƒfƒ‹ƒf[ƒ^‚ª‘OŒã‚ë‹t‚È‚½‚ß•`‰æŽž‚P‚W‚O“x‰ñ“]‚·‚é
+	MV1SetMatrix(mModel, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -162,7 +164,7 @@ void MagicMummy::KickProcess(float deltaTime)
 	if (mStateTimer > 0.3f && !mStateBool)
 	{
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<MummyAttack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10),
+			+ (mRotate.Forward() * 10),
 			mAttackPower));
 	}
 

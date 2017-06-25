@@ -3,6 +3,7 @@
 #include"../../../AssetStorage/AssetStorage.h"
 #include"../../../AssetStorage/EffectStorage.h"
 #include"../../Base/HitInfo.h"
+#include"Math\MathHelper.h"
 
 IceNeedle::IceNeedle(IWorld * world, Vector3 position, Vector3 velocity, int num,Tag tag, float atk):
 	Actor(world, "AttackProcess",position - Vector3(0,30,0), { Vector3(0,15,0),5 },tag),
@@ -55,8 +56,9 @@ void IceNeedle::onUpdate(float deltaTime)
 
 void IceNeedle::onDraw() const
 {
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose().SetScale({0.05f,0.05f,0.05f})));
-	MV1DrawModel(mModelHandle);
+
+	MV1SetMatrix(mModelHandle,GetPose().Scale({0.05f,0.05f,0.05f}) );
+	MV1DrawModel(mModelHandle); 
 	//mBody.Move(mPosition).Draw();
 }
 

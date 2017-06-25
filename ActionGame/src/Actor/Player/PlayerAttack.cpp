@@ -3,7 +3,7 @@
 #include"EffekseerForDXLib.h"
 
 PlayerAttack::PlayerAttack(IWorld* world, int weapon,float atk) :
-	Actor(world, "AttackProcess", { MV1GetMatrix(weapon).m[3][0],MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,3,0),2 },Tag::PLAYER_ATTACK),
+	Actor(world, "AttackProcess", { MV1GetMatrix(weapon).m[3][0], MV1GetMatrix(weapon).m[3][1],MV1GetMatrix(weapon).m[3][2] }, { Vector3(0,3,0),2 },Tag::PLAYER_ATTACK),
 	mWeapoHandle(weapon),
 	mTimer(0.0f),
 	mAtk(atk)
@@ -14,9 +14,9 @@ void PlayerAttack::onUpdate(float deltaTime)
 {
 	
 	Matrix weaponMatrix = MV1GetMatrix(mWeapoHandle);
-	mBody.mLine.mStartPos = weaponMatrix.GetPosition();
-	mBody.mLine.mEndPos = weaponMatrix.GetPosition() + (weaponMatrix.GetForward() * 3);
-	mPosition = weaponMatrix.GetPosition();
+	mBody.mLine.mStartPos = weaponMatrix.Translation();
+	mBody.mLine.mEndPos = weaponMatrix.Translation() + (weaponMatrix.Forward() * 3);
+	mPosition = weaponMatrix.Translation();
 	if (mTimer > 0.5f)
 	{
 		Dead();

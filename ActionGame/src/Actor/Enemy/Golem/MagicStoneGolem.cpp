@@ -8,6 +8,7 @@
 #include"../../Magic/IceNeedle/IceNeedle.h"
 #include"../../Magic/RockBlast/RockBlast.h"
 #include"../../../AssetStorage/EffectStorage.h"
+#include"../../../Math/MathHelper.h"
 
 MagicStoneGolem::MagicStoneGolem(IWorld* world, Vector3 position) :
 	Actor(world, "MagicStoneGolem", position, { { 0,10,0 },3.0f }, Tag::ENEMY),
@@ -69,7 +70,8 @@ void MagicStoneGolem::onUpdate(float deltaTime)
 
 void MagicStoneGolem::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose().SetScale(Vector3(1.2f,1.2f,1.2f))));
+	//ÉÇÉfÉãÉfÅ[É^Ç™ëOå„ÇÎãtÇ»ÇΩÇﬂï`âÊéûÇPÇWÇOìxâÒì]Ç∑ÇÈ
+	MV1SetMatrix(mModel, Matrix::CreateRotationY(180) * GetPose().Scale(Vector3(1.2f,1.2f,1.2f)));
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -117,14 +119,14 @@ void MagicStoneGolem::IdleProcess(float deltaTime)
 	if (dis < 50 && isMagicAttack)
 	{
 		isMagicAttack = false;
-		Vector3 icePos = mPosition + (mRotate.GetForward() * 20);
+		Vector3 icePos = mPosition + (mRotate.Forward() * 20);
 		if (mMagicType == MagicList::ICENEEDLE)
 		{
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.GetForward(), 3, Tag::ENEMY_ATTACK,mAttackPower));
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<IceNeedle>(mWorld, icePos, mRotate.Forward(), 3, Tag::ENEMY_ATTACK,mAttackPower));
 		}
 		if (mMagicType == MagicList::ROCKBLAST)
 		{
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0,5,0), mRotate.GetForward(),Tag::ENEMY_ATTACK, mAttackPower));
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0,5,0), mRotate.Forward(),Tag::ENEMY_ATTACK, mAttackPower));
 		}
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);
@@ -149,9 +151,9 @@ void MagicStoneGolem::MoveProcess(float deltaTime)
 	{
 		isMagicAttack = true;
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<EnemyArrack>(mWorld, mPosition
-			+ (mRotate.GetForward() * 10)
+			+ (mRotate.Forward() * 10)
 			+ Vector3(0, 20, 0),
-			mRotate.GetForward(),
+			mRotate.Forward(),
 			mAttackPower));
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);

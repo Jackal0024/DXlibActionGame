@@ -35,7 +35,7 @@ void RockBlast::onUpdate(float deltaTime)
 
 void RockBlast::onDraw() const
 {
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(mTimer), GetPose().SetScale(Vector3(0.8f,0.8f,0.8f))));
+	MV1SetMatrix(mModelHandle, (Matrix)MGetRotY(mTimer) * GetPose().Scale(Vector3(0.8f,0.8f,0.8f)));
 	MV1DrawModel(mModelHandle);
 	//mBody.Move(mPosition).Draw();
 }

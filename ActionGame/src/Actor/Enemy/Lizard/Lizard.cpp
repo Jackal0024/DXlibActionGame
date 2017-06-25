@@ -67,7 +67,8 @@ void Lizard::onUpdate(float deltaTime)
 
 void Lizard::onDraw() const
 {
-	MV1SetMatrix(mModel, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	//ƒ‚ƒfƒ‹ƒf[ƒ^‚ª‘OŒã‚ë‹t‚È‚½‚ß•`‰æŽž‚P‚W‚O“x‰ñ“]‚·‚é
+	MV1SetMatrix(mModel, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModel);
 	//mBody.Translate(mPosition).Draw();
 }
@@ -164,19 +165,19 @@ void Lizard::DiscoveryProcess(float deltaTime)
 	if (mTarget)
 	{
 		Vector3 to_target = mTarget->GetPosition() - mPosition;
-		Vector3 forward_cross_target = VCross(mRotate.GetForward(), to_target);
-		float forward_dot_target = VDot(Vector3::Normalize(mRotate.GetForward()), to_target.Normalize());
-		float up_dot_cross = VDot(mRotate.GetUp(), forward_cross_target);
+		Vector3 forward_cross_target = VCross(mRotate.Forward(), to_target);
+		float forward_dot_target = VDot(Vector3::Normalize(mRotate.Forward()), to_target.Normalize());
+		float up_dot_cross = VDot(mRotate.Up(), forward_cross_target);
 
 		if (up_dot_cross >= 0.0f)
 		{
-			float angle = 1 * deltaTime;
-			mRotate = mRotate * MGetRotY(angle);
+			float angle = 30 * deltaTime;
+			mRotate = mRotate * Matrix::CreateRotationY(angle);
 		}
 		else
 		{
-			float angle = -1 * deltaTime;
-			mRotate = mRotate * MGetRotY(angle);
+			float angle = -30 * deltaTime;
+			mRotate = mRotate * Matrix::CreateRotationY(angle);
 		}
 
 		float dis = VSize(mTarget->GetPosition() - mPosition);
@@ -206,7 +207,7 @@ void Lizard::AttackProcess(float deltaTime)
 {
 	if (mAnimator.IsAnimationEnd())
 	{
-		Vector3 pos = mPosition + mRotate.GetForward() * 5 + Vector3(0, 12, 0);
+		Vector3 pos = mPosition + mRotate.Forward() * 5 + Vector3(0, 12, 0);
 		mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireBall>(mWorld, pos, VNorm(mVelocity), Tag::ENEMY_ATTACK, mAttackPower));
 		mAnimator.AnimationChange(Motion::IDLE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::IDLE, Motion::IDLE_MOTION);
