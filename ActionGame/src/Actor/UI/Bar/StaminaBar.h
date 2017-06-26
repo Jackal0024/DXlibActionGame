@@ -1,3 +1,7 @@
+/*
+*スタミナバークラス
+*概要：スタミナバーのＵＩを管理
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

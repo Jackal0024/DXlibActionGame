@@ -1,3 +1,7 @@
+/*
+*ポイントライト
+*概要：ポイントライト
+*/
 #pragma once
 
 #include"../Base/Actor.h"

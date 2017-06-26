@@ -1,3 +1,7 @@
+/*
+*ゴブリンクラス
+*概要：ボス級の敵、ゴブリンのクラス
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

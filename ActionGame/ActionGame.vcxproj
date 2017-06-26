@@ -175,7 +175,6 @@
     <ClCompile Include="src\Actor\Magic\BlackSpear\BlackSpear.cpp" />
     <ClCompile Include="src\Actor\Magic\BlackSpear\SpearCircle.cpp" />
     <ClCompile Include="src\Actor\Magic\FireBall\FireBall.cpp" />
-    <ClCompile Include="src\Actor\Effect\FireParts.cpp" />
     <ClCompile Include="src\Actor\Enemy\Golem\Golem.cpp" />
     <ClCompile Include="src\Actor\Enemy\Golem\GolemAttack.cpp" />
     <ClCompile Include="src\Actor\Light\Light.cpp" />
@@ -257,7 +256,6 @@
     <ClInclude Include="src\Actor\Magic\BlackSpear\BlackSpear.h" />
     <ClInclude Include="src\Actor\Magic\BlackSpear\SpearCircle.h" />
     <ClInclude Include="src\Actor\Magic\FireBall\FireBall.h" />
-    <ClInclude Include="src\Actor\Effect\FireParts.h" />
     <ClInclude Include="src\Actor\Enemy\Golem\Golem.h" />
     <ClInclude Include="src\Actor\Enemy\Golem\GolemAttack.h" />
     <ClInclude Include="src\Actor\Light\Light.h" />

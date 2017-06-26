@@ -1,3 +1,7 @@
+/*
+*テキスト描画クラス
+*概要：テキストを描画する用の管理クラス
+*/
 #pragma once
 
 #include"../Base/Actor.h"

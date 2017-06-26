@@ -1,3 +1,7 @@
+/*
+*ステージ１クラス
+*概要：ステージ１
+*/
 #pragma once
 
 #include"../Base/IScene.h"

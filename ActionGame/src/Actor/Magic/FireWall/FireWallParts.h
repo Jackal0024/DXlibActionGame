@@ -1,3 +1,7 @@
+/*
+*ファイアーウォールのパーツクラス
+*概要：ファイアーウォールで発生する火柱の１本
+*/
 #pragma once
 #include"../../Base/Actor.h"
 #include"../../../Effect/Base/Effect.h"

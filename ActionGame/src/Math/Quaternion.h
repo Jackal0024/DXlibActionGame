@@ -1,3 +1,7 @@
+/*
+*4元数
+*概要：クォータニオンを管理する
+*/
 #ifndef QUATERNION_H_
 #define QUATERNION_H_
 

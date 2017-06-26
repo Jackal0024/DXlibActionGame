@@ -1,3 +1,7 @@
+/*
+*エフエェクトクラス
+*概要：エフェクトを管理するクラス
+*/
 #pragma once
 
 #include<string>

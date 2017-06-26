@@ -1,3 +1,7 @@
+/*
+*ゴーレム攻撃クラス
+*概要：ゴーレムの攻撃判定クラス
+*/
 #pragma once
 #include"../../Base/Actor.h"
 

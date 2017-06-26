@@ -1,3 +1,7 @@
+/*
+*ロックブラストクラス
+*概要：大岩を投げる魔法
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

@@ -1,3 +1,7 @@
+/*
+*ヒットクラス
+*概要：攻撃の情報
+*/
 #pragma once
 #include"Actor.h"
 

@@ -1,3 +1,7 @@
+/*
+*シーンクラス
+*概要：シーンの一覧
+*/
 #pragma once
 
 enum class Scene

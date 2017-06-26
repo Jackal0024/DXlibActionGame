@@ -1,3 +1,7 @@
+/*
+*ゴブリン攻撃クラス
+*概要：ゴブリンの攻撃判定のクラス
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

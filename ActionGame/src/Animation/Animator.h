@@ -1,3 +1,7 @@
+/*
+*アニメータークラス
+*概要：アニメーションを管理する
+*/
 #ifndef  ANIMATOR_H_
 #define  ANIMATOR_H_
 

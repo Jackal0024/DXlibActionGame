@@ -1,3 +1,7 @@
+/*
+*マミー攻撃クラス
+*概要：マミーの格闘攻撃の判定を管理
+*/
 #pragma once
 #include"../../Base/Actor.h"
 

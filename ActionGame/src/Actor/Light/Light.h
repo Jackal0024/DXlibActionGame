@@ -1,3 +1,7 @@
+/*
+*ライトクラス
+*概要：ディレクショナルライトのクラス
+*/
 #ifndef LIGHT_H_
 #define LIGHT_H_
 

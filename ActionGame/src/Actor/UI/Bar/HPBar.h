@@ -1,3 +1,7 @@
+/*
+*ＨＰバークラス
+*概要：ＨＰバーのＵＩ管理
+*/
 #pragma once
 #include"../../Base/Actor.h"
 

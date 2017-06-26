@@ -1,5 +1,13 @@
+/*
+*アセットストレージ
+*概要：
+*/
 #pragma once
 
+/*
+*アセットストレージ
+*概要：登場する３Dアセットを管理しておく
+*/
 #include<string>
 #include<map>
 #include"AssetList.h"

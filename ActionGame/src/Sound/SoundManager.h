@@ -1,3 +1,7 @@
+/*
+*サウンドマネージャー
+*概要：音声を管理、再生する
+*/
 #pragma once
 #include<string>
 #include<map>

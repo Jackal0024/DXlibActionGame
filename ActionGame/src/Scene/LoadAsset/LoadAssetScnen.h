@@ -1,3 +1,7 @@
+/*
+*アセットをロードするシーンクラス
+*概要：ここでアセットをロードする
+*/
 #pragma once
 
 #include"../Base/IScene.h"

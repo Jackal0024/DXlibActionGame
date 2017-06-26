@@ -1,3 +1,7 @@
+/*
+*アクターポインタクラス
+*概要：アクターをシェアドポインタに変える
+*/
 #ifndef ACTORPTR_H_
 #define ACTORPTR_H_
 

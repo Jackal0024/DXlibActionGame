@@ -1,3 +1,7 @@
+/*
+*ダミーシーンクラス
+*概要：ダミーのシーン
+*/
 #pragma once
 
 #include"IScene.h"

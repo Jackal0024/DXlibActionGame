@@ -1,3 +1,7 @@
+/*
+*ステータスのフレームクラス
+*概要：ステータスのフレームＵＩ
+*/
 #pragma once
 
 #include"../Base/Actor.h"

@@ -1,3 +1,7 @@
+/*
+*ゴーレムクラス
+*概要：ザコ敵１のゴーレムクラス
+*/
 #ifndef GOLEM_H_
 #define GOLEM_H_
 

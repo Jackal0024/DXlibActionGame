@@ -1,3 +1,7 @@
+/*
+*行列クラス
+*概要：4x4の行列と行列の関数を管理
+*/
 #ifndef MATRIX_H_
 #define MATRIX_H_
 

@@ -1,3 +1,7 @@
+/*
+*ステージ３クラス
+*概要：ステージ３（最終面）のクラス
+*/
 #pragma once
 
 #include"../Base/IScene.h"

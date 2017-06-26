@@ -1,3 +1,7 @@
+/*
+*ワープサークルクラス
+*概要：次のシーンに飛ぶためのクラス
+*/
 #pragma once
 
 #include"../Base/Actor.h"

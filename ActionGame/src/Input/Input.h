@@ -1,3 +1,7 @@
+/*
+*インプットクラス
+*概要：パットとキーボードの入力を管理
+*/
 #ifndef INPUT_H_
 #define INPUT_H_
 

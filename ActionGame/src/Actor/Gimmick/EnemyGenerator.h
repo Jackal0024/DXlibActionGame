@@ -1,3 +1,7 @@
+/*
+*エネミージェネレーター
+*概要：エネミーを発生させるファクトリー
+*/
 #pragma once
 
 #include"../Base/Actor.h"

@@ -1,3 +1,7 @@
+/*
+*デモシーンクラス
+*概要：世界感説明のシーンのクラス
+*/
 #pragma once
 
 #include"../Base/IScene.h"

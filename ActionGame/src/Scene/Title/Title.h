@@ -1,3 +1,7 @@
+/*
+*タイトルシーンクラス
+*概要：タイトルシーンを管理
+*/
 #pragma once
 
 #include"../Base/IScene.h"

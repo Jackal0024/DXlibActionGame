@@ -1,3 +1,7 @@
+/*
+*ワールドクラス
+*概要：アクターを内包し管理するクラス
+*/
 #ifndef WORLD_H_
 #define WORLD_H_
 

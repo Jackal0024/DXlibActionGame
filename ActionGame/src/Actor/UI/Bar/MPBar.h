@@ -1,3 +1,7 @@
+/*
+*マジックポイントバー
+*概要：マジックポイントのＵＩ
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

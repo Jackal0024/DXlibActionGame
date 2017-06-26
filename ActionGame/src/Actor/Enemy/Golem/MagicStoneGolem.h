@@ -1,3 +1,7 @@
+/*
+*マジックストーンゴーレム
+*概要：魔法が使えるゴーレム
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

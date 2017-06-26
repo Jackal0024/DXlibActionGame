@@ -1,3 +1,7 @@
+/*
+*エフェクトストレージクラス
+*概要：エフェクトのアセットを管理、保持する
+*/
 #pragma once
 #include<string>
 #include<map>

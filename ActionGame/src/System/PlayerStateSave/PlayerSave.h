@@ -1,3 +1,7 @@
+/*
+*プレイヤーセーブクラス
+*概要：プレイヤーのステータスを管理
+*/
 #pragma once
 
 #include"../../Actor/Player/Player.h"

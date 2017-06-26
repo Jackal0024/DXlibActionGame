@@ -1,3 +1,7 @@
+/*
+*マジックリスト
+*概要：マジック一覧
+*/
 #pragma once
 
 enum class MagicList

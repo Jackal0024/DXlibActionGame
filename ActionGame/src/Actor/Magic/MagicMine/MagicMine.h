@@ -1,3 +1,7 @@
+/*
+*マジックマイン
+*概要：爆発するクリスタルを飛ばす魔法
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

@@ -1,3 +1,7 @@
+/*
+*線クラス
+*概要：線の判定を管理
+*/
 #ifndef LINE_H_
 #define LINE_H_
 

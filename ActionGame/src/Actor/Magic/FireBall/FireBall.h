@@ -1,3 +1,7 @@
+/*
+*ファイアーボール
+*概要：ファイアーボールの魔法クラス
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

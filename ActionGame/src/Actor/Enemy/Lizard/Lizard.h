@@ -1,3 +1,7 @@
+/*
+*リザードマンクラス
+*概要：ザコ敵２、炎を吐く
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

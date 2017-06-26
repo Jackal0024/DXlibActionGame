@@ -1,3 +1,7 @@
+/*
+*アクターマネージャークラス
+*概要：アクターを管理するクラス
+*/
 #ifndef ACTORMANAGER_H_
 #define ACTORMANAGER_H_
 

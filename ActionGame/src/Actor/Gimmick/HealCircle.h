@@ -1,3 +1,7 @@
+/*
+*ヒールサークルクラス
+*概要：プレイヤーを回復させるクラス
+*/
 #pragma once
 
 #include"../Base/Actor.h"

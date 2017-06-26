@@ -1,3 +1,7 @@
+/*
+*プレイヤークラス
+*概要：プレイヤー
+*/
 #ifndef PLAYER_H_
 #define PLAYER_H_
 

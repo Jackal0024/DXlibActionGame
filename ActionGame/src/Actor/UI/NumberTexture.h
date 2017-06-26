@@ -1,3 +1,7 @@
+/*
+*ナンバーテクスチャ
+*概要：数字テクスチャを分割して描画するクラス
+*/
 #pragma once
 #include"../../Math/Vector3.h"
 #include"DxLib.h"

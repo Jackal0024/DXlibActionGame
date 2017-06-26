@@ -1,3 +1,7 @@
+/*
+*フェードエフェクト
+*概要：フェードを管理するクラス
+*/
 #pragma once
 
 #include"../Base/Actor.h"

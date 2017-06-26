@@ -1,3 +1,7 @@
+/*
+*タグ
+*概要：タグの一覧
+*/
 #pragma once
 
 enum class Tag

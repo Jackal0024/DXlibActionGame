@@ -1,3 +1,7 @@
+/*
+*シーンの基本クラス
+*概要：全てのシーンに継承させるクラス
+*/
 #pragma once
 
 enum  class Scene;

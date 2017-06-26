@@ -1,3 +1,7 @@
+/*
+*フィールド基本クラス
+*概要：フィールドに継承させるクラス
+*/
 #ifndef IFIELD_H_
 #define IFIELD_H_
 

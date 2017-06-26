@@ -1,3 +1,7 @@
+/*
+*シーンマネージャークラス
+*概要：シーン全体を管理する
+*/
 #pragma once
 
 #include"IScenePtr.h"

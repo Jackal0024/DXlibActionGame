@@ -1,3 +1,7 @@
+/*
+*プレイヤー攻撃
+*概要：プレイヤーの剣攻撃の判定
+*/
 #ifndef PLAYERATTACK_H_
 #define PLAYERATTACK_H_
 

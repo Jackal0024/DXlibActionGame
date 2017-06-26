@@ -1,3 +1,7 @@
+/*
+*マスヘルパークラス
+*概要：数学に便利な関数を管理
+*/
 #ifndef MATH_HELPER_H_
 #define MATH_HELPER_H_
 

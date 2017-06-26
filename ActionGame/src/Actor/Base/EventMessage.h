@@ -1,3 +1,7 @@
+/*
+*イベントメッセージ
+*概要：ゲーム中のイベント一覧
+*/
 #pragma once
 
 enum class EventMessage {

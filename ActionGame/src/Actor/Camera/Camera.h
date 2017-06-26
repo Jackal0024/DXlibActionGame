@@ -1,3 +1,7 @@
+/*
+*カメラクラス
+*概要：カメラの管理をするクラス
+*/
 #ifndef CAMERA_H_
 #define CAMERA_H_
 

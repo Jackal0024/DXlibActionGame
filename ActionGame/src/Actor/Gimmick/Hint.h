@@ -1,3 +1,7 @@
+/*
+*ヒントクラス
+*概要：近くに寄ると表示されるUIを持つクラス
+*/
 #pragma once
 
 #include"../Base/Actor.h"

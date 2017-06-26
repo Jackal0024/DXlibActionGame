@@ -1,3 +1,7 @@
+/*
+*アイスニードルクラス
+*概要：地面から突き上げる氷の魔法
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

@@ -1,3 +1,7 @@
+/*
+*マジックのＵＩクラス
+*概要：魔法のＵＩアイコンを管理する
+*/
 #pragma once
 
 #include"../Base/Actor.h"

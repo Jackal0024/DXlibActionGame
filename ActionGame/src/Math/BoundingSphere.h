@@ -1,3 +1,7 @@
+/*
+*バウンディングスフィア
+*概要：球体の当たり判定クラス
+*/
 #ifndef BOUNDINGSPHERE_H_
 #define BOUNDINGSPHERE_H_
 

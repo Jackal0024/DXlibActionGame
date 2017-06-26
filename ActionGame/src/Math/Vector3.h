@@ -1,3 +1,7 @@
+/*
+*３次元ベクトルクラス
+*概要：自作の３次元ベクトル
+*/
 #ifndef VECTOR3_H_
 #define VECTOR3_H_
 

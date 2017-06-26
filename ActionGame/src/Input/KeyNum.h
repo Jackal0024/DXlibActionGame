@@ -1,3 +1,7 @@
+/*
+*入力情報
+*概要：パッドの入力情報
+*/
 #ifndef KEYNUM_H_
 #define KEYNUM_H_
 

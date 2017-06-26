@@ -1,3 +1,7 @@
+/*
+*カプセルクラス
+*概要：カプセルの当たり判定クラス
+*/
 #ifndef CAPSULE_H_
 #define CAPSULE_H_
 

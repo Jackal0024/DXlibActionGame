@@ -1,3 +1,7 @@
+/*
+*マミークラス
+*概要：ザコ敵３、固定砲台
+*/
 #pragma once
 
 #include"../../Base/Actor.h"

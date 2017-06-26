@@ -1,3 +1,7 @@
+/*
+*リザルトシーンクラス
+*概要：リザルトのＵＩ表示管理
+*/
 #pragma once
 
 #include"../Base/IScene.h"

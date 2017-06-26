@@ -1,3 +1,7 @@
+/*
+*マジックマミー
+*概要：魔法を使えるマミー
+*/
 #pragma once
 
 #include"../../Base/Actor.h"
