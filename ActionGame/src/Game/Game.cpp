@@ -12,8 +12,6 @@
 #include"../Actor/Enemy/Golem/Golem.h"
 #include"../Field/Field.h"
 #include"../Math/Line.h"
-#include"../Actor/UI/PlayerHP.h"
-#include"../Actor/UI/PlayerMP.h"
 #include"../Sound/SoundManager.h"
 
 #include"../Scene/Base/Scene.h"

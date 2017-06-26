@@ -45,10 +45,9 @@ void Hint::onUpdate(float deltaTime)
 
 void Hint::onDraw() const
 {
-	MV1SetMatrix(mModelHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	MV1SetMatrix(mModelHandle, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mModelHandle);
-	if (isDraw) DrawGraph((WIDTH / 2) - 299.5f, 100, mHintTexture, TRUE);
-	//mBody.Translate(mPosition).Draw();
+	if (isDraw) DrawGraph((WIDTH / 2) - 299, 100, mHintTexture, TRUE);
 
 }
 

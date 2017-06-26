@@ -42,7 +42,7 @@ void Golem::onStart()
 void Golem::onUpdate(float deltaTime)
 {
 
-	mPosition += Vector3(0, -0.1, 0);
+	mPosition += Vector3(0.f, -0.1f, 0.f);
 	mTarget = mWorld->FindActor("Player");
 
 	StateUpdate(deltaTime);

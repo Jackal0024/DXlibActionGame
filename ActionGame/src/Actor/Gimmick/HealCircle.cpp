@@ -36,7 +36,7 @@ void HealCircle::onUpdate(float deltaTime)
 	{
 		isHealing = true;
 		mWorld->AddActor(ActorGroup::UI, std::make_shared<TextDraw>(mWorld, "‰ñ•œ‚µ‚½"));
-		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
+		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125.f, 0.3f, GetColor(0, 255, 65)));
 		SoundManager::getInstance().Play("./res/Sound/Healing.mp3");
 		mWorld->SendMsg(EventMessage::PLAYER_HEALING);
 		mWorld->SendMsg(EventMessage::ENEMY_GENERATOR);
@@ -50,7 +50,7 @@ void HealCircle::onUpdate(float deltaTime)
 
 void HealCircle::onDraw() const
 {
-	MV1SetMatrix(mHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	MV1SetMatrix(mHandle, Matrix::CreateRotationY(180.f) * GetPose());
 	MV1DrawModel(mHandle);
 	//mBody.Translate(mPosition).Draw();
 }

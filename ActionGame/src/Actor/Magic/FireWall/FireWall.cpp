@@ -8,8 +8,8 @@ FireWall::FireWall(IWorld * world, Vector3 position, const Vector3 & Velocity, T
 	SoundManager::getInstance().Play("./res/Sound/FireWall.mp3");
 	for (int i = 0; i < 5; i++)
 	{
-		Vector3 right = VTransform(Velocity, MGetRotY(90 * DX_PI / 180));
-		Vector3 pos = mPosition + right.Normalize() * ((10 * i) - 20);
+		Vector3 right = Vector3::Transform(Velocity, Matrix::CreateRotationY(90.f));
+		Vector3 pos = mPosition + right.Normalize() * ((10.f * i) - 20.f);
 		if (mTag == Tag::ENEMY_ATTACK)
 		{
 			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<FireWallParts>(mWorld, pos, Velocity, tag,power));

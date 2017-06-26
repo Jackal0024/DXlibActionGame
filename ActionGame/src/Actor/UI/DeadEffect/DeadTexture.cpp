@@ -32,7 +32,7 @@ void DeadTexture::onDraw() const
 	Fadeeffect* temp = (Fadeeffect*)mFade.get();
 	if (temp->IsEnd())
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)mAlpha);
 		DrawGraph(0, (HEIGHT / 2) - 137, mTexHandle, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}

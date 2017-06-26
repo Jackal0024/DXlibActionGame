@@ -12,8 +12,8 @@ HPBar::~HPBar()
 
 void HPBar::onUpdate(float deltaTime)
 {
-	auto player = mWorld->FindActor("Player").get();
-	mHPValue = ((Player*)player)->GetHP();
+	auto player = (Player*)mWorld->FindActor("Player").get();
+	mHPValue = player->GetHP();
 	if (mHPValue != mPrevHP)
 	{
 		mPrevHP = max(mHPValue,mPrevHP - (30 * deltaTime) );
@@ -22,7 +22,7 @@ void HPBar::onUpdate(float deltaTime)
 		float l = (mPrevHP / mMaxHP) * (mMaxHP + 50);
 		mSlipBar_rb = Vector3(lt.x + l, lt.y + 15, 0);
 	}
-	mMaxHP = ((Player*)player)->GetMaxHp();
+	mMaxHP = player->GetMaxHp();
 }
 
 void HPBar::onDraw() const
@@ -36,12 +36,12 @@ void HPBar::onDraw() const
 		Vector3 crb = Vector3(lt.x + mMaxHP + 50, lt.y + 15, 0);
 
 		//最大HPBAR
-		DrawBox(lt.x, lt.y, crb.x, crb.y, GetColor(0, 0, 155), true);
+		DrawBox((int)lt.x, (int)lt.y, (int)crb.x, (int)crb.y, GetColor(0, 0, 155), true);
 
 		//ダメージを受けた時の表示
-		DrawBox(lt.x, lt.y, mSlipBar_rb.x, mSlipBar_rb.y, GetColor(128, 128, 0), true);
+		DrawBox((int)lt.x, (int)lt.y, (int)mSlipBar_rb.x, (int)mSlipBar_rb.y, GetColor(128, 128, 0), true);
 
 		//現在HPのBAR
-		DrawBox(lt.x, lt.y, rb.x, rb.y, GetColor(255, 0, 0), true);
+		DrawBox((int)lt.x, (int)lt.y, (int)rb.x, (int)rb.y, GetColor(255, 0, 0), true);
 	}
 }

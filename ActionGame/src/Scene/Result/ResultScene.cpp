@@ -76,8 +76,8 @@ void ResultScene::Update(float deltaTime)
 void ResultScene::Draw() const
 {
 	DrawGraph(0,0, mBackGround, TRUE);
-	DrawGraph(0, 0, mResultText, TRUE);
-	DrawGraph((WIDTH / 2) - 187.5f - 100,50, mMagicCountText, TRUE);
+	DrawGraph(0,0, mResultText, TRUE);
+	DrawGraph((WIDTH / 2)-187-100,50, mMagicCountText, TRUE);
 	mNum.Draw(Vector3((WIDTH / 2) + 100, 35, 0), mMagicCount);
 
 	if (isDrawRank)

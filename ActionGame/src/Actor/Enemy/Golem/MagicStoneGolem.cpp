@@ -52,7 +52,7 @@ void MagicStoneGolem::onStart()
 void MagicStoneGolem::onUpdate(float deltaTime)
 {
 
-	mPosition += Vector3(0, -0.1, 0);
+	mPosition += Vector3(0.f, -0.1f, 0.f);
 	mTarget = mWorld->FindActor("Player");
 
 	StateUpdate(deltaTime);
@@ -126,7 +126,7 @@ void MagicStoneGolem::IdleProcess(float deltaTime)
 		}
 		if (mMagicType == MagicList::ROCKBLAST)
 		{
-			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0,5,0), mRotate.Forward(),Tag::ENEMY_ATTACK, mAttackPower));
+			mWorld->AddActor(ActorGroup::ENEMYATTACK, std::make_shared<RockBlast>(mWorld, mPosition + Vector3(0.f,5.f,0.f), mRotate.Forward(),Tag::ENEMY_ATTACK, mAttackPower));
 		}
 		mAnimator.AnimationChange(Motion::ATTACK_MOTION, 0.3f, 0.5f, false);
 		StateChange(State::ATTACK, Motion::ATTACK_MOTION);

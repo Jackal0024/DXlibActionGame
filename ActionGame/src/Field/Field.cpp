@@ -35,8 +35,7 @@ bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r)
 	{
 		for (int i = 0; i < HitPoly.HitNum; i++)
 		{
-			float cos = VDot(VNorm(HitPoly.Dim[i].Normal), Vector3(0, 1, 0));
-			float angel = MathHelper::ToDegrees(acos(cos));
+			float angel = Vector3::Angle(Vector3::Normalize(HitPoly.Dim[i].Normal), Vector3(0, 1, 0));
 			if (fabsf(angel) >= 90)
 			{
 				start =start +  (Vector3)HitPoly.Dim[i].Normal * r;
@@ -56,8 +55,7 @@ bool Field::Collision(Vector3 & start, const Vector3 & end, const float & r, Vec
 	{
 		for (int i = 0; i < HitPoly.HitNum; i++)
 		{
-			float cos = VDot(VNorm(HitPoly.Dim[i].Normal), Vector3(0, 1, 0));
-			float angel = MathHelper::ToDegrees(acos(cos));
+			float angel = Vector3::Angle(Vector3::Normalize(HitPoly.Dim[i].Normal), Vector3(0, 1, 0));
 			if (fabsf(angel) >= 60)
 			{
 				start = start + (Vector3)HitPoly.Dim[i].Normal * r;

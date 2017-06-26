@@ -31,9 +31,9 @@ public:
 	// 2つのベクトルの外積を計算します
 	static Vector3 Cross(const Vector3& vector1, const Vector3& vector2);
 	// 2つのベクトル間の距離を計算します
-	static float Distance(const Vector3& vector1, const Vector3& vector2);
+	static float Distance(const Vector3 & vector, const Vector3 & target);
 	// 2 つの直交ベクトル間の距離を計算します。 
-	static float DistanceSquared(const Vector3& vector1, const Vector3& vector2);
+	static float DistanceSquared(const Vector3 & vector, const Vector3 & target);
 	// 2 つのベクトル間の線形補間を行います
 	static Vector3 Lerp(const Vector3& value1, const Vector3& value2, float amount);
 	// 一致する各成分ペアの最も低い値を含むベクトルを返します

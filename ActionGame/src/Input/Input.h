@@ -3,6 +3,7 @@
 
 #include "DxLib.h"
 #include "KeyNum.h"
+#include"Math\Vector3.h"
 
 class Input
 {
@@ -17,21 +18,21 @@ public:
 	bool GetKeyTrigger(int key);
 	void Update();
 	void Debug();
-	VECTOR GetLeftAnalogStick();
-	VECTOR GetRightAnalogStick();
+	Vector3 GetLeftAnalogStick();
+	Vector3 GetRightAnalogStick();
 
 private:
 	Input();
-	VECTOR mInputVectorL;
-	VECTOR mInputVectorR;
+	Vector3 mInputVectorL;
+	Vector3 mInputVectorR;
 
 	bool mButton[32];
 	bool mKey[256];
 	bool mPrveButton[32];
 	bool mPrveKey[256];
 
-	VECTOR mInputVectorLPrev;
-	VECTOR mInputVectorRPrev;
+	Vector3 mInputVectorLPrev;
+	Vector3 mInputVectorRPrev;
 
 };
 

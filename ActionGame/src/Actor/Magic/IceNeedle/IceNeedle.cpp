@@ -24,7 +24,7 @@ void IceNeedle::onUpdate(float deltaTime)
 {
 	mNum--;
 	mLifeTimer_ -= deltaTime;
-	mPosition = Vector3::Lerp(mPosition, mDestination, 0.05);
+	mPosition = Vector3::Lerp(mPosition, mDestination, 0.05f);
 	mIceEffect.SetPosition(mPosition);
 	if (mLifeTimer_ <= 0)
 	{
@@ -47,8 +47,8 @@ void IceNeedle::onUpdate(float deltaTime)
 	}
 
 	Vector3 h;
-	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius);
-	if (mWorld->GetField().Collision(mPosition + Vector3(0, 10, 0), mPosition + Vector3(0, -30, 0), h))
+	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0.f, 3.f, 0.f), mBody.mRadius);
+	if (mWorld->GetField().Collision(mPosition + Vector3(0.f, 10.f, 0.f), mPosition + Vector3(0.f, -30.f, 0.f), h))
 	{
 		mPosition.y = h.y;
 	}

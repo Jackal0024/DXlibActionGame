@@ -3,7 +3,7 @@
 #include"../Base/IScene.h"
 #include"../../World/World.h"
 #include"../../System/MagicMenu/MagicMenu.h"
-#include"../../Actor/UI/NumberTexture.h";
+#include"../../Actor/UI/NumberTexture.h"
 
 class ResultScene : public IScene
 {

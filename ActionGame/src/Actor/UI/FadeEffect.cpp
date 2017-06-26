@@ -42,7 +42,7 @@ void Fadeeffect::onUpdate(float deltaTime)
 
 void Fadeeffect::onDraw() const
 {
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)mAlpha);
 	if(mTextureHandle == -1) DrawBox(0, 0, WIDTH, HEIGHT, mColor, true);
 	else DrawGraph(0, 0, mTextureHandle, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

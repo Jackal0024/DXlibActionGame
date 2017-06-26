@@ -12,9 +12,9 @@ MPBar::~MPBar()
 
 void MPBar::onUpdate(float deltaTime)
 {
-	auto player = mWorld->FindActor("Player").get();
-	mMPValue = ((Player*)player)->GetMP();
-	mMaxMP = ((Player*)player)->GetMaxMP();
+	auto player = (Player*)mWorld->FindActor("Player").get();
+	mMPValue = player->GetMP();
+	mMaxMP = player->GetMaxMP();
 	if (mMPValue != mPrevMP)
 	{
 		mPrevMP = max(mMPValue, mPrevMP - (30 * deltaTime));
@@ -33,10 +33,10 @@ void MPBar::onDraw() const
 		Vector3 rb = Vector3(lt.x + l, lt.y + 15, 0);
 
 		Vector3 crb = Vector3(lt.x + mMaxMP, lt.y + 15, 0);
-		DrawBox(lt.x, lt.y, crb.x, crb.y, GetColor(0, 0, 155), true);
+		DrawBox((int)lt.x, (int)lt.y, (int)crb.x, (int)crb.y, GetColor(0, 0, 155), true);
 
-		DrawBox(lt.x, lt.y, mSlipBar_rb.x, mSlipBar_rb.y, GetColor(128, 128, 0), true);
+		DrawBox((int)lt.x, (int)lt.y, (int)mSlipBar_rb.x, (int)mSlipBar_rb.y, GetColor(128, 128, 0), true);
 
-		DrawBox(lt.x, lt.y, rb.x, rb.y, GetColor(0, 255, 0), true);
+		DrawBox((int)lt.x, (int)lt.y, (int)rb.x, (int)rb.y, GetColor(0, 255, 0), true);
 	}
 }

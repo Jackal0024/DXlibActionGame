@@ -13,10 +13,7 @@
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Enemy/Golem/Golem.h"
 #include"../../Field/Field.h"
-#include"../../Actor/UI/PlayerHP.h"
-#include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
-#include"../../Actor/Enemy/Ghost/Ghost.h"
 #include"../Base/Scene.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
@@ -182,7 +179,7 @@ void GamePlay3::GolemCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 80, 40));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 80.0f, 40.0f));
 	}
 	));
 }
@@ -191,7 +188,7 @@ void GamePlay3::LizardCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 210, 60));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 210.0f, 60.0f));
 	}
 	));
 }
@@ -200,7 +197,7 @@ void GamePlay3::GoblinCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate, 600, 80));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Goblin>(mWorld.get(), position, rotate, 600.0f, 80.0f));
 	}
 	));
 }
@@ -209,7 +206,7 @@ void GamePlay3::MagicMummyCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate, 200, 40));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicMummy>(mWorld.get(), position, rotate, 200.0f, 40.0f));
 	}
 	));
 }
@@ -218,7 +215,7 @@ void GamePlay3::MummyCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate,false, 150, 40));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate,false, 150.0f, 40.0f));
 	}
 	));
 }
@@ -228,7 +225,7 @@ void GamePlay3::GuardMummyCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate,true, 150, 40));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Mummy>(mWorld.get(), position, rotate,true, 150.0f, 40.0f));
 	}
 	));
 }

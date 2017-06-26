@@ -14,10 +14,7 @@
 #include"../../Actor/Enemy/Golem/Golem.h"
 #include"../../Actor/Enemy/Golem/MagicStoneGolem.h"
 #include"../../Field/Field.h"
-#include"../../Actor/UI/PlayerHP.h"
-#include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
-#include"../../Actor/Enemy/Ghost/Ghost.h"
 #include"../Base/Scene.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
@@ -183,7 +180,7 @@ void BackStage2::GolemCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 200, 40));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 200.0f, 40.0f));
 	}
 	));
 }
@@ -192,7 +189,7 @@ void BackStage2::LizardCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 240, 40));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 240.0f, 40.0f));
 	}
 	));
 }
@@ -201,7 +198,7 @@ void BackStage2::IceGolemCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ICENEEDLE, 630, 50));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ICENEEDLE, 630.0f, 50.0f));
 	}
 	));
 }
@@ -210,7 +207,7 @@ void BackStage2::RockGolemCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ROCKBLAST, 630, 50));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<MagicStoneGolem>(mWorld.get(), position, rotate, MagicList::ROCKBLAST, 630.0f, 50.0f));
 	}
 	));
 }

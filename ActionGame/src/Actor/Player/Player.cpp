@@ -287,7 +287,7 @@ void Player::MoveProcess(float deltaTime)
 	//ˆÚ“®Žž•Ç‚É‚ß‚èž‚Ü‚È‚¢‚æ‚¤‚ÉŒvŽZ
 	mWorld->GetField().Collision(mPosition, mPosition + Vector3(0, 3, 0), mBody.mRadius, mVelocity);
 	//d—Íˆ—
-	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0, -0.1, 0);
+	mPosition += (mVelocity.Normalize() * mSpeed) + Vector3(0.f, -0.1f, 0.f);
 
 	//UŒ‚ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çUŒ‚
 	if (Input::getInstance().GetKeyTrigger(KEY_INPUT_Z) || Input::getInstance().GetKeyDown(ButtonCode::PAD_Button4))
@@ -362,7 +362,7 @@ void Player::Hit(Hitinfo hit)
 	}
 	else
 	{
-		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(255, 0, 0)));
+		mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125.f, 0.3f, GetColor(255, 0, 0)));
 		StateChange(State::DAMAGE);
 	}
 }
@@ -465,7 +465,7 @@ void Player::IceNeedleInvoke()
 	const float MPCOST = 15;
 
 	if (mMagicPoint < MPCOST) return;
-	Vector3 createPosition = mPosition + (mRotate.Forward() * 20);
+	Vector3 createPosition = mPosition + (mRotate.Forward() * 20.f);
 	mWorld->AddActor(ActorGroup::PLAYERATTACK, std::make_shared<IceNeedle>(mWorld, createPosition, mRotate.Forward(), 3, Tag::PLAYER_ATTACK, mMagicPower));
 	mMagicPoint -= MPCOST;
 }
@@ -476,7 +476,7 @@ void Player::HealingInvoke()
 
 	if (mMagicPoint < MPCOST || mHitPoint >= MAXHP) return;
 	SoundManager::getInstance().Play("./res/Sound/PlayerHeal.mp3");
-	mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125, 0.3f, GetColor(0, 255, 65)));
+	mWorld->AddActor(ActorGroup::TOPUI, std::make_shared<FlashEffect>(mWorld, 125.0f, 0.3f, GetColor(0, 255, 65)));
 	mHitPoint = min(mHitPoint += 50, MAXHP);
 	mMagicPoint -= MPCOST;
 }

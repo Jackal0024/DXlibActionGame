@@ -48,9 +48,9 @@ void WarpCircle::onUpdate(float deltaTime)
 
 void WarpCircle::onDraw() const
 {
-	MV1SetMatrix(mHandle, MMult(MGetRotY(180 * DX_PI / 180), GetPose()));
+	MV1SetMatrix(mHandle, Matrix::CreateRotationY(180) * GetPose());
 	MV1DrawModel(mHandle);
-	MV1SetMatrix(mHandle2, MMult(MGetRotY(angel), GetPose()));
+	MV1SetMatrix(mHandle2,Matrix::CreateRotationY(angel) * GetPose());
 	MV1DrawModel(mHandle2);
 	//mBody.Translate(mPosition).Draw();
 }

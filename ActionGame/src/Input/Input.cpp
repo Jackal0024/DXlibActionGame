@@ -68,7 +68,7 @@ void Input::Debug()
 }
 
 //•Ô‚è’l‚Í-1‚©‚ç1
-VECTOR Input::GetLeftAnalogStick()
+Vector3 Input::GetLeftAnalogStick()
 {
 		int x = 0, y = 0;
 		GetJoypadAnalogInput(&x, &y, DX_INPUT_PAD1);
@@ -88,16 +88,16 @@ VECTOR Input::GetLeftAnalogStick()
 		{
 			x = -1000;
 		}
-		mInputVectorL = VGet(x, -y, 0.0f) / 1000;
+		mInputVectorL = Vector3((float)x, (float)-y, 0.0f) / 1000;
 		return mInputVectorL;
 }
 
 //•Ô‚è’l‚Í-1‚©‚ç1
-VECTOR Input::GetRightAnalogStick()
+Vector3 Input::GetRightAnalogStick()
 {
 	int x = 0, y = 0;
 	GetJoypadAnalogInputRight(&x, &y, DX_INPUT_PAD1);
-	mInputVectorR = VGet(x, y, 0.0f);
+	mInputVectorR = Vector3((float)x, (float)y, 0.0f);
 	if (CheckHitKey(KEY_INPUT_UP))
 	{
 		y = 1000;
@@ -114,7 +114,7 @@ VECTOR Input::GetRightAnalogStick()
 	{
 		x = -1000;
 	}
-	mInputVectorR = VGet(x, y, 0.0f) / 1000;
+	mInputVectorR = VGet((float)x, (float)y, 0.0f) / 1000;
 	return mInputVectorR;
 }
 

@@ -30,7 +30,7 @@ void FlashEffect::onUpdate(float deltaTime)
 
 void FlashEffect::onDraw() const
 {
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, mAlpha);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)mAlpha);
 	DrawBox(0, 0, WIDTH, HEIGHT, mColor, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

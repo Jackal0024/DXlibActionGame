@@ -34,10 +34,10 @@ void MagicUI::onUpdate(float deltaTime)
 
 void MagicUI::onDraw() const
 {
-	DrawGraph(mPosition.x, mPosition.y, mFrameHandle, TRUE);
+	DrawGraph((int)mPosition.x, (int)mPosition.y, mFrameHandle, TRUE);
 	if (mCurrentMagic != MagicList::NONE)
 	{
 		int icon = mIconHandles[(int)mCurrentMagic];
-		DrawGraph(mPosition.x, mPosition.y, icon, TRUE);
+		DrawGraph((int)mPosition.x, (int)mPosition.y, icon, TRUE);
 	}
 }

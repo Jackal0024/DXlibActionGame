@@ -13,10 +13,7 @@
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Enemy/Golem/Golem.h"
 #include"../../Field/Field.h"
-#include"../../Actor/UI/PlayerHP.h"
-#include"../../Actor/UI/PlayerMP.h"
 #include"../../Sound/SoundManager.h"
-#include"../../Actor/Enemy/Ghost/Ghost.h"
 #include"../Base/Scene.h"
 #include"../../AssetStorage/AssetStorage.h"
 #include"../../Actor/Enemy/Lizard/Lizard.h"
@@ -195,7 +192,7 @@ void BackStage1::GolemCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 300, 80));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Golem>(mWorld.get(), position, rotate, 300.0f, 80.0f));
 	}
 	));
 }
@@ -204,7 +201,7 @@ void BackStage1::LizardCreate(Vector3 & position, Vector3 & rotate)
 {
 	mWorld->AddActor(ActorGroup::GIMMICK, std::make_shared<EnemyGenerator>(mWorld.get(), [=]()
 	{
-		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 300, 80));
+		return mWorld->AddActor(ActorGroup::ENEMY, std::make_shared<Lizard>(mWorld.get(), position, rotate, 300.0f, 80.0f));
 	}
 	));
 }

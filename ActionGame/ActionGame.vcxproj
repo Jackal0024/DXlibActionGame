@@ -176,8 +176,6 @@
     <ClCompile Include="src\Actor\Magic\BlackSpear\SpearCircle.cpp" />
     <ClCompile Include="src\Actor\Magic\FireBall\FireBall.cpp" />
     <ClCompile Include="src\Actor\Effect\FireParts.cpp" />
-    <ClCompile Include="src\Actor\Enemy\Ghost\Ghost.cpp" />
-    <ClCompile Include="src\Actor\Enemy\Ghost\GhostAttack.cpp" />
     <ClCompile Include="src\Actor\Enemy\Golem\Golem.cpp" />
     <ClCompile Include="src\Actor\Enemy\Golem\GolemAttack.cpp" />
     <ClCompile Include="src\Actor\Light\Light.cpp" />
@@ -200,8 +198,6 @@
     <ClCompile Include="src\Actor\UI\FlashEffect.cpp" />
     <ClCompile Include="src\Actor\UI\MagicUI.cpp" />
     <ClCompile Include="src\Actor\UI\NumberTexture.cpp" />
-    <ClCompile Include="src\Actor\UI\PlayerHP.cpp" />
-    <ClCompile Include="src\Actor\UI\PlayerMP.cpp" />
     <ClCompile Include="src\Actor\UI\StateFrame.cpp" />
     <ClCompile Include="src\Actor\UI\TextDraw.cpp" />
     <ClCompile Include="src\Animation\Animator.cpp" />
@@ -262,8 +258,6 @@
     <ClInclude Include="src\Actor\Magic\BlackSpear\SpearCircle.h" />
     <ClInclude Include="src\Actor\Magic\FireBall\FireBall.h" />
     <ClInclude Include="src\Actor\Effect\FireParts.h" />
-    <ClInclude Include="src\Actor\Enemy\Ghost\Ghost.h" />
-    <ClInclude Include="src\Actor\Enemy\Ghost\GhostAttack.h" />
     <ClInclude Include="src\Actor\Enemy\Golem\Golem.h" />
     <ClInclude Include="src\Actor\Enemy\Golem\GolemAttack.h" />
     <ClInclude Include="src\Actor\Light\Light.h" />
@@ -286,8 +280,6 @@
     <ClInclude Include="src\Actor\UI\FlashEffect.h" />
     <ClInclude Include="src\Actor\UI\MagicUI.h" />
     <ClInclude Include="src\Actor\UI\NumberTexture.h" />
-    <ClInclude Include="src\Actor\UI\PlayerHP.h" />
-    <ClInclude Include="src\Actor\UI\PlayerMP.h" />
     <ClInclude Include="src\Actor\UI\StateFrame.h" />
     <ClInclude Include="src\Actor\UI\TextDraw.h" />
     <ClInclude Include="src\Animation\Animator.h" />

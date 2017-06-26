@@ -59,12 +59,12 @@ Vector3 Vector3::Cross(const Vector3 & vector1, const Vector3 & vector2) {
 		vector1.x * vector2.y - vector1.y * vector2.x);
 }
 
-float Vector3::Distance(const Vector3 & vector1, const Vector3 & vector2) {
-	return (vector2 - vector1).Length();
+float Vector3::Distance(const Vector3 & vector, const Vector3 & target) {
+	return (target - vector).Length();
 }
 
-float Vector3::DistanceSquared(const Vector3 & vector1, const Vector3 & vector2) {
-	return 	(vector2 - vector1).LengthSquared();
+float Vector3::DistanceSquared(const Vector3 & vector, const Vector3 & target) {
+	return 	(target - vector).LengthSquared();
 }
 
 Vector3 Vector3::Lerp(const Vector3 & value1, const Vector3 & value2, float amount) {

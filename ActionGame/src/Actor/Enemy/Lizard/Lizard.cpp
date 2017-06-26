@@ -126,7 +126,8 @@ void Lizard::IdleProcess(float deltaTime)
 	}
 	else
 	{
-		mVelocity = mCenterPosition + Vector3(rand() % 50,0, rand() % 50) - mPosition;
+		int range = (rand() % 50);
+		mVelocity = mCenterPosition + Vector3((float)range,0,(float)range ) - mPosition;
 		mAnimator.AnimationChange(Motion::MOVE_MOTION, 0.3f, 0.5f, true);
 		StateChange(State::CAUTION, Motion::MOVE_MOTION);
 	}
@@ -135,7 +136,7 @@ void Lizard::IdleProcess(float deltaTime)
 void Lizard::CautionProcess(float deltaTime)
 {
 
-	float dis = VSize(mTarget->GetPosition() - mPosition);
+	float dis = Vector3::Distance(mPosition, mTarget->GetPosition());
 	if (dis < 100)
 	{
 		mAnimator.AnimationChange(Motion::MOVE_MOTION, 0.3f, 0.5f, true);

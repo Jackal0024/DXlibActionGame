@@ -30,6 +30,6 @@ void NumberTexture::Draw(Vector3 pos, std::string value) const
 	for (int i = 0; i < (int)value.size(); ++i) {
 		if (value[i] == ' ') continue;
 		const int n = value[i] - '0';
-		DrawGraph(pos.x + (mXSize * i),pos.y,mNumHandle[n],TRUE);
+		DrawGraph((int)(pos.x + (mXSize * i)),(int)pos.y,mNumHandle[n],TRUE);
 	}
 }
