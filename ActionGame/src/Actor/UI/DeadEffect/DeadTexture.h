@@ -9,9 +9,13 @@
 class DeadTexture : public Actor
 {
 public:
+	//コンストラクタ
 	DeadTexture(IWorld* world,ActorPtr Fade);
+	//デストラクタ
 	~DeadTexture();
+	//更新処理
 	void onUpdate(float deltaTime) override;
+	//描画処理
 	void onDraw() const override;
 
 private:

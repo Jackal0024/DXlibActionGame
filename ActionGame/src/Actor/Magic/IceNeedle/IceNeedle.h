@@ -7,16 +7,18 @@
 #include"../../Base/Actor.h"
 #include"../../../Effect/Base/Effect.h"
 
-#include"EffekseerForDXLib.h"
-
 class IceNeedle : public Actor
 {
 public:
+	//コンストラクタ
 	IceNeedle(IWorld* world, Vector3 position,Vector3 velocity,int num,Tag tag, float atk);
 
 private:
+	//更新処理
 	void onUpdate(float deltaTime) override;
+	//描画処理
 	void onDraw() const override;
+	//接触時の処理
 	void onCollide(Actor& other) override;
 
 private:

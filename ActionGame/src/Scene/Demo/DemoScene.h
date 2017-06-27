@@ -11,12 +11,19 @@
 class DemoScene : public IScene
 {
 public:
+	//開始処理
 	virtual void Start() override;
+	//更新処理
 	virtual void Update(float deltaTime) override;
+	//描画処理
 	virtual void Draw() const override;
+	//シーンが終了しているかどうか
 	virtual bool IsEnd() const override;
+	//次のシーン
 	virtual Scene Next() const override;
+	//終了処理
 	virtual void End() override;
+	//イベントを受け取る
 	void HandleMessage(EventMessage message, void* param);
 private:
 	int mBackGround;

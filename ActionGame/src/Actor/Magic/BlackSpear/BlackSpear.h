@@ -9,12 +9,18 @@
 class BlackSpear : public Actor
 {
 public:
+	//コンストラクタ
 	BlackSpear(IWorld * world, Vector3 position, Tag tag,float atk);
+	//デストラクタ
 	~BlackSpear();
 private:
+	//更新処理
 	void onUpdate(float deltaTime) override;
+	//描画処理
 	void onDraw() const override;
+	//当たった時の判定
 	void onCollide(Actor& other) override;
+
 private:
 	Vector3 mToPos; //目的の場所
 	Vector3 mFromPos;

@@ -12,17 +12,25 @@
 class Input
 {
 public:
+	//シングルトン
 	static Input& getInstance(void);
+	//デストラクタ
 	~Input();
 	//ジョイスティック用
 	bool GetKeyDown(ButtonCode key);
+	//トリガー処理
 	bool GetKeyTrigger(ButtonCode key);
 	//キーボード用
 	bool GetKeyDown(int key);
+	//キーボード用のトリガー処理
 	bool GetKeyTrigger(int key);
+	//更新処理
 	void Update();
+	//デバッグ用の処理
 	void Debug();
+	//左スティックの入力
 	Vector3 GetLeftAnalogStick();
+	//右スティックの入力
 	Vector3 GetRightAnalogStick();
 
 private:

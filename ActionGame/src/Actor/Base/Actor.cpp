@@ -42,9 +42,7 @@ void Actor::Draw() const
 
 void Actor::Collide(Actor & other)
 {
-	if (this == &other) return;
-	if (!mBody.isAlive) return;
-	if (!other.mBody.isAlive) return;
+	if (!canCollide(other)) return;
 
 	if (isCollide(other))
 	{
@@ -191,8 +189,16 @@ void Actor::onCollide(Actor & other)
 	(void)other;
 }
 
-bool Actor::isCollide(const Actor & other) const
+bool Actor::isCollide(const Actor& other) const
 {
 	return mBody.Move(mPosition).Intersects(other.mBody.Move(other.mPosition));
 	//return mBody.Transform(GetPose()).Intersects(other.mBody.Transform(other.GetPose()));
+}
+
+bool Actor::canCollide(const Actor& other) const
+{
+	if (this == &other) return false;
+	if (!mBody.isAlive) return false;
+	if (!other.mBody.isAlive) return false;
+	return true;
 }

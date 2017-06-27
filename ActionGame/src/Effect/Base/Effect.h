@@ -5,8 +5,8 @@
 #pragma once
 
 #include<string>
-#include"EffekseerForDXLib.h"
-#include"../ActionGame/src/Math/Vector3.h"
+#include"EffekseerDXLib.h"
+#include"Math/Vector3.h"
 
 class IEffect
 {

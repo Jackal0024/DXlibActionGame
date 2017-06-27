@@ -11,7 +11,9 @@
 class Game
 {
 public:
+	//更新処理
 	Game();
+	//デストラクタ
 	~Game();
 	//初期化処理
 	void initialize();

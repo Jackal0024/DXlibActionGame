@@ -9,6 +9,7 @@
 class DeadEffect : public Actor
 {
 public:
+	//コンストラクタ
 	DeadEffect(IWorld* world);
 
 private:

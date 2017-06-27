@@ -11,8 +11,6 @@
 #include"../../Actor/Magic/Base/MagicList.h"
 #include"../../System/ConstantList/WindowSize.h"
 
-#include"EffekseerForDXLib.h"
-
 void DemoScene::Start()
 {
 	isEnd = false;

@@ -34,29 +34,45 @@ public:
 	};
 
 public:
+	//コンストラクタ
 	Goblin(IWorld* world, Vector3 position);
+	//コンストラクタ
 	Goblin(IWorld* world, Vector3 position, Vector3 rotate, float startHitPoint, float attackPower);
+	//デストラクタ
 	~Goblin();
 
 private:
+	//開始処理
 	void onStart() override;
+	//更新処理
 	void onUpdate(float deltaTime) override;
+	//描画処理
 	void onDraw() const override;
+	//接触時の処理
 	void onCollide(Actor& other) override;
+	//イベントを受け取った時の処理
 	void onMessage(EventMessage message, void* p) override;
 
 private:
+	//ステートの更新
 	void StateUpdate(float deltaTime);
+	//ステートをチェンジ
 	void StateChange(State nextState, Motion nextMotion = Motion::IDLE_MOTION);
-
+	//アイドル時の処理
 	void IdleProcess(float deltaTime);
+	//移動時の処理
 	void MoveProcess(float deltaTime);
+	//走る時の処理
 	void RunProcess(float deltaTime);
+	//強攻撃の処理
 	void HeavyAttackProcess(float deltaTime);
+	//弱攻撃の処理
 	void LightAttackProcess(float deltaTime);
+	//死亡時の処理
 	void DeadProcess(float deltaTime);
+	//ダメージ時の処理
 	void DamageProcess(float deltaTime);
-
+	//攻撃を受けた時の処理
 	void Hit(float damage);
 
 private:

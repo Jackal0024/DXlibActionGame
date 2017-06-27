@@ -10,11 +10,16 @@
 class Bomb : public Actor
 {
 public:
+	//コンストラクタ
 	Bomb(IWorld* world, Vector3 position,Tag tag,float atk);
+	//デストラクタ
 	~Bomb();
 private:
+	//更新処理
 	void onUpdate(float deltaTime) override;
+	//描画処理
 	void onDraw() const override;
+	//当たった時の処理
 	void onCollide(Actor& other) override;
 private:
 	int mModelHandle;

@@ -8,6 +8,8 @@
 class FireWall : public Actor
 {
 public:
+	//コンストラクタ
 	FireWall(IWorld* world, Vector3 position, const Vector3& Velocity, Tag tag,float power);
+	//デストラクタ
 	~FireWall();
 };

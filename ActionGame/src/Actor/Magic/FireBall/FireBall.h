@@ -10,11 +10,16 @@
 class FireBall : public Actor
 {
 public:
+	//コンストラクタ
 	FireBall(IWorld* world, Vector3 position, const Vector3& Velocity,Tag tag,float atk = 20);
+	//デストラクタ
 	~FireBall();
 private:
+	//更新処理
 	void onUpdate(float deltaTime) override;
+	//描画処理
 	void onDraw() const override;
+	//当たった時の処理
 	void onCollide(Actor& other) override;
 
 

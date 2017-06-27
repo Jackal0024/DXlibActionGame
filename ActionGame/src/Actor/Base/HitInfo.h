@@ -5,11 +5,7 @@
 #pragma once
 #include"Actor.h"
 
-/*
-*
-*UŒ‚‚ª“–‚½‚Á‚½Žž‚Ìî•ñ‚ðŠi”[‚µ‚Ä‚¨‚­
-*/
-
+//UŒ‚‚ª“–‚½‚Á‚½Žž‚Ìî•ñ‚ðŠi”[‚µ‚Ä‚¨‚­
 struct Hitinfo
 {
 	//“–‚½‚Á‚½êŠ

@@ -1,6 +1,6 @@
 #include "EffectStorage.h"
 #include<dxlib.h>
-#include"EffekseerForDXLib.h"
+#include"Effect\Base\EffekseerDxLib.h"
 
 EffectStorage & EffectStorage::getInstance()
 {
