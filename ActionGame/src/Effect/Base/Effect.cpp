@@ -12,7 +12,6 @@ IEffect::IEffect(const int handle):
 	mPlayEffect(-1),
 	mEffectHandle(handle)
 {
-	printf("ハンドル:%d\n", handle);
 }
 
 IEffect::~IEffect()
@@ -24,7 +23,6 @@ IEffect::~IEffect()
 void IEffect::Play()
 {
 	mPlayEffect = PlayEffekseerEffect(mEffectHandle);
-	printf("プレイハンドル:%d\n",mPlayEffect);
 }
 
 //エフェクトを止める
